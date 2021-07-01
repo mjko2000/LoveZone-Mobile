@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters';
 import ButtonFill from '../components/custom/ButtonFill';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 const WelcomeContainer = (props) => {
   const {navigation} = props
   return (
@@ -15,7 +17,7 @@ const WelcomeContainer = (props) => {
         onPress = {() => navigation.push("Login")}
         style = {{
           backgroundColor: '#ffb83d',
-          width: '80%',
+          width: scale(300),
           marginVertical: verticalScale(10)
         }}
       />
@@ -24,10 +26,21 @@ const WelcomeContainer = (props) => {
         onPress = {() => navigation.push("SignIn")}
         style = {{
           backgroundColor: '#ffb83d',
-          width: '80%',
+          width: scale(300),
           marginVertical: verticalScale(10)
         }}
       />
+      <Icon.Button
+        name="facebook"
+        backgroundColor="#3b5998"
+        style = {{
+          width: scale(300),
+          justifyContent: 'center'
+        }}
+        onPress={() => { }}
+      >
+        Login with Facebook
+      </Icon.Button>
     </View>
   )
 }

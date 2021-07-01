@@ -1,17 +1,22 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters';
-
+import ButtonFill from '../components/custom/ButtonFill';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 const LoginContainer = (props) => {
-  const {navigation} = props
+  const { navigation } = props
   return (
-    <View style = {styles.container}>
+    <View style={styles.container}>
       <Text>LoginComponent</Text>
-      <TouchableOpacity
-        onPress = {() => navigation.replace("Main")}
-      >
-        <Text>Go to Main</Text>
-      </TouchableOpacity>
+      <ButtonFill
+        text="Go to Main"
+        onPress={() => navigation.push("Main")}
+        style={{
+          backgroundColor: '#ffb83d',
+          width: scale(300),
+          marginVertical: verticalScale(10)
+        }}
+      />
     </View>
   )
 }
