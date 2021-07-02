@@ -4,7 +4,7 @@ import { ScaledSheet } from 'react-native-size-matters';
 import ButtonFill from '../components/custom/ButtonFill';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import colors from '../config/colors'
 const WelcomeContainer = (props) => {
   const {navigation} = props
   return (
@@ -16,7 +16,7 @@ const WelcomeContainer = (props) => {
         text = "Go to Login"
         onPress = {() => navigation.push("Login")}
         style = {{
-          backgroundColor: '#ffb83d',
+          backgroundColor: colors.primary,
           width: scale(300),
           marginVertical: verticalScale(10)
         }}
@@ -25,7 +25,7 @@ const WelcomeContainer = (props) => {
         text = "Go to SignIn"
         onPress = {() => navigation.push("SignIn")}
         style = {{
-          backgroundColor: '#ffb83d',
+          backgroundColor: colors.primary,
           width: scale(300),
           marginVertical: verticalScale(10)
         }}
