@@ -19,7 +19,7 @@ const TextField = (props = PropsType) => {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    width: '80%',
+    width: scale(300),
     backgroundColor: colors.textField,
     borderRadius: moderateScale(5),
     color: colors.white,
