@@ -1,15 +1,35 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import ButtonFill from '../components/custom/ButtonFill';
 import {CommonActions} from '@react-navigation/native';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import colors from '../config/colors';
-const NotificationContainer = props => {
+import {useDispatch, useSelector} from 'react-redux';
+import TextField from '../components/custom/TextField';
+import {setUser} from '../redux/UserReducer';
+const SettingContainer = props => {
   const {navigation} = props;
+  const [newUsername, setNewUsername] = useState('');
+  const dispatch = useDispatch();
+  const {username} = useSelector(state => state.user);
   return (
     <View style={styles.container}>
-      <Text>Notification Container</Text>
+      <Text>Setting Container</Text>
+      <Text>{username}</Text>
+      <TextField placeholder="Enter your name" onChaneText={setNewUsername} />
+      <ButtonFill
+        text="Change Username"
+        onPress={() => {
+          console.log('Press', username);
+          dispatch(setUser({username: newUsername}));
+        }}
+        style={{
+          backgroundColor: colors.primary,
+          width: scale(300),
+          marginVertical: verticalScale(10),
+        }}
+      />
       <ButtonFill
         text="Logout"
         onPress={() =>
@@ -34,6 +54,7 @@ const styles = ScaledSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: colors.background,
   },
 });
-export default NotificationContainer;
+export default SettingContainer;

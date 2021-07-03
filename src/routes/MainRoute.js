@@ -1,14 +1,29 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {HomeContainer} from '../containers/index';
-
+import {View, Text} from 'react-native';
+import HomeContainer from '../containers/HomeContainer';
+import MessageContainer from '../containers/MessageContainer';
+import MatchingContainer from '../containers/MatchingContainer';
+import ProfileContainer from '../containers/ProfileContainer';
+import colors from '../config/colors';
+import {scale} from 'react-native-size-matters';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 const Tab = createBottomTabNavigator();
 const MainRoute = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{}}
+      tabBarOptions={{
+        style: {
+          backgroundColor: colors.header,
+          borderTopWidth: 0,
+        },
+        keyboardHidesTabBar: true,
+      }}>
       <Tab.Screen name="Home" component={HomeContainer} />
-      {/* <Tab.Screen name="Profile" component={HomeScreen} />
-      <Tab.Screen name="Setting" component={SettingContainer} /> */}
+      <Tab.Screen name="Matching" component={MatchingContainer} />
+      <Tab.Screen name="Message" component={MessageContainer} />
+      <Tab.Screen name="Profile" component={ProfileContainer} />
     </Tab.Navigator>
   );
 };

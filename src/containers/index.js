@@ -1,11 +1,11 @@
 import HomeContainer from './HomeContainer';
 import MessageContainer from './MessageContainer';
-import NotificationContainer from './NotificationContainer';
+import MatchingContainer from './MatchingContainer';
 import ProfileContainer from './ProfileContainer';
 
 export default {
   HomeContainer,
   MessageContainer,
-  NotificationContainer,
+  MatchingContainer,
   ProfileContainer,
 };

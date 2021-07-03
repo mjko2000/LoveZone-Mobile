@@ -3,8 +3,7 @@ import {View, Text, StyleSheet, TextInput} from 'react-native';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import colors from '../../config/colors';
 
-const TextField = (props = PropsType) => {
-  const {placeholder, onChaneText, defaultValue, style} = props;
+const TextField = ({placeholder, onChaneText, defaultValue, style}) => {
   return (
     <TextInput
       defaultValue={defaultValue}

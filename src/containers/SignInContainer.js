@@ -54,6 +54,7 @@ const SignInContainer = ({navigation}) => {
       Keyboard.removeAllListeners('keyboardDidShow');
       Keyboard.removeAllListeners('keyboardDidHide');
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Animated.ScrollView
