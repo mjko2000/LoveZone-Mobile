@@ -14,9 +14,6 @@ const CardComponent = ({ data, onLeft, onRight, index, activeIndex }) => {
   const pressed = useSharedValue(false)
   const rotateZ = useSharedValue(0)
   const animStyle = useAnimatedStyle(() => ({
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
     zIndex: zIndexAnim.value,
     opacity: opacity.value,
     transform: [
@@ -40,15 +37,15 @@ const CardComponent = ({ data, onLeft, onRight, index, activeIndex }) => {
       if (event.velocityX < -500){direction.value = 'left'};
       if (event.velocityX > 500){direction.value = 'right'};
       if(direction.value !== 'none') {
-        x.value = withSpring(event.velocityX, undefined, () => {
+        x.value = withTiming(event.velocityX, {duration: 200}, () => {
           zIndexAnim.value-=2;
           opacity.value = 0;
-          x.value = withTiming(0, undefined, () => {
+          x.value = withTiming(0, {duration: 10}, () => {
             opacity.value = withTiming(1);
             rotateZ.value = interpolate(opacity.value,[-200,200],[-25,25])
 
           })
-          y.value = withTiming(0, undefined, () => {
+          y.value = withTiming(0, {duration: 10}, () => {
 
           })
         })
@@ -77,7 +74,7 @@ const CardComponent = ({ data, onLeft, onRight, index, activeIndex }) => {
   },[activeIndex])
   return (
     <PanGestureHandler onGestureEvent={eventHandler}>
-      <Animated.View style={animStyle}>
+      <Animated.View style={[styles.container,animStyle]}>
         <View style={styles.card}>
           <Text
             style = {{
@@ -94,7 +91,9 @@ const CardComponent = ({ data, onLeft, onRight, index, activeIndex }) => {
 }
 const styles = ScaledSheet.create({
   container: {
-    flex: 1
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
   },
   card: {
     flex: 1,
