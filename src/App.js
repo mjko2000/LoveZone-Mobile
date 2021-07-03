@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {View, StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';

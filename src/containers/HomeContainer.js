@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import {View, Text, FlatList} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
@@ -7,7 +8,6 @@ import colors from '../config/colors';
 import CardComponent from '../components/Swipe/CardComponent';
 import {useState} from 'react';
 const HomeContainer = props => {
-  const {navigation} = props;
   const [activeIndex, setActiveIndex] = useState(0);
   const [firsData, setFirstData] = useState(1);
   const [secondData, setSecondData] = useState(2);
