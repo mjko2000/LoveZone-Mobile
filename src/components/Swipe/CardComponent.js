@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {memo, useEffect} from 'react';
-import {View, Text, Button} from 'react-native';
-import {scale, ScaledSheet, verticalScale} from 'react-native-size-matters';
+import React, { memo, useEffect } from 'react';
+import { View, Text, Button, StyleSheet } from 'react-native';
+import { scale } from 'react-native-size-matters';
 import Animated, {
   runOnJS,
   useDerivedValue,
@@ -11,15 +11,17 @@ import Animated, {
   withSpring,
   withTiming,
   interpolate,
-  interpolateNode,
+  interpolateColor,
 } from 'react-native-reanimated';
-import {PanGestureHandler} from 'react-native-gesture-handler';
-const CardComponent = ({data, onLeft, onRight, index, activeIndex}) => {
+import { PanGestureHandler } from 'react-native-gesture-handler';
+import colors from '../../config/colors';
+import {LikeSquare, NopeSquare} from './LikeSquare';
+const CardComponent = ({ data, onLeft, onRight, index, activeIndex }) => {
   const startingPosition = 0;
   const x = useSharedValue(0);
   const y = useSharedValue(0);
   const opacity = useSharedValue(1);
-  const scale = useSharedValue(1);
+  const animScale = useSharedValue(1);
   const direction = useSharedValue('none');
   const zIndexAnim = useSharedValue(2 - index);
   const pressed = useSharedValue(false);
@@ -27,11 +29,12 @@ const CardComponent = ({data, onLeft, onRight, index, activeIndex}) => {
   const animStyle = useAnimatedStyle(() => ({
     zIndex: zIndexAnim.value,
     opacity: opacity.value,
+    borderColor: interpolateColor(x.value,[-250,0,250],[colors.like,'transparent',colors.nope]),
     transform: [
-      {translateX: x.value},
-      {translateY: y.value},
-      {rotateZ: `${rotateZ.value}deg`},
-      {scale: scale.value},
+      { translateX: x.value },
+      { translateY: y.value },
+      { rotateZ: `${rotateZ.value}deg` },
+      { scale: animScale.value },
     ],
   }));
   const eventHandler = useAnimatedGestureHandler({
@@ -41,7 +44,7 @@ const CardComponent = ({data, onLeft, onRight, index, activeIndex}) => {
     onActive: (event, ctx) => {
       x.value = startingPosition + event.translationX;
       y.value = startingPosition + event.translationY;
-      rotateZ.value = interpolate(event.translationX, [-200, 200], [-25, 25]);
+      rotateZ.value = interpolate(event.translationX, [-300, 300], [-15, 15]);
     },
     onEnd: (event, ctx) => {
       pressed.value = false;
@@ -52,14 +55,14 @@ const CardComponent = ({data, onLeft, onRight, index, activeIndex}) => {
         direction.value = 'right';
       }
       if (direction.value !== 'none') {
-        x.value = withTiming(event.velocityX, {duration: 200}, () => {
+        x.value = withTiming(event.velocityX, { duration: 200 }, () => {
           zIndexAnim.value -= 2;
           opacity.value = 0;
-          x.value = withTiming(0, {duration: 10}, () => {
+          x.value = withTiming(0, { duration: 10 }, () => {
             opacity.value = withTiming(1);
             rotateZ.value = interpolate(opacity.value, [-200, 200], [-25, 25]);
           });
-          y.value = withTiming(0, {duration: 10}, () => {});
+          y.value = withTiming(0, { duration: 10 }, () => { });
         });
         return;
       }
@@ -79,45 +82,42 @@ const CardComponent = ({data, onLeft, onRight, index, activeIndex}) => {
   });
   useEffect(() => {
     if (activeIndex === index) {
-      scale.value = withSpring(1);
+      animScale.value = withSpring(1);
     } else {
-      scale.value = withSpring(0.9);
+      animScale.value = withSpring(0.9);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeIndex]);
   return (
     <PanGestureHandler onGestureEvent={eventHandler}>
       <Animated.View style={[styles.container, animStyle]}>
-        <View style={styles.card}>
-          <Text
-            style={{
-              color: 'white',
-            }}>
-            {data}
-          </Text>
-          <Button
-            title="pressme"
-            onPress={() => {
-              // rotateZ.value = 12
-            }}
-          />
-        </View>
+        <LikeSquare x={x} />
+        <NopeSquare x = {x} />
+        <Text
+          style={{
+            color: 'white',
+          }}>
+          {data}
+        </Text>
+        <Button
+          title="pressme"
+          onPress={() => {
+            // rotateZ.value = 12
+          }}
+        />
       </Animated.View>
     </PanGestureHandler>
   );
 };
-const styles = ScaledSheet.create({
+const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
     position: 'absolute',
+    backgroundColor: colors.white,
+    borderRadius: scale(10),
+    borderWidth: scale(5)
   },
-  card: {
-    flex: 1,
-    backgroundColor: 'black',
-    marginTop: verticalScale(30),
-    marginHorizontal: scale(10),
-    borderRadius: scale(20),
-  },
+
 });
 export default memo(CardComponent);

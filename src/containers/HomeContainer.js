@@ -1,13 +1,13 @@
 import React from 'react';
-import {View, Text, FlatList} from 'react-native';
-import {ScaledSheet} from 'react-native-size-matters';
+import { View, Text, FlatList } from 'react-native';
+import { ScaledSheet } from 'react-native-size-matters';
 import ButtonFill from '../components/custom/ButtonFill';
-import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import colors from '../config/colors';
 import CardComponent from '../components/Swipe/CardComponent';
-import {useState} from 'react';
+import { useState } from 'react';
 const HomeContainer = props => {
-  const {navigation} = props;
+  const { navigation } = props;
   const [activeIndex, setActiveIndex] = useState(0);
   const [firsData, setFirstData] = useState(1);
   const [secondData, setSecondData] = useState(2);
@@ -36,27 +36,29 @@ const HomeContainer = props => {
   };
   return (
     <View style={styles.container}>
-      <CardComponent
-        data={firsData}
-        onLeft={onLeft}
-        onRight={onRight}
-        index={0}
-        activeIndex={activeIndex}
-      />
-      <CardComponent
-        data={secondData}
-        onLeft={onLeft}
-        onRight={onRight}
-        index={1}
-        activeIndex={activeIndex}
-      />
-      <CardComponent
-        data={thirdData}
-        onLeft={onLeft}
-        onRight={onRight}
-        index={2}
-        activeIndex={activeIndex}
-      />
+      <View style = {styles.cardContainer}>
+        <CardComponent
+          data={firsData}
+          onLeft={onLeft}
+          onRight={onRight}
+          index={0}
+          activeIndex={activeIndex}
+        />
+        <CardComponent
+          data={secondData}
+          onLeft={onLeft}
+          onRight={onRight}
+          index={1}
+          activeIndex={activeIndex}
+        />
+        <CardComponent
+          data={thirdData}
+          onLeft={onLeft}
+          onRight={onRight}
+          index={2}
+          activeIndex={activeIndex}
+        />
+      </View>
     </View>
   );
 };
@@ -64,7 +66,11 @@ const styles = ScaledSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
-    paddingBottom: verticalScale(20),
+    paddingVertical: scale(40),
+    paddingHorizontal: scale(10)
   },
+  cardContainer: {
+    flex:1
+  }
 });
 export default HomeContainer;
