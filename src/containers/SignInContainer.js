@@ -1,16 +1,12 @@
-import React, { useEffect } from 'react';
-import {
-  Text,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
-import { scale, ScaledSheet, verticalScale } from 'react-native-size-matters';
+import React, {useEffect} from 'react';
+import {Text, TouchableOpacity, Dimensions} from 'react-native';
+import {scale, ScaledSheet, verticalScale} from 'react-native-size-matters';
 import TextField from '../components/custom/TextField';
 import colors from '../config/colors';
 import ButtonFill from '../components/custom/ButtonFill';
 import KeyboardView from '../components/custom/KeyboardView';
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
-const SignInContainer = ({ navigation }) => {
+const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
+const SignInContainer = ({navigation}) => {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -29,7 +25,7 @@ const SignInContainer = ({ navigation }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <KeyboardView isHeader = {true}>
+    <KeyboardView isHeader={true}>
       <TextField
         placeholder="Email"
         style={{

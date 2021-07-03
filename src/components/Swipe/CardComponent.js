@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {memo, useEffect} from 'react';
 import {View, Text, Button} from 'react-native';
 import {scale, ScaledSheet, verticalScale} from 'react-native-size-matters';
@@ -82,6 +83,7 @@ const CardComponent = ({data, onLeft, onRight, index, activeIndex}) => {
     } else {
       scale.value = withSpring(0.9);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeIndex]);
   return (
     <PanGestureHandler onGestureEvent={eventHandler}>

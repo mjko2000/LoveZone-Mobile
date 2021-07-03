@@ -6,44 +6,47 @@ import ButtonFill from '../components/custom/ButtonFill';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../config/colors';
+import KeyboardView from '../components/custom/KeyboardView';
 const WelcomeContainer = props => {
   const {navigation} = props;
   return (
-    <View style={styles.container}>
-      <Text>Wellcome Screen</Text>
-      <TextInput style={styles.textInput} placeholder="Email" />
-      <TextInput style={styles.textInput} placeholder="Password" />
-      <ButtonFill
-        text="Login"
-        onPress={() => navigation.replace('Main')}
-        style={styles.button}
-      />
-      <ButtonFill
-        text="Go to SignIn"
-        onPress={() => navigation.push('SignIn')}
-        style={{
-          backgroundColor: colors.primary,
-          width: scale(300),
-          marginVertical: verticalScale(10),
-        }}
-      />
-      <View>
-        <View style={styles.checkBox}>
-          <CheckBox />
-          <Text style={styles.label}>Remember me</Text>
+    <KeyboardView>
+      <View style={styles.container}>
+        <Text>Wellcome Screen</Text>
+        <TextInput style={styles.textInput} placeholder="Email" />
+        <TextInput style={styles.textInput} placeholder="Password" />
+        <ButtonFill
+          text="Login"
+          onPress={() => navigation.replace('Main')}
+          style={styles.button}
+        />
+        <ButtonFill
+          text="Go to SignIn"
+          onPress={() => navigation.push('SignIn')}
+          style={{
+            backgroundColor: colors.primary,
+            width: scale(300),
+            marginVertical: verticalScale(10),
+          }}
+        />
+        <View>
+          <View style={styles.checkBox}>
+            <CheckBox />
+            <Text style={styles.label}>Remember me</Text>
+          </View>
         </View>
+        <Icon.Button
+          name="facebook"
+          backgroundColor="#3b5998"
+          style={{
+            width: scale(300),
+            justifyContent: 'center',
+          }}
+          onPress={() => {}}>
+          Login with Facebook
+        </Icon.Button>
       </View>
-      <Icon.Button
-        name="facebook"
-        backgroundColor="#3b5998"
-        style={{
-          width: scale(300),
-          justifyContent: 'center',
-        }}
-        onPress={() => {}}>
-        Login with Facebook
-      </Icon.Button>
-    </View>
+    </KeyboardView>
   );
 };
 
