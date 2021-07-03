@@ -4,6 +4,7 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
+  withTiming,
 } from 'react-native-reanimated';
 import {scale, ScaledSheet, verticalScale} from 'react-native-size-matters';
 import colors from '../../config/colors';
@@ -15,7 +16,7 @@ const CustomTabar = props => {
   const {index: activeIndex, routes} = state;
   const animCirle = useSharedValue(0);
   useEffect(() => {
-    animCirle.value = withSpring(tabWidth * activeIndex);
+    animCirle.value = withTiming(tabWidth * activeIndex);
   }, [activeIndex]);
   const animStyle = useAnimatedStyle(() => ({
     transform: [{translateX: animCirle.value}],
