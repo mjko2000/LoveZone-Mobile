@@ -1,50 +1,35 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, TextInput} from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
+import TextField from '../components/custom/TextField';
 import {ScaledSheet} from 'react-native-size-matters';
 import ButtonFill from '../components/custom/ButtonFill';
+import Checkbox from '../components/custom/Checkbox';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../config/colors';
 import KeyboardView from '../components/custom/KeyboardView';
 const WelcomeContainer = props => {
   const {navigation} = props;
+  const [isRemember, setRemember] = useState(false);
   return (
     <KeyboardView>
-      <View style={styles.container}>
-        <Text>Wellcome Screen</Text>
-        <TextInput style={styles.textInput} placeholder="Email" />
-        <TextInput style={styles.textInput} placeholder="Password" />
-        <ButtonFill
-          text="Login"
-          onPress={() => navigation.replace('Main')}
-          style={styles.button}
-        />
-        <ButtonFill
-          text="Go to SignIn"
-          onPress={() => navigation.push('SignIn')}
-          style={{
-            backgroundColor: colors.primary,
-            width: scale(300),
-            marginVertical: verticalScale(10),
-          }}
-        />
-        <View>
-          <View style={styles.checkBox}>
-            <CheckBox />
-            <Text style={styles.label}>Remember me</Text>
-          </View>
+      <TextField style={styles.textField} placeholder={'Email'}></TextField>
+      <TextField style={styles.textField} placeholder={'Password'}></TextField>
+      <ButtonFill style={styles.buttonFill} text={'Login'}></ButtonFill>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <View style={styles.checkboxContainer}>
+          <Checkbox
+            checked={isRemember}
+            onPress={() => setRemember(remember => !isRemember)}
+          />
+          <Text style={styles.label}>Remember me </Text>
         </View>
-        <Icon.Button
-          name="facebook"
-          backgroundColor="#3b5998"
-          style={{
-            width: scale(300),
-            justifyContent: 'center',
-          }}
-          onPress={() => {}}>
-          Login with Facebook
-        </Icon.Button>
+        <View style={{flex: 1, justifyContent: 'flex-end'}}>
+          <Text style={styles.label} onPress={() => console.log('ok')}>
+            Forgot password?
+          </Text>
+        </View>
       </View>
     </KeyboardView>
   );
@@ -52,37 +37,28 @@ const WelcomeContainer = props => {
 
 const styles = ScaledSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    flex: 1,
   },
-  button: {
+  textField: {
+    marginBottom: verticalScale(12),
+  },
+  buttonFill: {
     backgroundColor: colors.primary,
-    width: '150@s',
-    marginVertical: '10@vs',
-    borderRadius: '50@s',
-  },
-  textInput: {
     width: '300@s',
     marginVertical: '10@vs',
-    borderRadius: '15@s',
-    padding: '10@s',
-    backgroundColor: colors.textField,
-    color: colors.white,
   },
-  checkBox: {
+  checkboxContainer: {
     flexDirection: 'row',
+
+    marginVertical: 10,
+    flex: 1,
   },
-  teasat: {
-    width: '100@s', // = scale(100)
-    height: '200@vs', // = verticalScale(200)
-    padding: '2@msr', // = Math.round(moderateScale(2))
-    margin: 5,
-  },
-  row: {
-    padding: '10@ms0.3', // = moderateScale(10, 0.3)
-    width: '50@ms', // = moderateScale(50)
-    height: '30@mvs0.3', // = moderateVerticalScale(30, 0.3)
+  checkbox: {},
+  label: {
+    fontSize: 14,
+    color: colors.white,
   },
 });
 

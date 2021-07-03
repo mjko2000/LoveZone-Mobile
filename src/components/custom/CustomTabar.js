@@ -1,3 +1,5 @@
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, memo} from 'react';
 import {View, Text, Dimensions, TouchableNativeFeedback} from 'react-native';
 import Animated, {
