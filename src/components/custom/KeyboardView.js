@@ -19,7 +19,7 @@ const KeyboardView = ({children, isHeader}) => {
   });
   useEffect(() => {
     const onKeyboardShow = e => {
-      scaleAnim.value = withSpring(e.endCoordinates.height / 2);
+      scaleAnim.value = withSpring(e.endCoordinates.height / 3);
     };
     const onKeyboardHide = () => {
       scaleAnim.value = withSpring(0);

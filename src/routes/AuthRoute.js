@@ -8,10 +8,10 @@ import {
 } from '@react-navigation/stack';
 import WelcomeContainer from '../containers/WelcomeContainer';
 import LoginContainer from '../containers/LoginContainer';
-import SignInContainer from '../containers/SignInContainer';
 import colors from '../config/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {scale, verticalScale} from 'react-native-size-matters';
+import SignUpContainer from '../containers/SignUpContainer';
 
 const Stack = createStackNavigator();
 
@@ -79,9 +79,9 @@ const AuthRoute = () => {
       />
       {/* <Stack.Screen name="Login" component={LoginContainer} /> */}
       <Stack.Screen
-        name="SignIn"
-        component={SignInContainer}
-        options={{headerTitle: 'Sign In'}}
+        name="SignUp"
+        component={SignUpContainer}
+        options={{headerTitle: 'Sign Up'}}
       />
     </Stack.Navigator>
   );

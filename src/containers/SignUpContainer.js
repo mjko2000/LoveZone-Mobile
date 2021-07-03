@@ -6,7 +6,7 @@ import colors from '../config/colors';
 import ButtonFill from '../components/custom/ButtonFill';
 import KeyboardView from '../components/custom/KeyboardView';
 const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
-const SignInContainer = ({navigation}) => {
+const SignUpContainer = ({navigation}) => {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -49,4 +49,4 @@ const SignInContainer = ({navigation}) => {
     </KeyboardView>
   );
 };
-export default SignInContainer;
+export default SignUpContainer;

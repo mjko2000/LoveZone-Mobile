@@ -1,6 +1,13 @@
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react/self-closing-comp */
 /* eslint-disable no-unused-vars */
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, TextInput} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TouchableNativeFeedback,
+} from 'react-native';
 import TextField from '../components/custom/TextField';
 import {ScaledSheet} from 'react-native-size-matters';
 import ButtonFill from '../components/custom/ButtonFill';
@@ -14,22 +21,53 @@ const WelcomeContainer = props => {
   const [isRemember, setRemember] = useState(false);
   return (
     <KeyboardView>
-      <TextField style={styles.textField} placeholder={'Email'}></TextField>
-      <TextField style={styles.textField} placeholder={'Password'}></TextField>
-      <ButtonFill style={styles.buttonFill} text={'Login'}></ButtonFill>
-      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <View style={styles.checkboxContainer}>
-          <Checkbox
-            checked={isRemember}
-            onPress={() => setRemember(remember => !isRemember)}
-          />
-          <Text style={styles.label}>Remember me </Text>
+      <View
+        style={{
+          flex: 4,
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingTop: scale(100),
+        }}>
+        <TextField style={styles.textField} placeholder={'Email'}></TextField>
+        <TextField
+          style={styles.textField}
+          placeholder={'Password'}></TextField>
+        <ButtonFill style={styles.buttonFill} text={'Login'}></ButtonFill>
+        <View style={styles.row}>
+          <View style={styles.checkboxContainer}>
+            <Checkbox
+              checked={isRemember}
+              onPress={() => setRemember(remember => !remember)}
+            />
+            <Text style={styles.label}>Remember me </Text>
+          </View>
+          <TouchableOpacity onPress={() => console.log('ok')}>
+            <Text style={styles.label}>Forgot password?</Text>
+          </TouchableOpacity>
         </View>
-        <View style={{flex: 1, justifyContent: 'flex-end'}}>
-          <Text style={styles.label} onPress={() => console.log('ok')}>
-            Forgot password?
-          </Text>
+      </View>
+      <View style={styles.socialContainer}>
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '40%',
+            justifyContent: 'space-between',
+            marginBottom: verticalScale(30),
+          }}>
+          <TouchableNativeFeedback>
+            <View style={[styles.social, {backgroundColor: '#4267B2'}]}>
+              <Icon name="facebook" size={scale(25)} color={'white'} />
+            </View>
+          </TouchableNativeFeedback>
+          <TouchableNativeFeedback>
+            <View style={styles.social}>
+              <Icon name="google-plus" size={scale(25)} color={'white'} />
+            </View>
+          </TouchableNativeFeedback>
         </View>
+        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+          <Text style={styles.label}>Don't have an account? Sign Up</Text>
+        </TouchableOpacity>
       </View>
     </KeyboardView>
   );
@@ -49,16 +87,35 @@ const styles = ScaledSheet.create({
     width: '300@s',
     marginVertical: '10@vs',
   },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: '30@s',
+  },
   checkboxContainer: {
     flexDirection: 'row',
-
     marginVertical: 10,
     flex: 1,
+    alignItems: 'center',
   },
-  checkbox: {},
   label: {
-    fontSize: 14,
-    color: colors.white,
+    fontSize: '12@s',
+    color: colors.textGray,
+    marginLeft: '5@s',
+  },
+  social: {
+    backgroundColor: '#ea4335',
+    width: '60@s',
+    height: '60@s',
+    borderRadius: '30@s',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  socialContainer: {
+    flex: 1.5,
+    width: '100%',
+    alignItems: 'center',
   },
 });
 
