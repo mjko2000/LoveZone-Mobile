@@ -63,7 +63,7 @@ const TabItem = memo(
     activeTintColor,
     inactiveTintColor,
   }) => {
-    const anim = useSharedValue(0.8);
+    const anim = useSharedValue(1);
     const animY = useSharedValue(0);
     const animStyle = useAnimatedStyle(() => ({
       transform: [{scale: anim.value}, {translateY: animY.value}],
@@ -71,23 +71,22 @@ const TabItem = memo(
     const isActive = activeIndex === index;
     useEffect(() => {
       if (isActive) {
-        anim.value = withSpring(1);
+        anim.value = withSpring(1.4);
         setTimeout(() => {
           animY.value = withSpring(-verticalScale(10));
         }, 100);
       } else {
-        anim.value = withSpring(0.7);
+        anim.value = withSpring(1);
         animY.value = withSpring(0);
       }
     }, [activeIndex]);
-    console.log('ASD');
     return (
       <TouchableNativeFeedback onPress={() => navigation.navigate(name)}>
         <View style={styles.tab}>
           <Animated.View style={[animStyle]}>
             <Icon
               name={mapNameToIconName(name)}
-              size={scale(30)}
+              size={scale(26)}
               color={isActive ? activeTintColor : inactiveTintColor}
             />
           </Animated.View>

@@ -6,8 +6,12 @@ import {CommonActions} from '@react-navigation/native';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import colors from '../config/colors';
 import TextField from '../components/custom/TextField';
+import {useDispatch, useSelector} from 'react-redux';
+import {setUser} from '../redux/UserReducer';
 const ProfileContainer = props => {
   const {navigation} = props;
+  const dispatch = useDispatch();
+  const {username} = useSelector(state => state.user);
   return (
     <View style={styles.container}>
       <Text>Profile Container</Text>
@@ -27,12 +31,18 @@ const ProfileContainer = props => {
           marginVertical: verticalScale(10),
         }}
       />
+      <Text>{username}</Text>
+      <ButtonFill
+        text="Me"
+        onPress={() => dispatch(setUser({username: 'NewUsername'}))}
+      />
     </View>
   );
 };
 const styles = ScaledSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.background,
     justifyContent: 'center',
     alignItems: 'center',
   },

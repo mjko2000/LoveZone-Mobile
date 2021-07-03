@@ -66,6 +66,8 @@ const HomeContainer = props => {
 const styles = ScaledSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.background,
+    paddingBottom: verticalScale(20),
   },
 });
 export default HomeContainer;

@@ -23,11 +23,7 @@ const MainRoute = () => {
         activeTintColor: colors.primary,
         inactiveTintColor: colors.white,
       }}>
-      <Tab.Screen
-        name="Home"
-        component={HomeContainer}
-        options={{tabBarIcon: () => <Text>asd</Text>}}
-      />
+      <Tab.Screen name="Home" component={HomeContainer} />
       <Tab.Screen name="Matching" component={MatchingContainer} />
       <Tab.Screen name="Message" component={MessageContainer} />
       <Tab.Screen name="Profile" component={ProfileContainer} />

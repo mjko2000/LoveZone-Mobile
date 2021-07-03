@@ -32,6 +32,7 @@ const MessageContainer = props => {
 const styles = ScaledSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.background,
     justifyContent: 'center',
     alignItems: 'center',
   },
