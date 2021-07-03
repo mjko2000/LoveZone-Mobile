@@ -15,7 +15,7 @@ const WelcomeContainer = props => {
       <TextInput style={styles.textInput} placeholder="Password" />
       <ButtonFill
         text="Login"
-        onPress={() => navigation.push('Login')}
+        onPress={() => navigation.replace('Main')}
         style={styles.button}
       />
       <ButtonFill

@@ -11,7 +11,7 @@ const LoginContainer = props => {
       <Text>LoginComponent</Text>
       <ButtonFill
         text="Go to Main"
-        onPress={() => navigation.replace('Home')}
+        onPress={() => navigation.replace('Main')}
         style={{
           backgroundColor: colors.primary,
           width: scale(300),
