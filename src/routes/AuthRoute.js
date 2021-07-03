@@ -1,21 +1,21 @@
-import React from 'react'
-import { View, Text } from 'react-native'
-import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import {View, Text} from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
 import WelcomeContainer from '../containers/WelcomeContainer';
 import LoginContainer from '../containers/LoginContainer';
 import SignInContainer from '../containers/SignInContainer';
 import colors from '../config/colors';
-import Icon from 'react-native-vector-icons/MaterialIcons'
-import { scale } from 'react-native-size-matters';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import {scale} from 'react-native-size-matters';
 
 const Stack = createStackNavigator();
 
 const AuthRoute = () => {
   return (
     <Stack.Navigator
-      screenOptions = {{
+      screenOptions={{
         cardStyle: {
-          backgroundColor: colors.background
+          backgroundColor: colors.background,
         },
         headerStyle: {
           backgroundColor: colors.header,
@@ -23,22 +23,28 @@ const AuthRoute = () => {
         },
         headerTintColor: colors.white,
         headerTitleAlign: 'center',
-        headerBackImage: () => <Icon 
-          name = 'arrow-back-ios' 
-          size = {scale(20)} 
-          color = {colors.white} 
-          style = {{padding: scale(2)}} />,
-      }}
-    >
-      <Stack.Screen name="Welcome" component={WelcomeContainer} options = {{header: () => null}} />
+        headerBackImage: () => (
+          <Icon
+            name="arrow-back-ios"
+            size={scale(20)}
+            color={colors.white}
+            style={{padding: scale(2)}}
+          />
+        ),
+      }}>
+      <Stack.Screen
+        name="Welcome"
+        component={WelcomeContainer}
+        options={{header: () => null}}
+      />
       <Stack.Screen name="Login" component={LoginContainer} />
-      <Stack.Screen 
-        name="SignIn" 
+      <Stack.Screen
+        name="SignIn"
         component={SignInContainer}
-        options = {{headerTitle: 'Sign In'}}
+        options={{headerTitle: 'Sign In'}}
       />
     </Stack.Navigator>
-  )
-}
+  );
+};
 
-export default AuthRoute
+export default AuthRoute;
