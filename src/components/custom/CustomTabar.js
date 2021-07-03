@@ -39,6 +39,7 @@ const CustomTabar = props => {
       {routes.map((item, index) => {
         return (
           <TabItem
+            key={index.toString()}
             {...item}
             navigation={navigation}
             activeIndex={activeIndex}
@@ -54,9 +55,7 @@ const CustomTabar = props => {
 
 const TabItem = memo(
   ({
-    key,
     name,
-    params,
     index,
     activeIndex,
     navigation,

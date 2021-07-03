@@ -21,7 +21,6 @@ const SettingContainer = props => {
       <ButtonFill
         text="Change Username"
         onPress={() => {
-          console.log('Press', username);
           dispatch(setUser({username: newUsername}));
         }}
         style={{

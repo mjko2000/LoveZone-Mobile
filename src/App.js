@@ -33,7 +33,6 @@ const App = () => {
               },
               HeaderStyleInterpolators: HeaderStyleInterpolators.forFade,
               cardStyleInterpolator: ({current, next, layouts, closing}) => {
-                console.log(closing);
                 return {
                   cardStyle: {
                     transform: [

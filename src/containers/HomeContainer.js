@@ -6,7 +6,6 @@ import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import colors from '../config/colors';
 import CardComponent from '../components/Swipe/CardComponent';
 import {useState} from 'react';
-import {useEffect} from 'react';
 const HomeContainer = props => {
   const {navigation} = props;
   const [activeIndex, setActiveIndex] = useState(0);
@@ -30,11 +29,9 @@ const HomeContainer = props => {
     }
   };
   const onLeft = index => {
-    console.log('onLeft', index);
     loadData(index);
   };
   const onRight = index => {
-    console.log('onRight', index);
     loadData(index);
   };
   return (
