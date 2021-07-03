@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View, Text, TouchableOpacity, Dimensions, Keyboard } from 'react-native'
+import { Button, Text, TouchableOpacity, Dimensions, Keyboard } from 'react-native'
 import { scale, ScaledSheet, verticalScale } from 'react-native-size-matters';
 import TextField from '../components/custom/TextField';
 import Animated, { withSpring, useSharedValue, useAnimatedStyle, withDecay } from 'react-native-reanimated';

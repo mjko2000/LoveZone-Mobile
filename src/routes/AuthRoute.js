@@ -23,7 +23,11 @@ const AuthRoute = () => {
         },
         headerTintColor: colors.white,
         headerTitleAlign: 'center',
-        headerBackImage: () => <Icon name = 'arrow-back-ios' size = {scale(20)} color = {colors.white} />,
+        headerBackImage: () => <Icon 
+          name = 'arrow-back-ios' 
+          size = {scale(20)} 
+          color = {colors.white} 
+          style = {{padding: scale(2)}} />,
       }}
     >
       <Stack.Screen name="Welcome" component={WelcomeContainer} options = {{header: () => null}} />

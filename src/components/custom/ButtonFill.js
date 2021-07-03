@@ -1,14 +1,16 @@
 import React from 'react'
 import { memo } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native'
+import { Button, TouchableNativeFeedback, Text, TouchableOpacity, View } from 'react-native'
 import { scale, ScaledSheet } from 'react-native-size-matters';
 
 const ButtonFill = (props) => {
   const {text, style, onPress} = props
   return (
-    <TouchableOpacity onPress = {onPress} style = {{...styles.container, ...style}}>
-      <Text style = {styles.text} >{text}</Text>
-    </TouchableOpacity>
+    <TouchableNativeFeedback  onPress = {onPress}>
+      <View style = {{...styles.container, ...style}}>
+        <Text style = {styles.text}>{text}</Text>
+      </View>
+    </TouchableNativeFeedback>
   )
 }
 const styles = ScaledSheet.create({
