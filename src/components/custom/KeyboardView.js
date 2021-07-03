@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {ScrollView, Dimensions, Keyboard} from 'react-native';
+import {ScrollView, Dimensions, Keyboard, Platform} from 'react-native';
 import {ScaledSheet, verticalScale} from 'react-native-size-matters';
 import Animated, {
   withSpring,
@@ -24,16 +24,23 @@ const KeyboardView = ({children, isHeader}) => {
     const onKeyboardHide = () => {
       scaleAnim.value = withSpring(0);
     };
-    Keyboard.addListener('keyboardWillShow', onKeyboardShow);
-    Keyboard.addListener('keyboardWillHide', onKeyboardHide);
-    // return () => {
-    //   Keyboard.removeAllListeners('keyboardDidShow');
-    //   Keyboard.removeAllListeners('keyboardDidHide');
-    // };
+    let eventShow =
+      Platform.OS === 'ios'
+        ? Keyboard.addListener('keyboardWillShow', onKeyboardShow)
+        : Keyboard.addListener('keyboardDidShow', onKeyboardShow);
+    let eventHide =
+      Platform.OS === 'ios'
+        ? Keyboard.addListener('keyboardWillHide', onKeyboardHide)
+        : Keyboard.addListener('keyboardDidHide', onKeyboardHide);
+    return () => {
+      Keyboard.removeSubscription(eventShow);
+      Keyboard.removeSubscription(eventHide);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <ScrollView
+      keyboardShouldPersistTaps="handled"
       contentContainerStyle={{
         width: screenWidth,
         height: isHeader ? screenHeight - verticalScale(80) : screenHeight,

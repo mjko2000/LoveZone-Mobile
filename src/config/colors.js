@@ -4,7 +4,7 @@ const colors = {
   secondary: '#FF2D55',
   header: '#161617',
   textField: '#1f1f21',
-  white: 'white',
+  white: '#d6d6d6',
   gray: '#5c5c5c',
   textGray: '#8a8a8a',
 };

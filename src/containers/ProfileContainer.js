@@ -5,6 +5,7 @@ import ButtonFill from '../components/custom/ButtonFill';
 import {CommonActions} from '@react-navigation/native';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import colors from '../config/colors';
+import TextField from '../components/custom/TextField';
 const ProfileContainer = props => {
   const {navigation} = props;
   return (
