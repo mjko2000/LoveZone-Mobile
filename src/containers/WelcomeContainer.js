@@ -28,11 +28,13 @@ const WelcomeContainer = props => {
           justifyContent: 'center',
           paddingTop: scale(100),
         }}>
-        <TextField style={styles.textField} placeholder={'Email'}></TextField>
-        <TextField
-          style={styles.textField}
-          placeholder={'Password'}></TextField>
-        <ButtonFill style={styles.buttonFill} text={'Login'}></ButtonFill>
+        <TextField style={styles.textField} placeholder={'Email'} />
+        <TextField style={styles.textField} placeholder={'Password'} />
+        <ButtonFill
+          style={styles.buttonFill}
+          text={'Login'}
+          onPress={() => navigation.navigate('Main')}
+        />
         <View style={styles.row}>
           <View style={styles.checkboxContainer}>
             <Checkbox
@@ -41,7 +43,7 @@ const WelcomeContainer = props => {
             />
             <Text style={styles.label}>Remember me </Text>
           </View>
-          <TouchableOpacity onPress={() => console.log('ok')}>
+          <TouchableOpacity onPress={() => {}}>
             <Text style={styles.label}>Forgot password?</Text>
           </TouchableOpacity>
         </View>

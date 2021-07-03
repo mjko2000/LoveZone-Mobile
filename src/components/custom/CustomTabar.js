@@ -18,7 +18,7 @@ const CustomTabar = props => {
   const {index: activeIndex, routes} = state;
   const animCirle = useSharedValue(0);
   useEffect(() => {
-    animCirle.value = withTiming(tabWidth * activeIndex);
+    animCirle.value = withTiming(tabWidth * activeIndex, {duration: 300});
   }, [activeIndex]);
   const animStyle = useAnimatedStyle(() => ({
     transform: [{translateX: animCirle.value}],

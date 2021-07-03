@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { memo, useEffect } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
-import { scale } from 'react-native-size-matters';
+import React, {memo, useEffect} from 'react';
+import {View, Text, Button, StyleSheet, Easing} from 'react-native';
+import {scale} from 'react-native-size-matters';
 import Animated, {
   runOnJS,
   useDerivedValue,
@@ -13,10 +13,10 @@ import Animated, {
   interpolate,
   interpolateColor,
 } from 'react-native-reanimated';
-import { PanGestureHandler } from 'react-native-gesture-handler';
+import {PanGestureHandler} from 'react-native-gesture-handler';
 import colors from '../../config/colors';
 import {LikeSquare, NopeSquare} from './LikeSquare';
-const CardComponent = ({ data, onLeft, onRight, index, activeIndex }) => {
+const CardComponent = ({data, onLeft, onRight, index, activeIndex}) => {
   const startingPosition = 0;
   const x = useSharedValue(0);
   const y = useSharedValue(0);
@@ -29,12 +29,16 @@ const CardComponent = ({ data, onLeft, onRight, index, activeIndex }) => {
   const animStyle = useAnimatedStyle(() => ({
     zIndex: zIndexAnim.value,
     opacity: opacity.value,
-    borderColor: interpolateColor(x.value,[-250,0,250],[colors.like,'transparent',colors.nope]),
+    borderColor: interpolateColor(
+      x.value,
+      [-250, 0, 250],
+      [colors.like, 'transparent', colors.nope],
+    ),
     transform: [
-      { translateX: x.value },
-      { translateY: y.value },
-      { rotateZ: `${rotateZ.value}deg` },
-      { scale: animScale.value },
+      {translateX: x.value},
+      {translateY: y.value},
+      {rotateZ: `${rotateZ.value}deg`},
+      {scale: animScale.value},
     ],
   }));
   const eventHandler = useAnimatedGestureHandler({
@@ -55,14 +59,14 @@ const CardComponent = ({ data, onLeft, onRight, index, activeIndex }) => {
         direction.value = 'right';
       }
       if (direction.value !== 'none') {
-        x.value = withTiming(event.velocityX, { duration: 200 }, () => {
+        x.value = withTiming(event.velocityX, {duration: 500}, () => {
           zIndexAnim.value -= 2;
           opacity.value = 0;
-          x.value = withTiming(0, { duration: 10 }, () => {
+          x.value = withTiming(0, {duration: 10}, () => {
             opacity.value = withTiming(1);
-            rotateZ.value = interpolate(opacity.value, [-200, 200], [-25, 25]);
+            rotateZ.value = 0;
           });
-          y.value = withTiming(0, { duration: 10 }, () => { });
+          y.value = withTiming(0, {duration: 10}, () => {});
         });
         return;
       }
@@ -92,7 +96,7 @@ const CardComponent = ({ data, onLeft, onRight, index, activeIndex }) => {
     <PanGestureHandler onGestureEvent={eventHandler}>
       <Animated.View style={[styles.container, animStyle]}>
         <LikeSquare x={x} />
-        <NopeSquare x = {x} />
+        <NopeSquare x={x} />
         <Text
           style={{
             color: 'white',
@@ -116,8 +120,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: colors.white,
     borderRadius: scale(10),
-    borderWidth: scale(5)
+    borderWidth: scale(5),
   },
-
 });
 export default memo(CardComponent);
