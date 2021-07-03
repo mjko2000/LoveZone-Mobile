@@ -16,7 +16,10 @@ const WelcomeContainer = props => {
     <KeyboardView>
       <TextField style={styles.textField} placeholder={'Email'}></TextField>
       <TextField style={styles.textField} placeholder={'Password'}></TextField>
-      <ButtonFill style={styles.buttonFill} text={'Login'}></ButtonFill>
+      <ButtonFill 
+        onPress = {() => navigation.replace('Main') }
+        style={styles.buttonFill} text={'Login'}
+      />
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <View style={styles.checkboxContainer}>
           <Checkbox

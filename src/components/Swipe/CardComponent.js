@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { memo, useEffect } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, Easing } from 'react-native';
 import { scale } from 'react-native-size-matters';
 import Animated, {
   runOnJS,
@@ -55,12 +55,12 @@ const CardComponent = ({ data, onLeft, onRight, index, activeIndex }) => {
         direction.value = 'right';
       }
       if (direction.value !== 'none') {
-        x.value = withTiming(event.velocityX, { duration: 200 }, () => {
+        x.value = withTiming(event.velocityX, { duration: 500, easing: Easing.ease }, () => {
           zIndexAnim.value -= 2;
           opacity.value = 0;
           x.value = withTiming(0, { duration: 10 }, () => {
             opacity.value = withTiming(1);
-            rotateZ.value = interpolate(opacity.value, [-200, 200], [-25, 25]);
+            rotateZ.value = 0;
           });
           y.value = withTiming(0, { duration: 10 }, () => { });
         });
