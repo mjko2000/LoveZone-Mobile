@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import {View, Text} from 'react-native';
+import { TouchableNativeFeedback } from 'react-native';
 import {
   createStackNavigator,
   HeaderStyleInterpolators,
@@ -10,8 +10,10 @@ import WelcomeContainer from '../containers/WelcomeContainer';
 import LoginContainer from '../containers/LoginContainer';
 import colors from '../config/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {scale, verticalScale} from 'react-native-size-matters';
-import SignUpContainer from '../containers/SignUpContainer';
+import { scale, verticalScale } from 'react-native-size-matters';
+import SignUpContainer from '../containers/signUp/SignUpContainer';
+import UpdateProfileContainer from '../containers/signUp/UpdateProfileContainer';
+import OTPContainer from '../containers/signUp/OTPContainer';
 
 const Stack = createStackNavigator();
 
@@ -29,13 +31,15 @@ const AuthRoute = () => {
         },
         headerTintColor: colors.white,
         headerTitleAlign: 'center',
-        headerBackImage: () => (
-          <Icon
-            name="arrow-back-ios"
-            size={scale(20)}
-            color={colors.white}
-            style={{padding: scale(2)}}
-          />
+        headerLeft: ({onPress}) => (
+          <TouchableNativeFeedback onPress = {onPress}>
+            <Icon
+              name="arrow-back-ios"
+              size={scale(20)}
+              color={colors.white}
+              style={{ padding: scale(12) }}
+            />
+          </TouchableNativeFeedback>
         ),
         gestureDirection: 'horizontal',
         transitionSpec: {
@@ -43,7 +47,7 @@ const AuthRoute = () => {
           close: TransitionSpecs.TransitionIOSSpec,
         },
         headerStyleInterpolator: HeaderStyleInterpolators.forFade,
-        cardStyleInterpolator: ({current, next, layouts}) => {
+        cardStyleInterpolator: ({ current, next, layouts }) => {
           return {
             cardStyle: {
               transform: [
@@ -56,9 +60,9 @@ const AuthRoute = () => {
                 // {
                 //   scale: next
                 //     ? next.progress.interpolate({
-                //         inputRange: [0, 1],
-                //         outputRange: [1, 0.9],
-                //       })
+                //       inputRange: [0, 1],
+                //       outputRange: [1, 0.9],
+                //     })
                 //     : 1,
                 // },
               ],
@@ -75,13 +79,23 @@ const AuthRoute = () => {
       <Stack.Screen
         name="Welcome"
         component={WelcomeContainer}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       {/* <Stack.Screen name="Login" component={LoginContainer} /> */}
       <Stack.Screen
         name="SignUp"
         component={SignUpContainer}
-        options={{headerTitle: 'Sign Up'}}
+        options={{ headerTitle: 'Sign Up' }}
+      />
+      <Stack.Screen
+        name="UpdateProfile"
+        component={UpdateProfileContainer}
+      // options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="OTP"
+        component={OTPContainer}
+      // options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

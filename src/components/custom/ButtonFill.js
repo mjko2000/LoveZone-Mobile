@@ -1,13 +1,16 @@
 import React from 'react'
 import { memo } from 'react';
-import { Button, TouchableNativeFeedback, Text, TouchableOpacity, View } from 'react-native'
+import { Button, TouchableNativeFeedback, Text, ActivityIndicator, View } from 'react-native'
 import { scale, ScaledSheet } from 'react-native-size-matters';
+import colors from '../../config/colors';
 
-const ButtonFill = ({text, style, onPress}) => {
+const ButtonFill = ({text, style, onPress, loading, disabled}) => {
   return (
-    <TouchableNativeFeedback  onPress = {onPress}>
-      <View style = {{...styles.container, ...style}}>
-        <Text style = {styles.text}>{text}</Text>
+    <TouchableNativeFeedback disabled = {disabled} onPress = {onPress}>
+      <View style = {[styles.container, style, loading && {backgroundColor: colors.gray}]}>
+        {loading ? 
+        <ActivityIndicator color = {colors.primary} size = {'large'} /> : 
+        <Text style = {styles.text}>{text}</Text>}
       </View>
     </TouchableNativeFeedback>
   )
@@ -15,10 +18,10 @@ const ButtonFill = ({text, style, onPress}) => {
 const styles = ScaledSheet.create({
   container: {
     alignItems: 'center',
+    justifyContent: 'center',
     paddingVertical: '12@ms',
-    paddingHorizontal: '15@ms',
+    height: '45@vs',
     borderRadius: '5@ms',
-    marginHorizontal: 12
   },
   text: {
     color: 'white',
