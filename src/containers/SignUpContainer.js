@@ -28,6 +28,8 @@ const SignUpContainer = ({navigation}) => {
     <KeyboardView isHeader={true}>
       <TextField
         placeholder="Email"
+        keyboardType = "email-address"
+        autoCapitalize = {'none'}
         style={{
           marginBottom: verticalScale(12),
         }}
@@ -37,6 +39,16 @@ const SignUpContainer = ({navigation}) => {
         style={{
           marginBottom: verticalScale(12),
         }}
+        secureTextEntry = {true}
+        autoCapitalize = {'none'}
+      />
+      <TextField
+        placeholder="Confirm Password"
+        style={{
+          marginBottom: verticalScale(12),
+        }}
+        secureTextEntry = {true}
+        autoCapitalize = {'none'}
       />
       <ButtonFill
         text="Sign In"

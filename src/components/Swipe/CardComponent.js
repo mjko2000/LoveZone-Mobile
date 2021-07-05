@@ -16,6 +16,7 @@ import Animated, {
 import {PanGestureHandler} from 'react-native-gesture-handler';
 import colors from '../../config/colors';
 import {LikeSquare, NopeSquare} from './LikeSquare';
+import CardInfo from './CardInfo';
 const CardComponent = ({data, onLeft, onRight, index, activeIndex}) => {
   const startingPosition = 0;
   const x = useSharedValue(0);
@@ -31,7 +32,7 @@ const CardComponent = ({data, onLeft, onRight, index, activeIndex}) => {
     opacity: opacity.value,
     borderColor: interpolateColor(
       x.value,
-      [-250, 0, 250],
+      [-200, 0, 200],
       [colors.like, 'transparent', colors.nope],
     ),
     transform: [
@@ -95,20 +96,9 @@ const CardComponent = ({data, onLeft, onRight, index, activeIndex}) => {
   return (
     <PanGestureHandler onGestureEvent={eventHandler}>
       <Animated.View style={[styles.container, animStyle]}>
+        <CardInfo />
         <LikeSquare x={x} />
         <NopeSquare x={x} />
-        <Text
-          style={{
-            color: 'white',
-          }}>
-          {data}
-        </Text>
-        <Button
-          title="pressme"
-          onPress={() => {
-            // rotateZ.value = 12
-          }}
-        />
       </Animated.View>
     </PanGestureHandler>
   );
@@ -118,8 +108,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     position: 'absolute',
-    backgroundColor: colors.white,
-    borderRadius: scale(10),
+    borderRadius: scale(25),
     borderWidth: scale(5),
   },
 });

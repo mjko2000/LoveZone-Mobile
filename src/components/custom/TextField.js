@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, TextInput} from 'react-native';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import colors from '../../config/colors';
 
-const TextField = ({placeholder, onChaneText, defaultValue, style}) => {
+const TextField = ({placeholder, onChaneText, defaultValue, style, secureTextEntry, keyboardType, autoCapitalize}) => {
   return (
     <TextInput
       defaultValue={defaultValue}
@@ -11,6 +11,9 @@ const TextField = ({placeholder, onChaneText, defaultValue, style}) => {
       placeholderTextColor={colors.gray}
       placeholder={placeholder}
       onChangeText={onChaneText}
+      secureTextEntry = {secureTextEntry}
+      keyboardType = {keyboardType}
+      autoCapitalize = {autoCapitalize}
     />
   );
 };

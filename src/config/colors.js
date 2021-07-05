@@ -7,8 +7,9 @@ const colors = {
   white: '#d6d6d6',
   gray: '#5c5c5c',
   textGray: '#8a8a8a',
-  like: '#00960a',
-  nope: '#ff3053'
+  like: '#36ff36',
+  nope: '#f20000',
+  darkGray: "#171717"
 };
 
 export default colors;

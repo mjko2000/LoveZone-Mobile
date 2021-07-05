@@ -1,12 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import { View, Text, FlatList } from 'react-native';
+import React, {useState} from 'react';
+import { View} from 'react-native';
 import { ScaledSheet } from 'react-native-size-matters';
-import ButtonFill from '../components/custom/ButtonFill';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import { scale } from 'react-native-size-matters';
 import colors from '../config/colors';
 import CardComponent from '../components/Swipe/CardComponent';
-import { useState } from 'react';
 const HomeContainer = props => {
   const { navigation } = props;
   const [activeIndex, setActiveIndex] = useState(0);
@@ -67,8 +65,8 @@ const styles = ScaledSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
-    paddingVertical: scale(40),
-    paddingHorizontal: scale(10)
+    paddingVertical: scale(30),
+    paddingHorizontal: scale(5)
   },
   cardContainer: {
     flex:1
