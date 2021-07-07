@@ -15,6 +15,7 @@ import SignUpContainer from '../containers/signUp/SignUpContainer';
 import UpdateProfileContainer from '../containers/signUp/UpdateProfileContainer';
 import OTPContainer from '../containers/signUp/OTPContainer';
 
+export let authNavigation = {};
 const Stack = createStackNavigator();
 
 const AuthRoute = () => {
@@ -90,7 +91,7 @@ const AuthRoute = () => {
       <Stack.Screen
         name="UpdateProfile"
         component={UpdateProfileContainer}
-      // options={{ headerShown: false }}
+      options={{ headerTitle: "Update Profile" }}
       />
       <Stack.Screen
         name="OTP"

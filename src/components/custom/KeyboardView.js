@@ -1,20 +1,17 @@
-import React, {useEffect} from 'react';
-import {ScrollView, Dimensions, Keyboard, Platform} from 'react-native';
-import {ScaledSheet, verticalScale} from 'react-native-size-matters';
+import React, { useEffect } from 'react';
+import { ScrollView, Dimensions, Keyboard, Platform } from 'react-native';
+import { scale, ScaledSheet, verticalScale } from 'react-native-size-matters';
 import Animated, {
   withSpring,
   useSharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
-const KeyboardView = ({children, isHeader}) => {
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+const KeyboardView = ({ children, isHeader }) => {
   const scaleAnim = useSharedValue(0);
   const animatedStyles = useAnimatedStyle(() => {
     return {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      transform: [{translateY: -scaleAnim.value}],
+      transform: [{ translateY: -scaleAnim.value }],
     };
   });
   useEffect(() => {
@@ -43,10 +40,15 @@ const KeyboardView = ({children, isHeader}) => {
       keyboardShouldPersistTaps="handled"
       contentContainerStyle={{
         width: screenWidth,
+        paddingHorizontal: scale(10),
         height: isHeader ? screenHeight - verticalScale(80) : screenHeight,
       }}
       scrollEnabled={false}>
-      <Animated.View style={animatedStyles}>{children}</Animated.View>
+      <Animated.View style={[{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }, animatedStyles]}>{children}</Animated.View>
     </ScrollView>
   );
 };

@@ -22,10 +22,12 @@ const styles = ScaledSheet.create({
     paddingVertical: '12@ms',
     height: '45@vs',
     borderRadius: '5@ms',
+    width: '100%',
+    backgroundColor: colors.primary
   },
   text: {
     color: 'white',
-    fontSize: scale(14),
+    fontSize: '14@s',
     fontWeight: 'bold'
   }
 });

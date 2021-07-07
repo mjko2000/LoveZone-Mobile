@@ -3,37 +3,19 @@ import { View, Text, TouchableNativeFeedback } from 'react-native'
 import {
   createStackNavigator,
 } from '@react-navigation/stack';
-import ButtonFill from '../../components/custom/ButtonFill';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import colors from '../../config/colors';
 import { scale, verticalScale } from 'react-native-size-matters';
-import {NavigationAction} from '@react-navigation/native'
+import Step1 from '../../components/updateProfile/Step1';
+import Step2 from '../../components/updateProfile/Step2';
 const Stack = createStackNavigator();
-let profileNavigation = {goBack: () => {}}
-const Step1 = ({ navigation }) => {
-  useEffect(() => profileNavigation = navigation,[])
-  return (
-
-    <ButtonFill
-      text="ASD"
-      onPress={() => navigation.navigate("ProfileStep2")}
-      style={{
-        backgroundColor: 'red'
-      }}
-    />
-  )
-}
-const Step2 = ({ }) => {
-  return (
-    <View></View>
-  )
-}
+export let profileNavigation = { goBack: () => { } }
 const UpdateProfileContainer = ({ navigation }) => {
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableNativeFeedback
-          onPress = {() => {profileNavigation.goBack('UpdateProfile')}}
+          onPress={() => { profileNavigation.goBack() }}
         >
           <Icon
             name="arrow-back-ios"
@@ -43,23 +25,15 @@ const UpdateProfileContainer = ({ navigation }) => {
           />
         </TouchableNativeFeedback>
       ),
-      headerRight: () => (
-        <TouchableNativeFeedback>
-          <Text
-            style={{
-              color: colors.primary,
-              padding: scale(10),
-              marginTop: verticalScale(5),
-            }}>
-            Next
-          </Text>
-        </TouchableNativeFeedback>
-      ),
     })
   }, [])
   return (
     <Stack.Navigator
       screenOptions={{
+        header: (props) => {
+          profileNavigation = props.navigation
+          return null
+        },
         cardStyle: {
           backgroundColor: colors.background
         },
@@ -85,12 +59,14 @@ const UpdateProfileContainer = ({ navigation }) => {
       <Stack.Screen
         name="ProfileStep1"
         component={Step1}
-        options={{ headerShown: false }}
+        // options={{
+        //   headerShown: false,
+        // }}
       />
       <Stack.Screen
         name="ProfileStep2"
         component={Step2}
-        options={{ headerShown: false }}
+        // options={{ headerShown: false }}
       />
     </Stack.Navigator>
   )

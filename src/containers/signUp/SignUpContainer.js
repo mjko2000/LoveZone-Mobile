@@ -77,7 +77,14 @@ const SignUpContainer = ({ navigation, route }) => {
         loading = {loading}
         style={{
           backgroundColor: validated ? colors.primary : colors.gray,
-          width: scale(300),
+          marginVertical: verticalScale(10),
+        }}
+      />
+      <ButtonFill
+        onPress={() => navigation.navigate("UpdateProfile")}
+        text="To Profile edit"
+        style={{
+          backgroundColor: validated ? colors.primary : colors.gray,
           marginVertical: verticalScale(10),
         }}
       />

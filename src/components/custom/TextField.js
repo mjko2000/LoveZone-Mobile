@@ -4,7 +4,6 @@ import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import colors from '../../config/colors';
 
 const TextField = ({placeholder, onChaneText, value, defaultValue, style, secureTextEntry, keyboardType, autoCapitalize, editable}) => {
-  console.log("reload")
   return (
     <TextInput
       value = {value}
@@ -23,7 +22,7 @@ const TextField = ({placeholder, onChaneText, value, defaultValue, style, secure
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    width: scale(300),
+    width: '100%',
     backgroundColor: colors.textField,
     borderRadius: moderateScale(5),
     color: colors.white,
