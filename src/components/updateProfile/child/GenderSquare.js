@@ -5,12 +5,12 @@ import { scale, ScaledSheet } from 'react-native-size-matters'
 import colors from '../../../config/colors'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-const GenderSquare = () => {
+const GenderSquare = ({value, onSelect, icon, isActive}) => {
   return (
-    <TouchableWithoutFeedback>
-      <View style = {styles.container} >
-        <Icon name = 'male' size = {scale(60)} color = {colors.white} />
-        <Text style = {styles.text}>Man</Text>
+    <TouchableWithoutFeedback onPress = {() => onSelect(value)}>
+      <View style = {[styles.container, {borderWidth: isActive ? scale(1): 0}]} >
+        <Icon name = {icon} size = {scale(60)} color = {isActive ? colors.primary : colors.white} />
+        <Text style = {styles.text}>{value}</Text>
       </View>
     </TouchableWithoutFeedback>
   )

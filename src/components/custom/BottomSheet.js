@@ -24,6 +24,7 @@ const BottomSheet = ({ children, show, setShow, height }) => {
     runOnJS(recordResult)(showAnim.value);
   });
   useEffect(() => {
+    console.log(show)
     show ? onShow() : onHide()
   }, [show])
   const modalStyle = useAnimatedStyle(() => ({

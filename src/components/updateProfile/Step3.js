@@ -2,15 +2,10 @@ import React, { memo, useEffect, useMemo, useState } from 'react'
 import { View, Text, TouchableNativeFeedback } from 'react-native'
 import { scale, ScaledSheet, verticalScale } from 'react-native-size-matters'
 import colors from '../../config/colors'
-import { profileNavigation } from '../../containers/signUp/UpdateProfileContainer'
-import GenderChoice from './child/GenderChoice'
 import InfoStep from './child/InfoStep'
-import LokingFor from './child/LokingFor'
 import NextButton from './child/NextButton'
 
-const Step2 = ({ navigation }) => {
-  const [gender, setGender] = useState('')
-  const [lookings, setLookings] = useState([])
+const Step3 = ({ navigation }) => {
   useEffect(() => {
     const unSub = navigation.addListener('focus', () => {
       navigation.dangerouslyGetParent().setOptions({
@@ -22,11 +17,9 @@ const Step2 = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <InfoStep
-        step='2/5'
-        title='Your Gender'
+        step='3/5'
+        title='Your Favorites'
       />
-      <GenderChoice gender = {gender} setGender = {setGender} />
-      <LokingFor value = {lookings} setValue = {setLookings} />
     </View>
   )
 }
@@ -37,4 +30,4 @@ const styles = ScaledSheet.create({
   },
 })
 
-export default memo(Step2)
+export default memo(Step3)

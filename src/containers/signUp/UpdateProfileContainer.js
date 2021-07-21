@@ -8,6 +8,7 @@ import colors from '../../config/colors';
 import { scale, verticalScale } from 'react-native-size-matters';
 import Step1 from '../../components/updateProfile/Step1';
 import Step2 from '../../components/updateProfile/Step2';
+import Step3 from '../../components/updateProfile/Step3';
 const Stack = createStackNavigator();
 export let profileNavigation = { goBack: () => { } }
 const UpdateProfileContainer = ({ navigation }) => {
@@ -59,14 +60,14 @@ const UpdateProfileContainer = ({ navigation }) => {
       <Stack.Screen
         name="ProfileStep1"
         component={Step1}
-        // options={{
-        //   headerShown: false,
-        // }}
       />
       <Stack.Screen
         name="ProfileStep2"
         component={Step2}
-        // options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ProfileStep3"
+        component={Step3}
       />
     </Stack.Navigator>
   )

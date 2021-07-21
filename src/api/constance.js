@@ -1,8 +1,5 @@
-import { API_URL } from "../config/config";
+import Config from "react-native-config";
 
-const signUpAPI = (input) => {
-
-}
 
 export const withFetch = ({ url, method, body }) => {
   var myHeaders = new Headers();
@@ -15,7 +12,7 @@ export const withFetch = ({ url, method, body }) => {
     redirect: 'follow'
   };
 
-  return fetch(API_URL + url, requestOptions)
+  return fetch(Config.API_URL + url, requestOptions)
     .then(response => response.json())
     .then(result => {
       if (result.resultCode === 1) return {
@@ -32,7 +29,7 @@ export const withFetch = ({ url, method, body }) => {
     .catch(error => {
       console.log('error', error)
       return {
-        error: false,
+        error: true,
         data: null,
         message: "Please check your network"
       }

@@ -3,12 +3,15 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "android:production": "react-native run-android --variant=productionDebug",
+    "android:dev": "react-native run-android --variant=developmentDebug",
     "ios": "react-native run-ios",
+    "ios:dev": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "android-linux": "gnome-terminal -e \"react-native start\" && react-native run-android"
+    "android-linux:dev": "gnome-terminal -e \"react-native start\" && yarn android:dev",
+    "android-linux:production": "gnome-terminal -e \"react-native start\" && yarn android:production"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.11",
@@ -20,6 +23,7 @@
     "@reduxjs/toolkit": "^1.6.0",
     "react": "17.0.1",
     "react-native": "0.64.2",
+    "react-native-config": "^1.4.2",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-reanimated": "^2.0.0",
     "react-native-redash": "^16.1.1",

@@ -4,7 +4,7 @@ import { ScaledSheet, scale } from 'react-native-size-matters'
 import colors from '../../../config/colors'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
-const titleInfo = ({title, iconName}) => {
+const TitleInfo = ({title, iconName}) => {
   return (
     <View style={styles.titleContainer}>
       <View style={styles.title}>
@@ -33,4 +33,4 @@ const styles = ScaledSheet.create({
     fontWeight: 'bold'
   },
 })
-export default titleInfo
+export default TitleInfo

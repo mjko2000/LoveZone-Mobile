@@ -9,6 +9,7 @@ import CustomSlider from '../custom/CustomSlider'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import DateTimePicker from '../custom/DateTimePicker'
 import TitleInfo from './child/TitleInfo'
+import NextButton from './child/NextButton'
 
 const Step1 = ({ navigation }) => {
   const [height, setHeight] = useState(150)
@@ -18,20 +19,7 @@ const Step1 = ({ navigation }) => {
   useEffect(() => {
     const unSub = navigation.addListener('focus', () => {
       navigation.dangerouslyGetParent().setOptions({
-        headerRight: () => (
-          <TouchableNativeFeedback
-            onPress={() => profileNavigation.navigate('ProfileStep2')}
-          >
-            <Text
-              style={{
-                color: colors.primary,
-                padding: scale(10),
-                marginTop: verticalScale(5),
-              }}>
-              Next
-            </Text>
-          </TouchableNativeFeedback>
-        ),
+        headerRight: () => <NextButton routeName = 'ProfileStep2' />,
       })
     })
     return () => unSub
@@ -77,7 +65,7 @@ const Step1 = ({ navigation }) => {
         </View>
       </View>
       <TouchableNativeFeedback
-        onPress={() => setShowPicker(!showPicker)}
+        onPress={() => setShowPicker(showPicker => !showPicker)}
       >
         <View style={styles.date}>
           <Text style={styles.dateText}>{birth.toDateString()}</Text>
