@@ -15,7 +15,7 @@ const Step2 = ({navigation}) => {
   const [info, setInfo] = useState({
     phone: '',
     status: 'studying',
-    workPlace: '',
+    workAt: '',
   });
   useEffect(() => {
     const unSub = navigation.addListener('focus', () => {
@@ -57,7 +57,11 @@ const Step2 = ({navigation}) => {
             />
           </View>
         </View>
-        <TextField placeholder="Your University / Company" />
+        <TextField
+          placeholder={`Your ${
+            info.status === 'studying' ? 'University' : 'Company'
+          }`}
+        />
       </>
     ),
     [info],
