@@ -13,7 +13,8 @@ const InfoStep = ({step, title}) => {
 }
 const styles = ScaledSheet.create({
   container: {
-    paddingVertical: '20@vs'
+    paddingVertical: '20@vs',
+    width: '100%'
   },
   stepText: {
     color: colors.primary,
