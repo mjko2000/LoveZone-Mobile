@@ -1,3 +1,4 @@
+/* eslint-disable no-self-compare */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
@@ -12,14 +13,19 @@ import colors from '../../config/colors';
 import Chip from './child/Chip';
 
 const Step4 = ({navigation}) => {
-  useEffect(() => {
-    const unSub = navigation.addListener('focus', () => {
-      navigation.dangerouslyGetParent().setOptions({
-        headerRight: () => <NextButton routeName="ProfileStep5" />,
-      });
-    });
-    return () => unSub;
-  }, []);
+  const [selectedHobbies, setSelectedHobbies] = useState([]);
+
+  const onChange = newValue => {
+    if (selectedHobbies.includes(newValue)) {
+      const index = selectedHobbies.findIndex(item => newValue === item);
+      selectedHobbies.splice(index, 1);
+      return setSelectedHobbies([...selectedHobbies]);
+    }
+    selectedHobbies.push(newValue);
+    setSelectedHobbies([...selectedHobbies]);
+  };
+
+  console.log(selectedHobbies);
 
   const hobbies = [
     {id: 1, title: 'Play Game'},
@@ -54,32 +60,35 @@ const Step4 = ({navigation}) => {
     {id: 30, title: 'Squash'},
   ];
 
-  const hobbiesComponent = useMemo(
-    () =>
-      hobbies.map((item, index) => <Chip key={item.id} value={item.title} />),
-    [hobbies],
-  );
+  useEffect(() => {
+    const unSub = navigation.addListener('focus', () => {
+      navigation.dangerouslyGetParent().setOptions({
+        headerRight: () => <NextButton routeName="ProfileStep5" />,
+      });
+    });
+    return () => unSub;
+  }, []);
+
+  const hobbiesComponent = () => {
+    return hobbies.map((item, index) => {
+      const active = selectedHobbies.findIndex(i => i === item.id) !== -1;
+      return (
+        <Chip
+          key={index.toString()}
+          text={item.title}
+          value={index}
+          isActive={active}
+          onSelect={() => onChange(item.id)}
+        />
+      );
+    });
+  };
 
   return (
     <View style={styles.container}>
       <InfoStep step="4/5" title="Your Favorites" />
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          justifyContent: 'flex-end',
-          marginBottom: scale(15),
-        }}>
-        <TextField
-          placeholder="Add your favorite..."
-          style={styles.inputField}
-        />
-        <TouchableNativeFeedback>
-          <Icon name="pluscircle" size={40} style={styles.buttonAdd}></Icon>
-        </TouchableNativeFeedback>
-      </View>
       <ScrollView>
-        <View style={styles.scrollView}>{hobbiesComponent}</View>
+        <View style={styles.scrollView}>{hobbiesComponent()}</View>
       </ScrollView>
     </View>
   );
@@ -88,8 +97,6 @@ const Step4 = ({navigation}) => {
 const styles = ScaledSheet.create({
   container: {
     paddingHorizontal: '10@s',
-    flex: 1,
-    justifyContent: 'center',
   },
   inputField: {
     flex: 8,

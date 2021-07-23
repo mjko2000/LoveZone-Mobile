@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {memo, useEffect, useMemo, useState} from 'react';
 import {View, Text, TouchableNativeFeedback} from 'react-native';
 // import {Picker} from '@react-native-picker/picker';
@@ -11,11 +12,9 @@ import Icon from 'react-native-vector-icons/Entypo';
 import RadioButton from '../custom/RadioButton';
 
 const Step2 = ({navigation}) => {
-  const [selectedValue, setSelectedValue] = useState('java');
   const [info, setInfo] = useState({
     phone: '',
-    homeTown: '',
-    status: '',
+    status: 'studying',
     workPlace: '',
   });
   useEffect(() => {
@@ -40,38 +39,30 @@ const Step2 = ({navigation}) => {
             />
             <Text style={styles.titleText}>You are: </Text>
           </View>
-          <View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignSelf: 'center',
+            }}>
             <RadioButton
               label={'Studying'}
               checked={info.status === 'studying'}
               onSelect={() => setInfo({...info, status: 'studying'})}
+            />
+            <View style={{width: scale(20)}} />
+            <RadioButton
+              label={'Working'}
+              checked={info.status === 'working'}
+              onSelect={() => setInfo({...info, status: 'working'})}
             />
           </View>
         </View>
         <TextField placeholder="Your University / Company" />
       </>
     ),
-    [],
+    [info],
   );
 
-  const hometownComponent = useMemo(
-    () => (
-      <>
-        <View style={styles.titleContainer}>
-          <View style={styles.title}>
-            <Icon
-              name="vinyl"
-              color={colors.primary}
-              style={{width: scale(20)}}
-              size={scale(20)}
-            />
-            <Text style={styles.titleText}>Your Hometown: </Text>
-          </View>
-        </View>
-      </>
-    ),
-    [],
-  );
   return (
     <View style={styles.container}>
       <InfoStep step="2/5" title="Your Information" />
@@ -95,6 +86,7 @@ const styles = ScaledSheet.create({
   },
   title: {
     flexDirection: 'row',
+    flex: 1,
   },
   titleText: {
     color: colors.white,
