@@ -1,19 +1,19 @@
-import React, {memo, useEffect} from 'react';
+import React, {memo} from 'react';
 import {TouchableNativeFeedback, View, Text} from 'react-native';
-import {scale, ScaledSheet} from 'react-native-size-matters';
+import {ScaledSheet} from 'react-native-size-matters';
 import colors from '../../../config/colors';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-  interpolateColor,
-} from 'react-native-reanimated';
 
-const Chip = ({value, style, onSelect, isActive}) => {
+const Chip = ({value, style, onSelect, isActive, text}) => {
   return (
-    <TouchableNativeFeedback>
-      <View style={styles.chip}>
-        <Text style={styles.content}>{value}</Text>
+    <TouchableNativeFeedback onPress={onSelect}>
+      <View style={[styles.chip, isActive && styles.chipActive]}>
+        <Text
+          style={[
+            styles.content,
+            {color: isActive ? colors.primary : colors.white},
+          ]}>
+          {text}
+        </Text>
       </View>
     </TouchableNativeFeedback>
   );
@@ -27,13 +27,15 @@ const styles = ScaledSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     margin: '5@s',
-    // borderColor: colors.primary,
-    // borderWidth: '1@s',
+    borderWidth: '1@s',
+    borderColor: 'transparent',
+  },
+  chipActive: {
+    borderColor: colors.primary,
   },
   content: {
     textAlign: 'center',
     marginHorizontal: '15@s',
-    color: colors.white,
   },
 });
 export default memo(Chip);
