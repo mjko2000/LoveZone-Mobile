@@ -8,6 +8,7 @@ import {
   TouchableNativeFeedback,
   Image,
   Animated,
+  FlatList,
 } from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import ButtonFill from '../components/custom/ButtonFill';
@@ -118,24 +119,20 @@ const MessageContainer = props => {
           />
         </TouchableNativeFeedback>
       </View>
-      <ScrollView
+      <FlatList 
         horizontal
         style={styles.proContainer}
-        showsHorizontalScrollIndicator={false}>
-        {loading ? (
-          <ActivityIndicator size="small" color={colors.originWhite} />
-        ) : (
-          <Animated.View style={[pan.getLayout(), styles.card]}>
-            {userInfo.map((item, index) => (
-              <MiniProfile
-                key={item.id}
-                userName={item.name}
-                uri={item.image}
-              />
-            ))}
-          </Animated.View>
-        )}
-      </ScrollView>
+        showsHorizontalScrollIndicator = {false}
+        data = {userInfo}
+        ItemSeparatorComponent = {() => <View style = {styles.proPadding} />}
+        ListHeaderComponent = {() => <View style = {styles.proPadding} />}
+        ListFooterComponent = {() => <View style = {styles.proPadding} />}
+        renderItem = {({item}) => <MiniProfile
+          key={item.id}
+          userName={item.name}
+          uri={item.image}
+        />}
+      />
       <View style={styles.ops}>
         <View style={styles.col}>
           <Text style={styles.day}>Monday</Text>
@@ -177,7 +174,6 @@ const styles = ScaledSheet.create({
     right: 0,
     top: 0,
     paddingTop: '20@s',
-    paddingHorizontal: '10@s',
   },
   headersContainer: {
     flexDirection: 'row',
@@ -191,6 +187,10 @@ const styles = ScaledSheet.create({
   proContainer: {
     alignSelf: 'center',
   },
+  proPadding: {
+    width: '10@s',
+    height: '10@s',
+  },
   lists: {
     marginBottom: '20@s',
   },
@@ -199,6 +199,7 @@ const styles = ScaledSheet.create({
     flexDirection: 'row',
   },
   ops: {
+    paddingHorizontal: '10@s',
     borderTopLeftRadius: '40@s',
     borderTopRightRadius: '40@s',
     height: '450@s',

@@ -62,7 +62,7 @@ const MatchingContainer = props => {
       </View>
       <ScrollView>
         <View style={styles.imageContainer}>
-          <MiniCard children={userInfo[0]} onPress={() => alert('okela')} />
+          <MiniCard children={userInfo[0]} onPress={() => navigation.navigate('Modal', {screen: "Modal2"})} />
           <MiniCard children={userInfo[1]} />
         </View>
         <View style={styles.imageContainer}>

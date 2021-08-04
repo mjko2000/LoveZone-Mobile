@@ -15,6 +15,7 @@ const MainRoute = () => {
   return (
     <Tab.Navigator
       tabBar={props => <CustomTabar {...props} />}
+      backBehavior = 'firstRoute'
       tabBarOptions={{
         style: {
           backgroundColor: colors.header,

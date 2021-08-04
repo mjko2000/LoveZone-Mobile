@@ -15,7 +15,6 @@ const styles = ScaledSheet.create({
   container: {
     alignItems: 'center',
     marginTop: '20@s',
-    marginRight: '17@s',
   },
   avatar: {
     width: '60@s',
