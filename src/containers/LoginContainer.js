@@ -17,6 +17,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../config/colors';
 import KeyboardView from '../components/custom/KeyboardView';
 import {signInAPI} from '../api/authAPI';
+import config from '../config/config';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const LoginContainer = props => {
   const {navigation} = props;
   const [isRemember, setRemember] = useState(false);
@@ -24,16 +26,21 @@ const LoginContainer = props => {
   const [password, setPassword] = useState('');
 
   const onSubmit = () => {
-    signInAPI({
-      email: email,
-      password: password,
-    }).then(({data, error, message}) => {
-      if (error) {
-        return alert(message);
-      }
-      navigation.navigate('Main');
-    });
+    // signInAPI({
+    //   email: email,
+    //   password: password,
+    // }).then(({data, error, message}) => {
+    //   if (error) {
+    //     return alert(message);
+    //   }
+    //   config.accessToken = data.accessToken;
+    //   if (isRemember) AsyncStorage.setItem('accessToken', config.accessToken);
+    //   else AsyncStorage.removeItem('accessToken');
+    //   navigation.navigate('Main');
+    // });
+    navigation.navigate('Main');
   };
+
   return (
     <KeyboardView>
       <View style={styles.container}>

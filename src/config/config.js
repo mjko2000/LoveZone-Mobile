@@ -1,2 +1,2 @@
-export const API_URL = "https://lovezone-api.herokuapp.com/"
-export var accessToken = null
+export const API_URL = 'https://lovezone-api.herokuapp.com/';
+export let accessToken = null;
