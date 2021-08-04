@@ -1,11 +1,11 @@
 import React, {memo} from 'react';
-import {TouchableNativeFeedback, View, Text} from 'react-native';
+import {TouchableWithoutFeedback, View, Text} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import colors from '../../../config/colors';
 
 const Chip = ({value, style, onSelect, isActive, text}) => {
   return (
-    <TouchableNativeFeedback onPress={onSelect}>
+    <TouchableWithoutFeedback onPress={onSelect}>
       <View style={[styles.chip, isActive && styles.chipActive]}>
         <Text
           style={[
@@ -15,7 +15,7 @@ const Chip = ({value, style, onSelect, isActive, text}) => {
           {text}
         </Text>
       </View>
-    </TouchableNativeFeedback>
+    </TouchableWithoutFeedback>
   );
 };
 

@@ -8,7 +8,7 @@ import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import colors from '../config/colors';
 import TextField from '../components/custom/TextField';
 import {useDispatch, useSelector} from 'react-redux';
-import {setUser} from '../redux/UserReducer';
+import {setUser} from '../redux/userReducer';
 const ProfileContainer = props => {
   const {navigation} = props;
   const dispatch = useDispatch();
