@@ -1,6 +1,7 @@
 import React, {memo} from 'react';
 import {View, Text} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
+import colors from '../../config/colors';
 
 const Sent = ({message}) => {
   return (
@@ -18,7 +19,7 @@ const Sent = ({message}) => {
 
 const styles = ScaledSheet.create({
   container: {
-    marginVertical: '25@s',
+    marginVertical: '5@s',
     alignSelf: 'flex-end',
   },
   duration: {
@@ -33,12 +34,16 @@ const styles = ScaledSheet.create({
     justifyContent: 'center',
     paddingHorizontal: '20@s',
     paddingVertical: '20@s',
-    borderToLeftRadius: '25@s',
-    borderToRightRadius: '25@s',
+    borderTopLeftRadius: '25@s',
+    borderTopRightRadius: '25@s',
     borderBottomLeftRadius: '25@s',
+    backgroundColor: colors.primary,
+  },
+  message: {
+    color: colors.originWhite,
   },
   text: {
-    color: '#fff',
+    color: colors.primary,
   },
 });
 

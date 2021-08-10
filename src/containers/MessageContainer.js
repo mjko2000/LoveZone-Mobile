@@ -19,6 +19,7 @@ import EntypoIcon from 'react-native-vector-icons/Entypo';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Messages from '../components/message/Messages';
 import MiniProfile from '../components/message/MiniProfile';
+import TextField from '../components/custom/TextField';
 import {ScrollView} from 'react-native-gesture-handler';
 
 const MessageContainer = props => {
@@ -112,33 +113,38 @@ const MessageContainer = props => {
       <View style={styles.headersContainer}>
         <Text style={styles.header}>Message</Text>
         <TouchableNativeFeedback onPress={() => alert('ok')}>
-          <MaterialIcon
-            name="add"
+          <EntypoIcon
+            name="dots-three-horizontal"
             color={colors.originWhite}
             size={scale(30)}
           />
         </TouchableNativeFeedback>
       </View>
-      <FlatList 
+      <FlatList
         horizontal
         style={styles.proContainer}
-        showsHorizontalScrollIndicator = {false}
-        data = {userInfo}
-        ItemSeparatorComponent = {() => <View style = {styles.proPadding} />}
-        ListHeaderComponent = {() => <View style = {styles.proPadding} />}
-        ListFooterComponent = {() => <View style = {styles.proPadding} />}
-        renderItem = {({item}) => <MiniProfile
-          key={item.id}
-          userName={item.name}
-          uri={item.image}
-        />}
+        showsHorizontalScrollIndicator={false}
+        data={userInfo}
+        ItemSeparatorComponent={() => <View style={styles.proPadding} />}
+        ListHeaderComponent={() => <View style={styles.proPadding} />}
+        ListFooterComponent={() => <View style={styles.proPadding} />}
+        renderItem={({item}) => (
+          <MiniProfile
+            key={item.id}
+            userName={item.name}
+            uri={item.image}
+            onPress={() =>
+              navigation.navigate('Modal', {screen: 'DetailScreen'})
+            }
+          />
+        )}
       />
       <View style={styles.ops}>
         <View style={styles.col}>
           <Text style={styles.day}>Monday</Text>
           <TouchableNativeFeedback onPress={() => alert('dd')}>
-            <EntypoIcon
-              name="dots-three-horizontal"
+            <MaterialIcon
+              name="add"
               color={colors.originWhite}
               size={scale(30)}
             />
@@ -155,7 +161,13 @@ const MessageContainer = props => {
                   count={Math.floor(Math.random() * 3)}
                   userName={item.name}
                   uri={item.image}
-                  onPress={() => console.log('Ok')}
+                  onPress={() =>
+                    navigation.navigate(
+                      'Modal',
+                      {screen: 'ChatScreen'},
+                      {userName: item.name, userAvatar: item.image},
+                    )
+                  }
                 />
               ))}
             </Animated.View>
@@ -178,6 +190,7 @@ const styles = ScaledSheet.create({
   headersContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    paddingHorizontal: '10@s',
   },
   header: {
     fontSize: '24@s',
@@ -195,7 +208,7 @@ const styles = ScaledSheet.create({
     marginBottom: '20@s',
   },
   card: {
-    width: '400@s',
+    width: '450@s',
     flexDirection: 'row',
   },
   ops: {

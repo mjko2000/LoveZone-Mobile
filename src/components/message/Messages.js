@@ -15,7 +15,6 @@ const randomTime = () => {
 const Messages = ({userName, count, uri, onPress}) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Image source={{uri: uri}} style={styles.image} />
       {count > 0 ? (
         // <linearGradient
         //   color={['#f26a50', '#f20045', '#f20045']}
@@ -26,6 +25,7 @@ const Messages = ({userName, count, uri, onPress}) => {
           <Text style={styles.count}>{count}</Text>
         </View>
       ) : null}
+      <Image source={{uri: uri}} style={styles.image} />
       <View style={{marginLeft: scale(10)}}>
         <Text style={styles.username}>{userName}</Text>
         <Text style={styles.text}>Hello, How are you?</Text>
@@ -57,8 +57,8 @@ const styles = ScaledSheet.create({
     height: '20@s',
     borderRadius: '10@s',
     textAlign: 'center',
-    marginLeft: '-40@s',
-    marginBottom: '-40@s',
+    // marginLeft: '-40@s',
+    // marginBottom: '-40@s',
   },
   image: {
     width: '60@s',

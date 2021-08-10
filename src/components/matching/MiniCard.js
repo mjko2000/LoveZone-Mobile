@@ -14,7 +14,11 @@ const MiniCard = ({children, style, onPress}) => {
   return (
     <TouchableNativeFeedback onPress={onPress}>
       <View style={[styles.imageView, style]}>
-        <Image style={styles.image} source={{uri: children.image}} />
+        <Image
+          style={styles.image}
+          source={{uri: children.image}}
+          blurRadius={50}
+        />
         <View style={styles.title}>
           <Text style={styles.textName}>{children.name}</Text>
           <Text style={styles.textAge}>{children.age}</Text>

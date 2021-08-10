@@ -33,12 +33,14 @@ const styles = ScaledSheet.create({
     paddingHorizontal: '10@s',
     paddingVertical: '10@s',
     borderRadius: '10@s',
+    height: '50@s',
   },
   input: {
     fontSize: '11@s',
     color: '#fff',
     paddingHorizontal: '10@s',
     flex: 1,
+    height: 40,
   },
 });
 

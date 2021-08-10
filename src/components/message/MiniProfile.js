@@ -1,13 +1,15 @@
 import React, {memo} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 
-const MiniProfile = ({userName, uri}) => {
+const MiniProfile = ({userName, uri, onPress}) => {
   return (
-    <View style={styles.container}>
-      <Image source={{uri: uri}} style={styles.avatar} />
-      <Text style={styles.name}>{userName}</Text>
-    </View>
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.container}>
+        <Image source={{uri: uri}} style={styles.avatar} />
+        <Text style={styles.name}>{userName}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 

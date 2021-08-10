@@ -1,6 +1,7 @@
 import React, {memo} from 'react';
 import {View, Text, Image} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
+import colors from '../../config/colors';
 
 const Received = ({image, message}) => {
   return (
@@ -17,7 +18,7 @@ const Received = ({image, message}) => {
 const styles = ScaledSheet.create({
   container: {
     flexDirection: 'row',
-    marginTop: '20@s',
+    marginVertical: '5@s',
     width: '250@s',
   },
   image: {
@@ -28,6 +29,7 @@ const styles = ScaledSheet.create({
   message: {
     fontSize: '13@s',
     marginHorizontal: '15@s',
+    color: colors.textGray,
   },
   duration: {
     color: '#b6b6b6',
