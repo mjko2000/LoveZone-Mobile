@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable no-unused-vars */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -24,21 +24,20 @@ const LoginContainer = props => {
   const [isRemember, setRemember] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const onSubmit = () => {
-    // signInAPI({
-    //   email: email,
-    //   password: password,
-    // }).then(({data, error, message}) => {
-    //   if (error) {
-    //     return alert(message);
-    //   }
-    //   config.accessToken = data.accessToken;
-    //   if (isRemember) AsyncStorage.setItem('accessToken', config.accessToken);
-    //   else AsyncStorage.removeItem('accessToken');
-    //   navigation.navigate('Main');
-    // });
-    navigation.navigate('Main');
+    signInAPI({
+      email: email,
+      password: password,
+    }).then(({data, error, message}) => {
+      if (error) {
+        return alert(message);
+      }
+      config.accessToken = data.accessToken;
+      if (isRemember) AsyncStorage.setItem('accessToken', config.accessToken);
+        else AsyncStorage.removeItem('accessToken');
+      if(data.userInfo.profileUpdated) navigation.navigate('Main');
+        else navigation.navigate('UpdateProfile');
+    });
   };
 
   return (
@@ -48,12 +47,12 @@ const LoginContainer = props => {
           <TextField
             style={styles.textField}
             placeholder={'Email'}
-            onChaneText={setEmail}
+            onChangeText={setEmail}
           />
           <TextField
             style={styles.textField}
             placeholder={'Password'}
-            onChaneText={setPassword}
+            onChangeText={setPassword}
           />
           <ButtonFill
             style={styles.buttonFill}
@@ -66,7 +65,7 @@ const LoginContainer = props => {
                 checked={isRemember}
                 onPress={() => setRemember(remember => !remember)}
               />
-              <Text style={styles.label}>Remember me </Text>
+              <Text style={styles.label}>Keep me login</Text>
             </View>
             <TouchableOpacity onPress={() => {}}>
               <Text style={styles.label}>Forgot password?</Text>

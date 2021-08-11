@@ -1,11 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import ButtonFill from '../components/custom/ButtonFill';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import colors from '../config/colors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import config from '../config/config';
+import {getInfoFromTokenAPI} from '../api/authAPI'
 const WelcomeContainer = props => {
   const {navigation} = props;
+  
+  useEffect(() => {
+    AsyncStorage.getItem("accessToken")
+    .then(token => {
+      if(token){
+        // navigation.navigate('Main');
+        return getInfoFromTokenAPI(token).then(({data, error, message}) => {
+          if(error) return alert(message)
+          config.accessToken = token;
+          if(data.profileUpdated) navigation.replace('Main');
+            else navigation.replace('UpdateProfile');
+        })
+      }
+      navigation.replace('Login');
+    })
+  }, [])
+
   return (
     <View style={styles.container}>
       <Text>LoginComponent</Text>

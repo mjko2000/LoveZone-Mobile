@@ -9,9 +9,17 @@ import ButtonFill from '../custom/ButtonFill';
 import Icon from 'react-native-vector-icons/AntDesign';
 import colors from '../../config/colors';
 import UploadImage from './child/UploadImage';
+import { useDispatch, useSelector } from 'react-redux';
+import { setImages as setI } from '../../redux/updateProfileFirstReducer';
+
+import { uploadImageAPI, updateFirstProfile } from '../../api/profileAPI'
 
 const Step5 = ({ navigation }) => {
   const [image, setImage] = useState()
+  const [loading, setLoading] = useState(false)
+  const profileData = useSelector(state => state.updateProfileFirst)
+  const dispatch = useDispatch();
+  const setUploadedImage = v => dispatch(setI(v))
   useEffect(() => {
     const unSub = navigation.addListener('focus', () => {
       navigation.dangerouslyGetParent().setOptions({
@@ -21,21 +29,41 @@ const Step5 = ({ navigation }) => {
     return () => unSub;
   }, []);
   const onSelected = useCallback((image) => {
-    setImage(image)
-  },[])
+    setLoading(true)
+    uploadImageAPI(image).then(({ data, error, message }) => {
+      setLoading(false)
+      if (error) return alert(message)
+      setImage(data.url)
+      setUploadedImage([data._id])
+    })
+  }, [])
+  const onSubmit = useCallback(() => {
+    setLoading(true)
+    updateFirstProfile(profileData).then(({error, message, data}) => {
+      setLoading(false)
+      if (error) return alert(message)
+      navigation.replace("Main")
+    })
+  },[profileData])
   return (
     <View style={styles.container}>
-      {/* <InfoStep step="5/5" title="Your Photos" /> */}
       <View style={styles.center}>
-        <UploadImage onSelected = {onSelected} image = {image} />
+        <UploadImage onSelected={onSelected} image={image} />
         <Text style={styles.tips}>Choose from your library,{'\n'}we want to see you smile</Text>
       </View>
       <View style={styles.center}>
-        <Text style={styles.waitText}>Please wait ...</Text>
-        <ActivityIndicator size = {scale(30)} color = {colors.primary} />
+        {loading && (
+          <>
+            <Text style={styles.waitText}>Please wait ...</Text>
+            <ActivityIndicator size={scale(30)} color={colors.primary} />
+          </>
+        )}
+
       </View>
 
-      <ButtonFill text={`Let's go`} disabled={true} />
+      <ButtonFill text={`Let's go`} disabled={false}
+        onPress={onSubmit}
+      />
     </View>
   );
 };

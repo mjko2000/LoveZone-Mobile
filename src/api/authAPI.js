@@ -11,6 +11,10 @@ export const activeOtpAPI = ({uid, otp}) => {
   });
 };
 
-export const signInAPI = input => {
-  return withFetch({url: 'auth/signin', method: 'POST', body: input});
+export const signInAPI = ({email, password}) => {
+  return withFetch({url: 'auth/signin', method: 'POST', body: {email, password}});
+};
+
+export const getInfoFromTokenAPI = (token) => {
+  return withFetch({url: 'auth/getInfoFromToken', method: 'POST', body: {accessToken: token}});
 };

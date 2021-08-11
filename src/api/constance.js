@@ -1,5 +1,4 @@
-import Config from "react-native-config";
-import {accessToken} from '../config/config'
+import config from '../config/config'
 
 export const withFetch = ({ url, method, body }) => {
   var myHeaders = new Headers();
@@ -11,8 +10,7 @@ export const withFetch = ({ url, method, body }) => {
     body: raw,
     redirect: 'follow'
   };
-
-  return fetch(Config.API_URL + url, requestOptions)
+  return fetch(config.API_URL + url, requestOptions)
     .then(response => response.json())
     .then(result => {
       if (result.resultCode === 1) return {
@@ -36,11 +34,15 @@ export const withFetch = ({ url, method, body }) => {
     });
 }
 
-export const withAuth = ({ url, method, body }) => {
+export const withAuth = ({ url, method, body, isFormData }) => {
   var myHeaders = new Headers();
-  myHeaders.append("Authorization", "Bearer "+accessToken);
-  myHeaders.append("Content-Type", "application/json");
-  var raw = body ? JSON.stringify(body) : undefined;
+  myHeaders.append("Authorization", "Bearer "+config.accessToken);
+  if(isFormData)myHeaders.append("Content-Type", "multipart/form-data");
+   else myHeaders.append("Content-Type", "application/json");
+  var raw = null;
+  if(isFormData) raw = body;
+    else if(body) raw = JSON.stringify(body);
+
   var requestOptions = {
     method: method || "GET",
     headers: myHeaders,
@@ -48,7 +50,7 @@ export const withAuth = ({ url, method, body }) => {
     redirect: 'follow'
   };
 
-  return fetch(Config.API_URL + url, requestOptions)
+  return fetch(config.API_URL + url, requestOptions)
     .then(response => response.json())
     .then(result => {
       if (result.resultCode === 1) return {

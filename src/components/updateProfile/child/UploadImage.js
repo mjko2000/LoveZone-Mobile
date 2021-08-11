@@ -4,7 +4,7 @@ import { scale, ScaledSheet } from 'react-native-size-matters';
 import colors from '../../../config/colors';
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import { launchImageLibrary } from 'react-native-image-picker';
-
+import config from '../../../config/config';
 const UploadImage = ({ onSelected, image }) => {
   const onPress = useCallback(() => {
     launchImageLibrary({
@@ -17,7 +17,7 @@ const UploadImage = ({ onSelected, image }) => {
   }, [])
   return (
     <TouchableHighlight style={styles.container} onPress={onPress}>
-      {image ? <Image source={{ uri: image.uri }} style={styles.image} /> :
+      {image ? <Image source={{ uri: config.API_URL + image }} style={styles.image} /> :
         <View style={styles.subContainer}>
           <Icon name='camera-retro' size={scale(50)} color={colors.secondary} />
           <Text style={styles.text}>Your picture</Text>

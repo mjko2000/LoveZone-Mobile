@@ -6,13 +6,14 @@ import TitleInfo from './TitleInfo'
 
 const LokingFor = ({value, setValue}) => {
   const onChange = (newValue) => {
-    if(value.includes(newValue)){
-      const index = value.findIndex((value) => newValue === value);
-      value.splice(index,1)
-      return setValue([...value])
+    const clone = [...value]
+    if(clone.includes(newValue)){
+      const index = clone.findIndex((value) => newValue === value);
+      clone.splice(index,1)
+      return setValue([...clone])
     }
-    value.push(newValue)
-    setValue([...value])
+    clone.push(newValue)
+    setValue([...clone])
   }
   return (
     <>
@@ -21,14 +22,14 @@ const LokingFor = ({value, setValue}) => {
         iconName='wine-glass-alt'
       />
       <View style={{ flexDirection: 'row', alignSelf: 'center', marginBottom: scale(20) }}>
-        <GenderSquare value = 'Chat' icon = 'ios-chatbubble-ellipses-outline' isActive = {value.includes('Chat')} onSelect = {() => onChange('Chat')}/>
+        <GenderSquare value = 'chat' icon = 'ios-chatbubble-ellipses-outline' isActive = {value.includes('chat')} onSelect = {() => onChange('chat')}/>
         <View style={{ width: scale(20) }} />
-        <GenderSquare value = 'Love' icon = 'heart-half-sharp' isActive = {value.includes('Love')} onSelect = {() => onChange('Love')}/>
+        <GenderSquare value = 'love' icon = 'heart-half-sharp' isActive = {value.includes('love')} onSelect = {() => onChange('love')}/>
       </View>
       <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
-        <GenderSquare value = 'Friend' icon = 'person-add-outline' isActive = {value.includes('Friend')} onSelect = {() => onChange('Friend')}/>
+        <GenderSquare value = 'friend' icon = 'person-add-outline' isActive = {value.includes('friend')} onSelect = {() => onChange('friend')}/>
         <View style={{ width: scale(20) }} />
-        <GenderSquare value = 'Chill' icon = 'bed-outline' isActive = {value.includes('Chill')} onSelect = {() => onChange('Chill')}/>
+        <GenderSquare value = 'chill' icon = 'bed-outline' isActive = {value.includes('chill')} onSelect = {() => onChange('chill')}/>
       </View>
     </>
   )

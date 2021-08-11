@@ -1,22 +1,24 @@
-/* eslint-disable react-native/no-inline-styles */
-import React, {memo, useEffect, useMemo, useState} from 'react';
-import {View, Text, TouchableNativeFeedback} from 'react-native';
-// import {Picker} from '@react-native-picker/picker';
-import {scale, ScaledSheet, verticalScale} from 'react-native-size-matters';
+import React, { memo, useEffect, useMemo, useState } from 'react';
+import { View, Text, TouchableNativeFeedback } from 'react-native';
+import { scale, ScaledSheet, verticalScale } from 'react-native-size-matters';
 import colors from '../../config/colors';
-import {profileNavigation} from '../../containers/signUp/UpdateProfileContainer';
+import { profileNavigation } from '../../containers/signUp/UpdateProfileContainer';
 import InfoStep from './child/InfoStep';
 import NextButton from './child/NextButton';
 import TextField from '../custom/TextField';
 import Icon from 'react-native-vector-icons/Entypo';
 import RadioButton from '../custom/RadioButton';
 
-const Step2 = ({navigation}) => {
-  const [info, setInfo] = useState({
-    phone: '',
-    status: 'studying',
-    workAt: '',
-  });
+import {useDispatch, useSelector} from 'react-redux';
+import {setWorkPlace, setPhone} from '../../redux/updateProfileFirstReducer';
+
+const Step2 = ({ navigation }) => {
+  const [status, setStatus] = useState('studying')
+  const {workAt, phone} = useSelector(state => state.updateProfileFirst)
+  const dispatch = useDispatch();
+  const onChangePhone = (p) => dispatch(setPhone(p))
+  const onChangeWorkPlace = (w) => dispatch(setWorkPlace(w))
+
   useEffect(() => {
     const unSub = navigation.addListener('focus', () => {
       navigation.dangerouslyGetParent().setOptions({
@@ -26,52 +28,46 @@ const Step2 = ({navigation}) => {
     return () => unSub;
   }, []);
 
-  const workComponent = useMemo(
-    () => (
-      <>
-        <View style={styles.titleContainer}>
-          <View style={styles.title}>
-            <Icon
-              name="briefcase"
-              color={colors.primary}
-              style={{width: scale(20)}}
-              size={scale(20)}
-            />
-            <Text style={styles.titleText}>You are: </Text>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignSelf: 'center',
-            }}>
-            <RadioButton
-              label={'Studying'}
-              checked={info.status === 'studying'}
-              onSelect={() => setInfo({...info, status: 'studying'})}
-            />
-            <View style={{width: scale(20)}} />
-            <RadioButton
-              label={'Working'}
-              checked={info.status === 'working'}
-              onSelect={() => setInfo({...info, status: 'working'})}
-            />
-          </View>
-        </View>
-        <TextField
-          placeholder={`Your ${
-            info.status === 'studying' ? 'University' : 'Company'
-          }`}
-        />
-      </>
-    ),
-    [info],
-  );
-
   return (
     <View style={styles.container}>
       <InfoStep step="2/5" title="Your Information" />
-      <TextField placeholder="+84" />
-      {workComponent}
+      <TextField 
+        placeholder="+84"
+        onChangeText = {onChangePhone}
+      />
+      <View style={styles.titleContainer}>
+        <View style={styles.title}>
+          <Icon
+            name="briefcase"
+            color={colors.primary}
+            style={{ width: scale(20) }}
+            size={scale(20)}
+          />
+          <Text style={styles.titleText}>You are: </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignSelf: 'center',
+          }}>
+          <RadioButton
+            label={'Studying'}
+            checked={status === 'studying'}
+            onSelect={() => setStatus("studying")}
+          />
+          <View style={{ width: scale(20) }} />
+          <RadioButton
+            label={'Working'}
+            checked={status === 'working'}
+            onSelect={() => setStatus("working")}
+          />
+        </View>
+      </View>
+      <TextField
+        placeholder={`Your ${status === 'studying' ? 'University' : 'Company'
+          }`}
+        onChangeText = {onChangeWorkPlace}
+      />
     </View>
   );
 };

@@ -7,10 +7,14 @@ import GenderChoice from './child/GenderChoice';
 import InfoStep from './child/InfoStep';
 import LokingFor from './child/LokingFor';
 import NextButton from './child/NextButton';
+import {useDispatch, useSelector} from 'react-redux';
+import {setLooking as setL, setGender as getG} from '../../redux/updateProfileFirstReducer';
 
 const Step3 = ({navigation}) => {
-  const [gender, setGender] = useState('');
-  const [lookings, setLookings] = useState([]);
+  const {lookingFor, gender} = useSelector(state => state.updateProfileFirst)
+  const dispatch = useDispatch();
+  const setGender = (v) => dispatch(getG(v))
+  const setLooking = (v) => dispatch(setL(v))
   useEffect(() => {
     const unSub = navigation.addListener('focus', () => {
       navigation.dangerouslyGetParent().setOptions({
@@ -23,7 +27,7 @@ const Step3 = ({navigation}) => {
     <View style={styles.container}>
       <InfoStep step="3/5" title="Your Gender" />
       <GenderChoice gender={gender} setGender={setGender} />
-      <LokingFor value={lookings} setValue={setLookings} />
+      <LokingFor value={lookingFor} setValue={setLooking} />
     </View>
   );
 };
