@@ -52,7 +52,7 @@ const SignUpContainer = ({navigation, route}) => {
         keyboardType="email-address"
         autoCapitalize={'none'}
         style={styles.textField}
-        onChaneText={setEmail}
+        onChangeText={setEmail}
         editable={!loading}
       />
       <TextField
@@ -60,7 +60,7 @@ const SignUpContainer = ({navigation, route}) => {
         style={styles.textField}
         secureTextEntry={true}
         autoCapitalize={'none'}
-        onChaneText={setPassword}
+        onChangeText={setPassword}
         editable={!loading}
       />
       <TextField
@@ -68,7 +68,7 @@ const SignUpContainer = ({navigation, route}) => {
         style={styles.textField}
         secureTextEntry={true}
         autoCapitalize={'none'}
-        onChaneText={setConfirmPassword}
+        onChangeText={setConfirmPassword}
         editable={!loading}
       />
       <ButtonFill

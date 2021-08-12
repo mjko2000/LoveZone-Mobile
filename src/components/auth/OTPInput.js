@@ -3,39 +3,41 @@ import { View, Text, TextInput, Keyboard, TouchableWithoutFeedback } from 'react
 import { ScaledSheet } from 'react-native-size-matters'
 import colors from '../../config/colors'
 
-const OTPInput = ({onSubmit}) => {
+const OTPInput = ({ onSubmit }) => {
   const [otp, setOtp] = useState(['', '', '', '', '', ''])
   const [focusIndex, setFocusIndex] = useState(0)
   const [focusInput, setFocusInput] = useState(0)
   const input1 = useRef()
   const input2 = useRef()
   useEffect(() => {
-    setTimeout(() => input1.current.focus(),200)
+    setTimeout(() => input1.current.focus(), 200)
   }, [])
   const onChange = (num) => {
-    if(num === 'Backspace'){
+    console.log(num)
+    if (num === 'Backspace') {
       otp[focusIndex] = ''
       setOtp([...otp])
-      if(focusIndex === 0) return
-      setFocusIndex(index => index-1)
+      if (focusIndex === 0) return
+      setFocusIndex(index => index - 1)
       return
     }
-    if(Number.parseInt(num).toString() === 'NaN') return
+    if (Number.parseInt(num).toString() === 'NaN') return
     otp[focusIndex] = Number(num)
     setOtp([...otp])
-    if(focusIndex === 5) {
+    if (focusIndex === 5) {
       onSubmit(otp.join(''))
       return
     }
-    setFocusIndex(index => index+1)
+    setFocusIndex(index => index + 1)
   }
   return (
     <View>
       <View style={styles.container}>
         {otp.map((item, index) => (
           <TouchableWithoutFeedback
-            onPress = {() => {
-              if(focusInput === 0){
+            key={index.toString()}
+            onPress={() => {
+              if (focusInput === 0) {
                 input2.current.focus()
                 setFocusInput(1)
                 return
@@ -47,7 +49,7 @@ const OTPInput = ({onSubmit}) => {
             <View style={[styles.textView, {
               borderColor: focusIndex === index ? colors.primary : 'transparent'
             }]}>
-              <Text style = {styles.text}>{item}</Text>
+              <Text style={styles.text}>{item}</Text>
             </View>
           </TouchableWithoutFeedback>
         ))}
@@ -56,17 +58,19 @@ const OTPInput = ({onSubmit}) => {
         ref={input1}
         maxLength={1}
         value={''}
-        style = {{width: 0, height: 0, padding: 0}}
-        keyboardType = 'numeric'
-        onKeyPress = {e => onChange(e.nativeEvent.key)}
+        style={{ width: 0, height: 0, padding: 0 }}
+        keyboardType='numeric'
+        onTextInput={e => onChange(e.nativeEvent.text)}
+        onKeyPress={e => {if(e.nativeEvent.key == "Backspace") onChange(e.nativeEvent.key)}}
       />
       <TextInput
         ref={input2}
         maxLength={1}
         value={''}
-        style = {{width: 0, height: 0, padding: 0}}
-        keyboardType = 'numeric'
-        onKeyPress = {e => onChange(e.nativeEvent.key)}
+        style={{ width: 0, height: 0, padding: 0 }}
+        keyboardType='numeric'
+        onTextInput={e => onChange(e.nativeEvent.text)}
+        onKeyPress={e => {if(e.nativeEvent.key == "Backspace") onChange(e.nativeEvent.key)}}
       />
     </View>
   )
@@ -85,7 +89,7 @@ const styles = ScaledSheet.create({
     width: '43@s',
     height: '43@s',
     justifyContent: 'center',
-    alignItems:'center',
+    alignItems: 'center',
     borderWidth: '1@s'
   },
   text: {
