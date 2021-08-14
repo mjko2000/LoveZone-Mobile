@@ -10,16 +10,18 @@ import Sent from './Sent';
 import LastWatch from './LastWatch';
 import TypingMessage from './TypingMessage';
 
-const ChatScreen = ({route, navigation}) => {
+const ChatScreen = ({navigation}) => {
   //   const {userName, userAvatar, ItemID} = route.params;
   const messageRef = useRef();
   const userName = 'tai';
   const userAvatar =
     'https://i.vietgiaitri.com/2018/3/6/anh-the-xinh-lung-linh-cua-co-gai-thai-sieu-nong-bong-142541.jpeg';
   const [inputMessage, setInputMessage] = useState('');
-
   useEffect(() => {
     messageRef?.current.scrollToEnd();
+    navigation.setOptions({
+      headerTitle: 'Username',
+    });
   }, []);
   const DataMessage = [
     {

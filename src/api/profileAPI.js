@@ -17,3 +17,10 @@ export const updateFirstProfile = (input) => {
 export const getProfileFromToken = () => {
   return withAuth({ url: 'profile/getProfileFromToken', method: 'GET' });
 };
+
+export const setLocationAPI = ({latitude, longitude}) => {
+  return withAuth({ url: 'profile/setLocation', method: 'POST', body: {
+    latitude,
+    longitude
+  } });
+};

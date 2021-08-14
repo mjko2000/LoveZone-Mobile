@@ -18,19 +18,17 @@ const Modal1 = () => {
 
 const ModalRoute = () => {
   return (
-    <Stack.Navigator mode="modal">
+    <Stack.Navigator mode="modal" screenOptions = {{
+      headerTitleAlign: 'center'
+    }}>
       <Stack.Screen name="Modal1" component={Modal1} />
       <Stack.Screen
         name="DetailScreen"
         component={DetailScreen}
-        options={{
-          header: () => <Header />,
-        }}
       />
       <Stack.Screen
         name="ChatScreen"
         component={ChatScreen}
-        options={{header: () => <Header />}}
       />
     </Stack.Navigator>
   );

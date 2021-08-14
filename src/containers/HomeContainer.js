@@ -1,16 +1,29 @@
 /* eslint-disable no-unused-vars */
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { View} from 'react-native';
 import { ScaledSheet } from 'react-native-size-matters';
 import { scale } from 'react-native-size-matters';
 import colors from '../config/colors';
 import CardComponent from '../components/Swipe/CardComponent';
+import { getProfileFromToken, setLocationAPI } from '../api/profileAPI';
+import helpers from '../helpers';
+import { setProfile } from '../redux/userProfileReducer';
 const HomeContainer = props => {
   const { navigation } = props;
   const [activeIndex, setActiveIndex] = useState(0);
   const [firsData, setFirstData] = useState(1);
   const [secondData, setSecondData] = useState(2);
   const [thirdData, setThirdData] = useState(3);
+  useEffect(() => {
+    helpers.getCurrentLocation().then(({latitude, longitude}) => {
+      setLocationAPI({latitude, longitude}).then(() => {
+        getProfileFromToken().then(({data, error, message}) => {
+          if(error) return alert(message)
+          dispatch(setProfile(data))
+        })
+      })
+    })
+  },[])
   const loadData = index => {
     switch (index) {
       case 0:

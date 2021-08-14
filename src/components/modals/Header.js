@@ -6,16 +6,18 @@ import EntypoIcon from 'react-native-vector-icons/Entypo';
 import {scale, ScaledSheet, verticalScale} from 'react-native-size-matters';
 import {color} from 'react-native-reanimated';
 
-const Header = ({navigation, route}) => {
-  // const {userName} = route;
+const Header = (data) => {
+  const title = data.scene.descriptor.options.headerTitle
+  console.log(data.scene.descriptor.options)
   return (
     // <View style={{height: 100, backgroundColor: 'red'}}>
 
     // </View>
     <View style={styles.container}>
-      <TouchableNativeFeedback onPress={() => navigation.goBack()}>
+      <TouchableNativeFeedback onPress={() => {}}>
         <Icon name="arrow-back-ios" size={scale(20)} color={colors.white} />
       </TouchableNativeFeedback>
+      <Text>{title}</Text>
       {/* <TouchableNativeFeedback onPress={() => navigation.goBack()}>
         <EntypoIcon
           name="dots-three-vertical"

@@ -21,9 +21,6 @@ const ProfileContainer = props => {
       if(error) return alert(message)
       dispatch(setProfile(data))
     })
-    helpers.getCurrentLocation().then((position) => {
-      if(position) console.log(position)
-    })
   },[])
 
   const onLogout = useCallback(() => {
@@ -46,7 +43,7 @@ const ProfileContainer = props => {
     <View style={styles.container}>
       <Image source={{ uri: helpers.getFirstImage(userProfile)}} style={styles.image} />
       <Text style={styles.username}>{userProfile.name}</Text>
-      <Text style={styles.age}>{helpers.dateToAge(userProfile.birth)} ages - Location</Text>
+      <Text style={styles.age}>{helpers.dateToAge(userProfile.birth)} ages - {userProfile.location?.address}</Text>
       <ButtonFill
         style={styles.buttonFill}
         text={'Get Premium'}
