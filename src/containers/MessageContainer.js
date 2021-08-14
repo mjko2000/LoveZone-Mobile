@@ -13,6 +13,7 @@ import Messages from '../components/message/Messages';
 import MiniProfile from '../components/message/MiniProfile';
 import TextField from '../components/custom/TextField';
 import {ScrollView} from 'react-native-gesture-handler';
+import NavigationService from '../helpers/NavigationService';
 
 const MessageContainer = props => {
   const {navigation} = props;
@@ -101,9 +102,9 @@ const MessageContainer = props => {
               key={item.id}
               userName={item.name}
               uri={item.image}
-              onPress={() =>
-                navigation.navigate('Modal', {screen: 'DetailScreen'})
-              }
+              onPress={() => {
+                NavigationService.showProfileModal();
+              }}
             />
           )}
         />
@@ -128,13 +129,7 @@ const MessageContainer = props => {
               count={Math.floor(Math.random() * 3)}
               userName={item.name}
               uri={item.image}
-              onPress={() =>
-                navigation.navigate(
-                  'Modal',
-                  {screen: 'ChatScreen'},
-                  {userName: item.name, userAvatar: item.image},
-                )
-              }
+              onPress={() => NavigationService.showMessage()}
             />
           )}
         />

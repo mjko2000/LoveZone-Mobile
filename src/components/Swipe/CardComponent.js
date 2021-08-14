@@ -33,7 +33,7 @@ const CardComponent = ({data, onLeft, onRight, index, activeIndex}) => {
     borderColor: interpolateColor(
       x.value,
       [-200, 0, 200],
-      [colors.like, 'transparent', colors.nope],
+      [colors.nope, 'transparent', colors.like],
     ),
     transform: [
       {translateX: x.value},

@@ -17,6 +17,7 @@ import { scale } from 'react-native-size-matters';
 import ModalRoute from './routes/ModalRoute';
 import translateX from './routes/interpolateStyle/translateX';
 import transltateY from './routes/interpolateStyle/translateY';
+import NavigationService from './helpers/NavigationService';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -24,7 +25,9 @@ const App = () => {
     <Provider store={store}>
       <View style={{ flex: 1, backgroundColor: colors.background }}>
         <StatusBar translucent backgroundColor="transparent" />
-        <NavigationContainer>
+        <NavigationContainer ref = {ref => {
+          NavigationService.navigation = ref
+        }}>
           <Stack.Navigator
             headerMode="none"
             screenOptions={{
