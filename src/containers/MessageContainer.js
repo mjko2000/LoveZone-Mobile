@@ -1,26 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useRef, useState } from 'react';
-import {
-  View,
-  Text,
-  TouchableNativeFeedback,
-  FlatList,
-} from 'react-native';
-import { ScaledSheet } from 'react-native-size-matters';
+import React, {useEffect, useRef, useState} from 'react';
+import {View, Text, TouchableNativeFeedback, FlatList} from 'react-native';
+import {ScaledSheet} from 'react-native-size-matters';
 import ButtonFill from '../components/custom/ButtonFill';
-import { CommonActions } from '@react-navigation/native';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import {CommonActions} from '@react-navigation/native';
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import colors from '../config/colors';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Messages from '../components/message/Messages';
 import MiniProfile from '../components/message/MiniProfile';
 import TextField from '../components/custom/TextField';
-import { ScrollView } from 'react-native-gesture-handler';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const MessageContainer = props => {
-  const { navigation } = props;
+  const {navigation} = props;
   const URL = '';
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -77,8 +72,8 @@ const MessageContainer = props => {
     },
   ];
 
-  useEffect(() => {
-  }, []);
+  const a = new Date();
+  console.log(a);
 
   return (
     <View style={styles.container}>
@@ -101,13 +96,13 @@ const MessageContainer = props => {
           ItemSeparatorComponent={() => <View style={styles.proPadding} />}
           ListHeaderComponent={() => <View style={styles.proPadding} />}
           ListFooterComponent={() => <View style={styles.proPadding} />}
-          renderItem={({ item }) => (
+          renderItem={({item}) => (
             <MiniProfile
               key={item.id}
               userName={item.name}
               uri={item.image}
               onPress={() =>
-                navigation.navigate('Modal', { screen: 'DetailScreen' })
+                navigation.navigate('Modal', {screen: 'DetailScreen'})
               }
             />
           )}
@@ -126,8 +121,8 @@ const MessageContainer = props => {
         </View>
         <FlatList
           data={userInfo}
-          contentContainerStyle = {styles.messages}
-          renderItem={({ item, index }) => (
+          contentContainerStyle={styles.messages}
+          renderItem={({item, index}) => (
             <Messages
               key={item.id}
               count={Math.floor(Math.random() * 3)}
@@ -136,8 +131,8 @@ const MessageContainer = props => {
               onPress={() =>
                 navigation.navigate(
                   'Modal',
-                  { screen: 'ChatScreen' },
-                  { userName: item.name, userAvatar: item.image },
+                  {screen: 'ChatScreen'},
+                  {userName: item.name, userAvatar: item.image},
                 )
               }
             />
@@ -195,7 +190,7 @@ const styles = ScaledSheet.create({
     fontSize: '20@s',
   },
   messages: {
-    paddingBottom: '20@s'
-  }
+    paddingBottom: '20@s',
+  },
 });
 export default MessageContainer;

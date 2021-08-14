@@ -7,7 +7,8 @@ import {
   TransitionSpecs,
 } from '@react-navigation/stack';
 import ChatScreen from '../components/message/ChatScreen';
-import DetailScreen from '../components/message/DetailScreen';
+import DetailScreen from '../components/modals/DetailScreen';
+import Header from '../components/modals/Header';
 
 const Stack = createStackNavigator();
 
@@ -19,8 +20,18 @@ const ModalRoute = () => {
   return (
     <Stack.Navigator mode="modal">
       <Stack.Screen name="Modal1" component={Modal1} />
-      <Stack.Screen name="DetailScreen" component={DetailScreen} />
-      <Stack.Screen name="ChatScreen" component={ChatScreen} />
+      <Stack.Screen
+        name="DetailScreen"
+        component={DetailScreen}
+        options={{
+          header: () => <Header />,
+        }}
+      />
+      <Stack.Screen
+        name="ChatScreen"
+        component={ChatScreen}
+        options={{header: () => <Header />}}
+      />
     </Stack.Navigator>
   );
 };

@@ -13,7 +13,6 @@ import {ScaledSheet} from 'react-native-size-matters';
 import {scale, verticalScale} from 'react-native-size-matters';
 import colors from '../../config/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import EntypoIcon from 'react-native-vector-icons/Entypo';
 
 const DetailScreen = ({navigation, route}) => {
   const user = {
@@ -37,19 +36,7 @@ const DetailScreen = ({navigation, route}) => {
     <View style={styles.container}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{width: '100%', paddingTop: scale(40)}}>
-        {/* <View style={styles.headerContainer}>
-          <TouchableNativeFeedback onPress={() => navigation.goBack()}>
-            <Icon name="arrow-back-ios" size={scale(20)} color={colors.white} />
-          </TouchableNativeFeedback>
-          <TouchableNativeFeedback onPress={() => navigation.goBack()}>
-            <EntypoIcon
-              name="dots-three-vertical"
-              size={scale(20)}
-              color={colors.white}
-            />
-          </TouchableNativeFeedback>
-        </View> */}
+        style={{width: '100%', paddingTop: scale(10)}}>
         <View style={{alignSelf: 'center'}}>
           <View style={styles.profileImage}>
             <Image
@@ -343,13 +330,6 @@ const styles = ScaledSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.background,
-  },
-  headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: '24@s',
-    paddingHorizontal: '10@s',
   },
   profileImage: {
     width: '200@s',

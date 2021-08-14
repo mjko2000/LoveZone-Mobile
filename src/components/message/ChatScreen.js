@@ -70,13 +70,6 @@ const ChatScreen = ({route, navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.main}>
-        {/* <View style={styles.headerContainer}>
-          <TouchableNativeFeedback onPress={() => navigation.goBack()}>
-            <Icon name="arrow-back-ios" size={scale(20)} color={colors.white} />
-          </TouchableNativeFeedback>
-          <Text style={styles.userName}>{userName}</Text>
-          <Image source={{uri: userAvatar}} style={styles.avatar} />
-        </View> */}
         <ScrollView showsVerticalScrollIndicator={false} ref={messageRef}>
           <LastWatch checkedOn="Yesterday" />
           <Received image={userAvatar} message={DataMessage[0].message} />
@@ -114,11 +107,6 @@ const styles = ScaledSheet.create({
     paddingHorizontal: '10@s',
     borderBottomLeftRadius: '35@s',
     borderBottomRightRadius: '35@s',
-    // paddingTop: '40@s',
-  },
-  headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
   },
   userName: {
     fontSize: '20@s',

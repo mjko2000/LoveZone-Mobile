@@ -21,7 +21,7 @@ const styles = ScaledSheet.create({
     justifyContent: 'center',
     borderRadius: '15@s',
     width: '100@s',
-    marginTop: '25@s',
+    marginTop: '5@s',
   },
   text: {
     fontSize: '12@s',
