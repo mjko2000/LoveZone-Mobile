@@ -15,6 +15,6 @@ export const signInAPI = ({email, password}) => {
   return withFetch({url: 'auth/signin', method: 'POST', body: {email, password}});
 };
 
-export const getInfoFromTokenAPI = (token) => {
-  return withFetch({url: 'auth/getInfoFromToken', method: 'POST', body: {accessToken: token}});
+export const signInFromTokenAPI = (token) => {
+  return withFetch({url: 'auth/signInFromToken', method: 'POST', body: {accessToken: token}});
 };

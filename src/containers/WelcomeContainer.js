@@ -6,7 +6,8 @@ import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import colors from '../config/colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import config from '../config/config';
-import {getInfoFromTokenAPI} from '../api/authAPI'
+import {signInFromTokenAPI} from '../api/authAPI'
+import helpers from '../helpers';
 const WelcomeContainer = props => {
   const {navigation} = props;
   
@@ -15,10 +16,10 @@ const WelcomeContainer = props => {
     .then(token => {
       if(token){
         // navigation.navigate('Main');
-        return getInfoFromTokenAPI(token).then(({data, error, message}) => {
+        return signInFromTokenAPI(token).then(({data, error, message}) => {
           if(error) return alert(message)
-          config.accessToken = token;
-          if(data.profileUpdated) navigation.replace('Main');
+          helpers.saveUserToken({accessToken: data.accessToken, isRemember: true})
+          if(data.userInfo.profileUpdated) navigation.replace('Main');
             else navigation.replace('UpdateProfile');
         })
       }

@@ -15,9 +15,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setBirth as setB, setHeight as setH, setWeight as setW, setName as setN} from '../../redux/updateProfileFirstReducer';
 
 const Step1 = ({navigation}) => {
-  // const [height, setHeight] = useState(150);
-  // const [weight, setWeight] = useState(60);
-  // const [birth, setBirth] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
   const {height, weight, birth, name} = useSelector(state => state.updateProfileFirst)
   const dispatch = useDispatch();

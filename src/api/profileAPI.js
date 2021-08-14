@@ -13,3 +13,7 @@ export const uploadImageAPI = (image) => {
 export const updateFirstProfile = (input) => {
   return withAuth({ url: 'profile/firstProfile', method: 'POST', body: input });
 };
+
+export const getProfileFromToken = () => {
+  return withAuth({ url: 'profile/getProfileFromToken', method: 'GET' });
+};

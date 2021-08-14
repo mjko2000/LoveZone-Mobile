@@ -1,29 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
-  ActivityIndicator,
   TouchableNativeFeedback,
-  Image,
-  Animated,
   FlatList,
 } from 'react-native';
-import {ScaledSheet} from 'react-native-size-matters';
+import { ScaledSheet } from 'react-native-size-matters';
 import ButtonFill from '../components/custom/ButtonFill';
-import {CommonActions} from '@react-navigation/native';
-import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import { CommonActions } from '@react-navigation/native';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import colors from '../config/colors';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Messages from '../components/message/Messages';
 import MiniProfile from '../components/message/MiniProfile';
 import TextField from '../components/custom/TextField';
-import {ScrollView} from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const MessageContainer = props => {
-  const {navigation} = props;
+  const { navigation } = props;
   const URL = '';
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -80,65 +77,42 @@ const MessageContainer = props => {
     },
   ];
 
-  const pan = useRef(new Animated.ValueXY()).current;
-  const list = useRef(new Animated.ValueXY()).current;
-
   useEffect(() => {
-    // const getData = async () => {
-    //   const res = await fetch(URL);
-    //   const data = await res.json();
-    //   setData(data);
-    //   setLoading(false);
-    // };
-    // getData();
-
-    Animated.timing(pan, {
-      toValue: {x: 400, y: 100},
-      delay: 1000,
-      useNativeDriver: false,
-    });
-
-    Animated.timing(list, {
-      toValue: {x: 0, y: 400},
-      delay: 2000,
-      useNativeDriver: false,
-    });
   }, []);
 
   return (
-    // <linearGradient
-    //   style={styles.gradient}
-    //   color={['#f26a50', '#f20042', '#f20045']}></linearGradient>
-    <View style={styles.gradient}>
-      <View style={styles.headersContainer}>
-        <Text style={styles.header}>Message</Text>
-        <TouchableNativeFeedback onPress={() => alert('ok')}>
-          <EntypoIcon
-            name="dots-three-horizontal"
-            color={colors.originWhite}
-            size={scale(30)}
-          />
-        </TouchableNativeFeedback>
+    <View style={styles.container}>
+      <View>
+        <View style={styles.headersContainer}>
+          <Text style={styles.header}>Message</Text>
+          <TouchableNativeFeedback onPress={() => alert('ok')}>
+            <EntypoIcon
+              name="dots-three-horizontal"
+              color={colors.originWhite}
+              size={scale(30)}
+            />
+          </TouchableNativeFeedback>
+        </View>
+        <FlatList
+          horizontal
+          style={styles.proContainer}
+          showsHorizontalScrollIndicator={false}
+          data={userInfo}
+          ItemSeparatorComponent={() => <View style={styles.proPadding} />}
+          ListHeaderComponent={() => <View style={styles.proPadding} />}
+          ListFooterComponent={() => <View style={styles.proPadding} />}
+          renderItem={({ item }) => (
+            <MiniProfile
+              key={item.id}
+              userName={item.name}
+              uri={item.image}
+              onPress={() =>
+                navigation.navigate('Modal', { screen: 'DetailScreen' })
+              }
+            />
+          )}
+        />
       </View>
-      <FlatList
-        horizontal
-        style={styles.proContainer}
-        showsHorizontalScrollIndicator={false}
-        data={userInfo}
-        ItemSeparatorComponent={() => <View style={styles.proPadding} />}
-        ListHeaderComponent={() => <View style={styles.proPadding} />}
-        ListFooterComponent={() => <View style={styles.proPadding} />}
-        renderItem={({item}) => (
-          <MiniProfile
-            key={item.id}
-            userName={item.name}
-            uri={item.image}
-            onPress={() =>
-              navigation.navigate('Modal', {screen: 'DetailScreen'})
-            }
-          />
-        )}
-      />
       <View style={styles.ops}>
         <View style={styles.col}>
           <Text style={styles.day}>Monday</Text>
@@ -150,42 +124,34 @@ const MessageContainer = props => {
             />
           </TouchableNativeFeedback>
         </View>
-        <ScrollView>
-          {loading ? (
-            <ActivityIndicator size="large" color={'#f20042'} />
-          ) : (
-            <Animated.View style={[list.getLayout(), styles.lists]}>
-              {userInfo.map((item, index) => (
-                <Messages
-                  key={item.id}
-                  count={Math.floor(Math.random() * 3)}
-                  userName={item.name}
-                  uri={item.image}
-                  onPress={() =>
-                    navigation.navigate(
-                      'Modal',
-                      {screen: 'ChatScreen'},
-                      {userName: item.name, userAvatar: item.image},
-                    )
-                  }
-                />
-              ))}
-            </Animated.View>
+        <FlatList
+          data={userInfo}
+          contentContainerStyle = {styles.messages}
+          renderItem={({ item, index }) => (
+            <Messages
+              key={item.id}
+              count={Math.floor(Math.random() * 3)}
+              userName={item.name}
+              uri={item.image}
+              onPress={() =>
+                navigation.navigate(
+                  'Modal',
+                  { screen: 'ChatScreen' },
+                  { userName: item.name, userAvatar: item.image },
+                )
+              }
+            />
           )}
-        </ScrollView>
+        />
       </View>
     </View>
   );
 };
 const styles = ScaledSheet.create({
-  gradient: {
-    height: '100%',
+  container: {
+    flex: 1,
     backgroundColor: colors.primary,
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    paddingTop: '20@s',
+    paddingTop: '30@s',
   },
   headersContainer: {
     flexDirection: 'row',
@@ -194,11 +160,11 @@ const styles = ScaledSheet.create({
   },
   header: {
     fontSize: '24@s',
-    flex: 1,
+    flexGrow: 1,
     color: colors.originWhite,
   },
   proContainer: {
-    alignSelf: 'center',
+    marginBottom: '10@s',
   },
   proPadding: {
     width: '10@s',
@@ -212,12 +178,10 @@ const styles = ScaledSheet.create({
     flexDirection: 'row',
   },
   ops: {
-    paddingHorizontal: '10@s',
-    borderTopLeftRadius: '40@s',
-    borderTopRightRadius: '40@s',
-    height: '450@s',
+    flex: 1,
+    borderTopLeftRadius: '20@s',
+    borderTopRightRadius: '20@s',
     backgroundColor: colors.background,
-    marginHorizontal: '-20@s',
   },
   col: {
     marginHorizontal: '20@s',
@@ -226,9 +190,12 @@ const styles = ScaledSheet.create({
     alignItems: 'center',
   },
   day: {
+    flexGrow: 1,
     color: colors.originWhite,
     fontSize: '20@s',
-    flex: 1,
   },
+  messages: {
+    paddingBottom: '20@s'
+  }
 });
 export default MessageContainer;

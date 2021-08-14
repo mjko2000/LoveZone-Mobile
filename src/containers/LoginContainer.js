@@ -17,8 +17,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../config/colors';
 import KeyboardView from '../components/custom/KeyboardView';
 import {signInAPI} from '../api/authAPI';
-import config from '../config/config';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import helpers from '../helpers';
 const LoginContainer = props => {
   const {navigation} = props;
   const [isRemember, setRemember] = useState(false);
@@ -32,9 +31,7 @@ const LoginContainer = props => {
       if (error) {
         return alert(message);
       }
-      config.accessToken = data.accessToken;
-      if (isRemember) AsyncStorage.setItem('accessToken', config.accessToken);
-        else AsyncStorage.removeItem('accessToken');
+      helpers.saveUserToken({accessToken: data.accessToken, isRemember: data.userInfo.profileUpdated ? isRemember : false})
       if(data.userInfo.profileUpdated) navigation.navigate('Main');
         else navigation.navigate('UpdateProfile');
     });

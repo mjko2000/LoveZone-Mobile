@@ -6,6 +6,8 @@ import colors from '../../config/colors';
 import ButtonFill from '../../components/custom/ButtonFill';
 import KeyboardView from '../../components/custom/KeyboardView';
 import {signUpAPI} from '../../api/authAPI';
+import config from '../../config/config';
+import helpers from '../../helpers';
 const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 const SignUpContainer = ({navigation, route}) => {
   const email = createRef('');
@@ -39,6 +41,7 @@ const SignUpContainer = ({navigation, route}) => {
     }).then(({error, message, data}) => {
       setLoading(false);
       if (error) return alert(message);
+      helpers.saveUserToken({accessToken: data.accessToken, isRemember: false})
       navigation.navigate('OTP', {...data});
     });
   }, []);

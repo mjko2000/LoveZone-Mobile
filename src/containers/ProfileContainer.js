@@ -1,25 +1,34 @@
 /* eslint-disable no-unused-vars */
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { View, Text, Image, TouchableNativeFeedback } from 'react-native';
 import { ScaledSheet } from 'react-native-size-matters';
 import ButtonFill from '../components/custom/ButtonFill';
 import colors from '../config/colors';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../redux/userReducer';
+import { setProfile, resetProfile } from '../redux/userProfileReducer';
 import Icon from 'react-native-vector-icons/Entypo';
 import AntIcon from 'react-native-vector-icons/AntDesign';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import config from '../config/config';
+import helpers from '../helpers';
+import { getProfileFromToken } from '../api/profileAPI';
 
 const ProfileContainer = props => {
   const { navigation } = props;
   const dispatch = useDispatch();
-  const { username } = useSelector(state => state.user);
+  const userProfile = useSelector(state => state.userProfile);
+
+  useEffect(() => {
+    getProfileFromToken().then(({data, error, message}) => {
+      if(error) return alert(message)
+      dispatch(setProfile(data))
+    })
+    helpers.getCurrentLocation().then((position) => {
+      if(position) console.log(position)
+    })
+  },[])
 
   const onLogout = useCallback(() => {
-    AsyncStorage.removeItem("accessToken")
+    helpers.removeUserToken()
     navigation.replace("Auth", {screen: "Login"})
-    config.accessToken = ""
   },[])
 
   const user = {
@@ -33,12 +42,11 @@ const ProfileContainer = props => {
   const onSubmit = () => {
     console.log('ok');
   };
-
   return (
     <View style={styles.container}>
-      <Image source={{ uri: user.image }} style={styles.image} />
-      <Text style={styles.username}>{user.name}</Text>
-      <Text style={styles.age}>{user.age} age - Location</Text>
+      <Image source={{ uri: helpers.getFirstImage(userProfile)}} style={styles.image} />
+      <Text style={styles.username}>{userProfile.name}</Text>
+      <Text style={styles.age}>{helpers.dateToAge(userProfile.birth)} ages - Location</Text>
       <ButtonFill
         style={styles.buttonFill}
         text={'Get Premium'}

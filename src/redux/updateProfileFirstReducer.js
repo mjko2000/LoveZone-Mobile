@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 const updateProfileSplice = createSlice({
   name: "updateProfile",
   initialState: {
-    name: "Duc Anh",
+    name: "",
     birth: new Date(),
     height: 150,
     weight : 60,
