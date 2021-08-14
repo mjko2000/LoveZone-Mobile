@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import config from '../config/config';
 import {signInFromTokenAPI} from '../api/authAPI'
 import helpers from '../helpers';
+import NavigationService from '../helpers/NavigationService';
 const WelcomeContainer = props => {
   const {navigation} = props;
   
@@ -19,11 +20,11 @@ const WelcomeContainer = props => {
         return signInFromTokenAPI(token).then(({data, error, message}) => {
           if(error) return alert(message)
           helpers.saveUserToken({accessToken: data.accessToken, isRemember: true})
-          if(data.userInfo.profileUpdated) navigation.replace('Main');
-            else navigation.replace('UpdateProfile');
+          if(data.userInfo.profileUpdated) NavigationService.replace('Main');
+            else NavigationService.replace('UpdateProfile');
         })
       }
-      navigation.replace('Login');
+      NavigationService.replace('Login');
     })
   }, [])
 

@@ -19,7 +19,7 @@ const ModalRoute = () => {
   return (
     <Stack.Navigator mode="modal">
       <Stack.Screen name="Modal1" component={Modal1} />
-      <Stack.Screen name="DetailScreen" component={DetailScreen} />
+      <Stack.Screen name="DetailScreen" component={DetailScreen}/>
       <Stack.Screen name="ChatScreen" component={ChatScreen} />
     </Stack.Navigator>
   );
