@@ -57,7 +57,7 @@ const MatchingContainer = props => {
         <Text style={styles.title}> 80 Likes</Text>
         <Text style={styles.subTitle}> Go membership to see all list</Text>
       </View>
-      <ScrollView>
+      <ScrollView showsHorizontalScrollIndicator={false}>
         <View style={styles.imageContainer}>
           <MiniCard
             children={userInfo[0]}

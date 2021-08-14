@@ -12,7 +12,7 @@ import helpers from '../helpers';
 import { getProfileFromToken } from '../api/profileAPI';
 
 const ProfileContainer = props => {
-  const { navigation } = props;
+  const {navigation} = props;
   const dispatch = useDispatch();
   const userProfile = useSelector(state => state.userProfile);
 
@@ -56,7 +56,7 @@ const ProfileContainer = props => {
         <TouchableNativeFeedback style={styles.choice}>
           <View style={styles.wrap}>
             <Icon
-              style={[styles.rate, { backgroundColor: '#dd051b' }]}
+              style={[styles.rate, {backgroundColor: '#dd051b'}]}
               size={30}
               color={colors.white}
               name="list"
@@ -67,7 +67,7 @@ const ProfileContainer = props => {
         <TouchableNativeFeedback style={styles.choice}>
           <View style={styles.wrap}>
             <Icon
-              style={[styles.rate, { backgroundColor: '#f4a524' }]}
+              style={[styles.rate, {backgroundColor: '#f4a524'}]}
               size={30}
               color={colors.white}
               name="shield"
@@ -78,7 +78,7 @@ const ProfileContainer = props => {
         <TouchableNativeFeedback style={styles.choice}>
           <View style={styles.wrap}>
             <AntIcon
-              style={[styles.rate, { backgroundColor: '#498edf' }]}
+              style={[styles.rate, {backgroundColor: '#498edf'}]}
               size={30}
               color={colors.white}
               name="instagram"
@@ -89,7 +89,7 @@ const ProfileContainer = props => {
         <TouchableNativeFeedback style={styles.choice}>
           <View style={styles.wrap}>
             <Icon
-              style={[styles.rate, { backgroundColor: '#49d964' }]}
+              style={[styles.rate, {backgroundColor: '#49d964'}]}
               size={30}
               color={colors.white}
               name="typing"
@@ -97,10 +97,7 @@ const ProfileContainer = props => {
             <Text style={styles.text}>Rate us</Text>
           </View>
         </TouchableNativeFeedback>
-        <TouchableNativeFeedback
-          style={styles.choice}
-          onPress = {onLogout}
-        >
+        <TouchableNativeFeedback style={styles.choice} onPress={onLogout}>
           <View style={styles.wrap}>
             <AntIcon
               style={styles.rate}
@@ -156,7 +153,7 @@ const styles = ScaledSheet.create({
     paddingHorizontal: '10@s',
     marginVertical: '20@s',
     alignSelf: 'center',
-    backgroundColor: colors.secondary
+    backgroundColor: colors.secondary,
   },
   bottom: {
     flexDirection: 'column',
