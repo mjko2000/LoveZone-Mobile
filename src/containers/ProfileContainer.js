@@ -1,26 +1,26 @@
 /* eslint-disable no-unused-vars */
-import React, { useCallback } from 'react';
-import { View, Text, Image, TouchableNativeFeedback } from 'react-native';
-import { ScaledSheet } from 'react-native-size-matters';
+import React, {useCallback} from 'react';
+import {View, Text, Image, TouchableNativeFeedback} from 'react-native';
+import {ScaledSheet} from 'react-native-size-matters';
 import ButtonFill from '../components/custom/ButtonFill';
 import colors from '../config/colors';
-import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../redux/userReducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {setUser} from '../redux/userReducer';
 import Icon from 'react-native-vector-icons/Entypo';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import config from '../config/config';
 
 const ProfileContainer = props => {
-  const { navigation } = props;
+  const {navigation} = props;
   const dispatch = useDispatch();
-  const { username } = useSelector(state => state.user);
+  const {username} = useSelector(state => state.user);
 
   const onLogout = useCallback(() => {
-    AsyncStorage.removeItem("accessToken")
-    navigation.replace("Auth", {screen: "Login"})
-    config.accessToken = ""
-  },[])
+    AsyncStorage.removeItem('accessToken');
+    navigation.replace('Auth', {screen: 'Login'});
+    config.accessToken = '';
+  }, []);
 
   const user = {
     id: 1,
@@ -36,7 +36,7 @@ const ProfileContainer = props => {
 
   return (
     <View style={styles.container}>
-      <Image source={{ uri: user.image }} style={styles.image} />
+      <Image source={{uri: user.image}} style={styles.image} />
       <Text style={styles.username}>{user.name}</Text>
       <Text style={styles.age}>{user.age} age - Location</Text>
       <ButtonFill
@@ -48,7 +48,7 @@ const ProfileContainer = props => {
         <TouchableNativeFeedback style={styles.choice}>
           <View style={styles.wrap}>
             <Icon
-              style={[styles.rate, { backgroundColor: '#dd051b' }]}
+              style={[styles.rate, {backgroundColor: '#dd051b'}]}
               size={30}
               color={colors.white}
               name="list"
@@ -59,7 +59,7 @@ const ProfileContainer = props => {
         <TouchableNativeFeedback style={styles.choice}>
           <View style={styles.wrap}>
             <Icon
-              style={[styles.rate, { backgroundColor: '#f4a524' }]}
+              style={[styles.rate, {backgroundColor: '#f4a524'}]}
               size={30}
               color={colors.white}
               name="shield"
@@ -70,7 +70,7 @@ const ProfileContainer = props => {
         <TouchableNativeFeedback style={styles.choice}>
           <View style={styles.wrap}>
             <AntIcon
-              style={[styles.rate, { backgroundColor: '#498edf' }]}
+              style={[styles.rate, {backgroundColor: '#498edf'}]}
               size={30}
               color={colors.white}
               name="instagram"
@@ -81,7 +81,7 @@ const ProfileContainer = props => {
         <TouchableNativeFeedback style={styles.choice}>
           <View style={styles.wrap}>
             <Icon
-              style={[styles.rate, { backgroundColor: '#49d964' }]}
+              style={[styles.rate, {backgroundColor: '#49d964'}]}
               size={30}
               color={colors.white}
               name="typing"
@@ -89,10 +89,7 @@ const ProfileContainer = props => {
             <Text style={styles.text}>Rate us</Text>
           </View>
         </TouchableNativeFeedback>
-        <TouchableNativeFeedback
-          style={styles.choice}
-          onPress = {onLogout}
-        >
+        <TouchableNativeFeedback style={styles.choice} onPress={onLogout}>
           <View style={styles.wrap}>
             <AntIcon
               style={styles.rate}
@@ -148,7 +145,7 @@ const styles = ScaledSheet.create({
     paddingHorizontal: '10@s',
     marginVertical: '20@s',
     alignSelf: 'center',
-    backgroundColor: colors.secondary
+    backgroundColor: colors.secondary,
   },
   bottom: {
     flexDirection: 'column',

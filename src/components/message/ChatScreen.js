@@ -1,4 +1,4 @@
-import React, {useState, memo} from 'react';
+import React, {useState, memo, useEffect, useRef, createRef} from 'react';
 import {View, Text, Image, TouchableNativeFeedback} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {ScaledSheet} from 'react-native-size-matters';
@@ -12,10 +12,15 @@ import TypingMessage from './TypingMessage';
 
 const ChatScreen = ({route, navigation}) => {
   //   const {userName, userAvatar, ItemID} = route.params;
+  const messageRef = useRef();
   const userName = 'tai';
   const userAvatar =
     'https://i.vietgiaitri.com/2018/3/6/anh-the-xinh-lung-linh-cua-co-gai-thai-sieu-nong-bong-142541.jpeg';
   const [inputMessage, setInputMessage] = useState('');
+
+  useEffect(() => {
+    messageRef?.current.scrollToEnd();
+  }, []);
   const DataMessage = [
     {
       id: 1,
@@ -65,14 +70,14 @@ const ChatScreen = ({route, navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.main}>
-        <View style={styles.headerContainer}>
+        {/* <View style={styles.headerContainer}>
           <TouchableNativeFeedback onPress={() => navigation.goBack()}>
             <Icon name="arrow-back-ios" size={scale(20)} color={colors.white} />
           </TouchableNativeFeedback>
           <Text style={styles.userName}>{userName}</Text>
           <Image source={{uri: userAvatar}} style={styles.avatar} />
-        </View>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        </View> */}
+        <ScrollView showsVerticalScrollIndicator={false} ref={messageRef}>
           <LastWatch checkedOn="Yesterday" />
           <Received image={userAvatar} message={DataMessage[0].message} />
           <Sent message={DataMessage[1].message} />
@@ -97,7 +102,7 @@ const ChatScreen = ({route, navigation}) => {
 const styles = ScaledSheet.create({
   container: {
     position: 'absolute',
-    // top: 0,
+    top: 0,
     left: 0,
     right: 0,
     height: '100%',
@@ -109,7 +114,7 @@ const styles = ScaledSheet.create({
     paddingHorizontal: '10@s',
     borderBottomLeftRadius: '35@s',
     borderBottomRightRadius: '35@s',
-    paddingTop: '40@s',
+    // paddingTop: '40@s',
   },
   headerContainer: {
     flexDirection: 'row',
