@@ -3,10 +3,12 @@ import { View, Text, StyleSheet } from 'react-native'
 import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated'
 import { scale, verticalScale } from 'react-native-size-matters'
 import colors from '../../config/colors'
+
+
 export const LikeSquare = memo(({ x }) => {
   const animStyle = useAnimatedStyle(() => ({
-    opacity: interpolate(x.value, [-200, -30], [1, 0]),
-    transform: [{rotateZ: '0.5rad'}, {translateX: 50}]
+    opacity: interpolate(x.value, [30, 200], [0, 1]),
+    transform: [{rotateZ: '-0.5rad'}, {translateX: -50}]
   }))
   return (
     <Animated.View style={[styles.container, animStyle]}>
@@ -17,8 +19,8 @@ export const LikeSquare = memo(({ x }) => {
 
 export const NopeSquare = memo(({ x }) => {
   const animStyle = useAnimatedStyle(() => ({
-    opacity: interpolate(x.value, [30, 200], [0, 1]),
-    transform: [{rotateZ: '-0.5rad'}, {translateX: -50}]
+    opacity: interpolate(x.value, [-200, -30], [1, 0]),
+    transform: [{rotateZ: '0.5rad'}, {translateX: 50}]
   }))
   return (
     <Animated.View style={[styles.container, {borderColor: colors.nope}, animStyle]}>

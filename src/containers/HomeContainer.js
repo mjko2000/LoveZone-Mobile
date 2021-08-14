@@ -8,12 +8,14 @@ import CardComponent from '../components/Swipe/CardComponent';
 import { getProfileFromToken, setLocationAPI } from '../api/profileAPI';
 import helpers from '../helpers';
 import { setProfile } from '../redux/userProfileReducer';
+import { useDispatch } from 'react-redux';
 const HomeContainer = props => {
   const { navigation } = props;
+  const dispatch = useDispatch();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [firsData, setFirstData] = useState(1);
-  const [secondData, setSecondData] = useState(2);
-  const [thirdData, setThirdData] = useState(3);
+  const [firsData, setFirstData] = useState(null);
+  const [secondData, setSecondData] = useState(null);
+  const [thirdData, setThirdData] = useState(null);
   useEffect(() => {
     helpers.getCurrentLocation().then(({latitude, longitude}) => {
       setLocationAPI({latitude, longitude}).then(() => {
@@ -27,15 +29,15 @@ const HomeContainer = props => {
   const loadData = index => {
     switch (index) {
       case 0:
-        setFirstData(thirdData + 1);
+        setFirstData(null);
         setActiveIndex(1);
         break;
       case 1:
-        setSecondData(firsData + 1);
+        setSecondData(null);
         setActiveIndex(2);
         break;
       case 2:
-        setThirdData(secondData + 1);
+        setThirdData(null);
         setActiveIndex(0);
         break;
     }
