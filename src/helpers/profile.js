@@ -1,10 +1,14 @@
 import config from "../config/config"
 
 export const getFirstImage = (profile) => {
-  if(profile.images && profile.images.length){
-    return config.API_URL + profile.images[0].url 
+  try{
+    if(profile.images && profile.images.length){
+      return config.API_URL + profile.images[0].url 
+    }
+  }catch(err){
+    return null
   }
-  return null
+  
 }
 
 export const dateToAge = (t) => {

@@ -3,10 +3,10 @@ import { View, Text, TouchableWithoutFeedback } from 'react-native'
 import { scale, ScaledSheet } from 'react-native-size-matters'
 import Icon from 'react-native-vector-icons/Ionicons'
 import colors from '../../config/colors'
-const InfoIconButton = ({ }) => {
+const InfoIconButton = ({onPress}) => {
   return (
     <TouchableWithoutFeedback
-      onPress = {() => {}}
+      onPress = {onPress}
     >
       <View style = {styles.container}>
         <Icon

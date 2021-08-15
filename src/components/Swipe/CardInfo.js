@@ -2,8 +2,10 @@ import React, { useCallback, useState } from 'react'
 import { View, Text, Image, TouchableWithoutFeedback, Dimensions, ImageStore } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 import colors from '../../config/colors'
+import helpers from '../../helpers'
 import ImageDot from './ImageDot'
 import InfoIconButton from './InfoIconButton';
+import NavigationService from '../../helpers/NavigationService' 
 const { width: screenWidth } = Dimensions.get('window')
 const userProfile = {
   displayName: "Taylor Heluis",
@@ -16,7 +18,7 @@ const userProfile = {
     "https://images.unsplash.com/photo-1614090965443-3df21c6906ec?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
   ]
 }
-const CardInfo = () => {
+const CardInfo = ({data}) => {
   const [imageIndex, setImageIndex] = useState(0)
   const onPress = useCallback((e) => {
     const posX = e.nativeEvent.locationX
@@ -25,20 +27,20 @@ const CardInfo = () => {
       setImageIndex(index => index - 1)
     }
     if (posX > screenWidth / 2) {
-      if (imageIndex >= userProfile.images.length - 1) return
+      if (imageIndex >= data?.images.length - 1) return
       setImageIndex(index => index + 1)
-      Image.prefetch(userProfile.images[imageIndex + 1])
+      Image.prefetch(data?.images[imageIndex + 1])
     }
   }, [imageIndex])
   return (
     <View style={styles.container}>
-      <ImageDot length={userProfile.images.length} activeIndex={imageIndex} />
+      <ImageDot length={data?.images.length} activeIndex={imageIndex} />
       <TouchableWithoutFeedback
         onPress={onPress}
       >
         <Image
           style={styles.image}
-          source={{ uri: userProfile.images[imageIndex] }}
+          source={{ uri: helpers.getFirstImage(data) }}
           // onLoadStart={() => console.log("Loading")}
           // onLoadEnd={() => console.log("Load done")}
         />
@@ -46,13 +48,15 @@ const CardInfo = () => {
       <View style={styles.bio}>
         <View style = {{flex: 2, justifyContent: 'center'}}>
           <View style={{ flexDirection: 'row' }}>
-            <Text style={styles.name}>{userProfile.displayName}   </Text>
-            <Text style={styles.name}>{userProfile.old}</Text>
+            <Text style={styles.name}>{data?.name}   </Text>
+            <Text style={styles.name}>{helpers.dateToAge(data?.birth)}</Text>
           </View>
-          <Text style={styles.locationText}>{userProfile.address}</Text>
+          <Text style={styles.locationText}>{data?.location?.address}</Text>
         </View>
         <View style = {{flex: 1}}>
-          <InfoIconButton />
+          <InfoIconButton 
+            onPress = {() => NavigationService.showProfileModal(data)}
+          />
         </View>
       </View>
     </View>

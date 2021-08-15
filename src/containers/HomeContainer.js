@@ -18,7 +18,8 @@ const HomeContainer = props => {
   const [thirdData, setThirdData] = useState(null);
   useEffect(() => {
     helpers.getCurrentLocation().then(({latitude, longitude}) => {
-      setLocationAPI({latitude, longitude}).then(() => {
+      setLocationAPI({latitude, longitude}).then(({data, error, message}) => {
+        if(error) return alert(message)
         getProfileFromToken().then(({data, error, message}) => {
           if(error) return alert(message)
           dispatch(setProfile(data))
@@ -26,7 +27,8 @@ const HomeContainer = props => {
       })
     })
   },[])
-  const loadData = index => {
+  
+  const loadData = async index => {
     switch (index) {
       case 0:
         setFirstData(null);
@@ -57,6 +59,7 @@ const HomeContainer = props => {
           onRight={onRight}
           index={0}
           activeIndex={activeIndex}
+          setData = {setFirstData}
         />
         <CardComponent
           data={secondData}
@@ -64,6 +67,7 @@ const HomeContainer = props => {
           onRight={onRight}
           index={1}
           activeIndex={activeIndex}
+          setData = {setSecondData}
         />
         <CardComponent
           data={thirdData}
@@ -71,6 +75,7 @@ const HomeContainer = props => {
           onRight={onRight}
           index={2}
           activeIndex={activeIndex}
+          setData = {setThirdData}
         />
       </View>
     </View>

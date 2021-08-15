@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/self-closing-comp */
-import React, {memo} from 'react';
+import React, { memo } from 'react';
 import {
   View,
   Text,
@@ -9,12 +9,15 @@ import {
   SafeAreaView,
   TouchableNativeFeedback,
 } from 'react-native';
-import {ScaledSheet} from 'react-native-size-matters';
-import {scale, verticalScale} from 'react-native-size-matters';
+import { ScaledSheet } from 'react-native-size-matters';
+import { scale, verticalScale } from 'react-native-size-matters';
 import colors from '../../config/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import NavigationService from '../../helpers/NavigationService';
+import helpers from '../../helpers';
 
-const DetailScreen = ({navigation, route}) => {
+const DetailScreen = ({ navigation, route }) => {
+  const profile = route.params;
   const user = {
     id: 1,
     name: 'Ahihi haha',
@@ -36,31 +39,31 @@ const DetailScreen = ({navigation, route}) => {
     <View style={styles.container}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{width: '100%', paddingTop: scale(10)}}>
-        <View style={{alignSelf: 'center'}}>
-          <View style={styles.profileImage}>
-            <Image
-              style={styles.mainImage}
-              source={{uri: user.image}}
-              resizeMode="center"
-            />
-          </View>
+        style={{ width: '100%', paddingTop: scale(10) }}>
+        <View style={{ alignSelf: 'center' }}>
+          <Image
+            style={styles.mainImage}
+            width={scale(200)}
+            height={scale(200)}
+            source={{ uri: helpers.getFirstImage(profile) }}
+            resizeMode="cover"
+          />
           <View style={styles.directMessage}>
             <TouchableNativeFeedback
               onPress={() =>
-                navigation.navigate('Modal', {screen: 'ChatScreen'})
+                NavigationService.showMessage()
               }>
               <Icon
                 name="message"
                 size={scale(36)}
                 color={colors.originWhite}
-                style={{marginTop: scale(6), marginLeft: scale(2)}}
+                style={{ marginTop: scale(6), marginLeft: scale(2) }}
               />
             </TouchableNativeFeedback>
           </View>
         </View>
         <View style={styles.infoContainer}>
-          <Text style={styles.textMain}>Duc Anh</Text>
+          <Text style={styles.textMain}>{profile.name}</Text>
           <Text
             style={
               (styles.textMain,
@@ -75,7 +78,7 @@ const DetailScreen = ({navigation, route}) => {
         </View>
         <View style={styles.statusContainer}>
           <View style={styles.statusBox}>
-            <Text style={[styles.textMain, {fontSize: scale(20)}]}>18 </Text>
+            <Text style={[styles.textMain, { fontSize: scale(20) }]}>18 </Text>
             <Text style={styles.textSub}>SUPER LIKES</Text>
           </View>
           <View
@@ -88,47 +91,47 @@ const DetailScreen = ({navigation, route}) => {
                 marginHorizontal: 10,
               },
             ]}>
-            <Text style={[styles.textMain, {fontSize: scale(20)}]}>189 </Text>
+            <Text style={[styles.textMain, { fontSize: scale(20) }]}>189 </Text>
             <Text style={styles.textSub}>LIKES</Text>
           </View>
           <View style={styles.statusBox}>
-            <Text style={[styles.textMain, {fontSize: scale(20)}]}>17 </Text>
+            <Text style={[styles.textMain, { fontSize: scale(20) }]}>{profile?.images.length}</Text>
             <Text style={styles.textSub}>IMGAES</Text>
           </View>
         </View>
-        <View style={{marginTop: scale(32)}}>
+        <View style={{ marginTop: scale(32) }}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <View style={styles.imageContainer}>
               <Image
-                source={{uri: user.image}}
+                source={{ uri: user.image }}
                 style={styles.image}
                 resizeMode="cover"
               />
             </View>
             <View style={styles.imageContainer}>
               <Image
-                source={{uri: user.image}}
+                source={{ uri: user.image }}
                 style={styles.image}
                 resizeMode="cover"
               />
             </View>
             <View style={styles.imageContainer}>
               <Image
-                source={{uri: user.image}}
+                source={{ uri: user.image }}
                 style={styles.image}
                 resizeMode="cover"
               />
             </View>
             <View style={styles.imageContainer}>
               <Image
-                source={{uri: user.image}}
+                source={{ uri: user.image }}
                 style={styles.image}
                 resizeMode="cover"
               />
             </View>
             <View style={styles.imageContainer}>
               <Image
-                source={{uri: user.image}}
+                source={{ uri: user.image }}
                 style={styles.image}
                 resizeMode="cover"
               />
@@ -139,7 +142,7 @@ const DetailScreen = ({navigation, route}) => {
             <Text style={{color: colors.textGray}}>Images</Text>
           </View> */}
         </View>
-        <View style={{paddingHorizontal: scale(10), marginTop: scale(20)}}>
+        <View style={{ paddingHorizontal: scale(10), marginTop: scale(20) }}>
           <Text
             style={{
               fontSize: 24,
@@ -161,7 +164,7 @@ const DetailScreen = ({navigation, route}) => {
             ever since the 1500s
           </Text>
         </View>
-        <View style={{paddingHorizontal: scale(10), marginTop: scale(20)}}>
+        <View style={{ paddingHorizontal: scale(10), marginTop: scale(20) }}>
           <Text
             style={{
               fontSize: 24,
@@ -193,7 +196,7 @@ const DetailScreen = ({navigation, route}) => {
                   paddingHorizontal: scale(5),
                 },
               ]}>
-              170cm
+              {Math.round(profile?.height)}cm
             </Text>
           </View>
           <View
@@ -219,7 +222,7 @@ const DetailScreen = ({navigation, route}) => {
                   paddingHorizontal: scale(5),
                 },
               ]}>
-              60kg
+              {Math.round(profile?.weight)}kg
             </Text>
           </View>
           <View
@@ -228,28 +231,29 @@ const DetailScreen = ({navigation, route}) => {
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            <Text
-              style={[
-                styles.textMain,
-                {
-                  fontSize: scale(16),
-                },
-              ]}>
-              Studying at:
-            </Text>
-            <Text
-              style={[
-                styles.textSub,
-                {
-                  fontSize: scale(16),
-                  paddingHorizontal: scale(5),
-                },
-              ]}>
-              Nguyen Tat Thanh University
-            </Text>
+            {profile.workAt ?
+              <Text
+                style={[
+                  styles.textMain,
+                  {
+                    fontSize: scale(16),
+                  },
+                ]}>
+                Work at:
+                <Text
+                  style={[
+                    styles.textSub,
+                    {
+                      fontSize: scale(16),
+                      paddingHorizontal: scale(5),
+                    },
+                  ]}>
+                  {profile.workAt}
+                </Text>
+              </Text> : null}
           </View>
         </View>
-        <View style={{paddingHorizontal: scale(10), marginTop: scale(20)}}>
+        <View style={{ paddingHorizontal: scale(10), marginTop: scale(20) }}>
           <Text
             style={{
               fontSize: 24,
@@ -261,7 +265,7 @@ const DetailScreen = ({navigation, route}) => {
           <View style={styles.scrollView}>
             {arrs.map(item => (
               <View style={[styles.chip, styles.chipActive]}>
-                <Text style={[styles.content, {color: colors.white}]}>
+                <Text style={[styles.content, { color: colors.white }]}>
                   {item}
                 </Text>
               </View>
@@ -270,10 +274,10 @@ const DetailScreen = ({navigation, route}) => {
         </View>
 
         <Text style={[styles.textSub, styles.recent]}>Recent Activity</Text>
-        <View style={{alignItems: 'center'}}>
+        <View style={{ alignItems: 'center' }}>
           <View stlye={styles.recentItem}>
             <View style={styles.recentIndicator}></View>
-            <View style={{width: scale(250)}}>
+            <View style={{ width: scale(250) }}>
               <Text style={styles.textNormal}>
                 Working at Nguyen Tat Thanh University
               </Text>
@@ -281,7 +285,7 @@ const DetailScreen = ({navigation, route}) => {
           </View>
           <View stlye={styles.recentItem}>
             <View style={styles.recentIndicator} />
-            <View style={{width: scale(250)}}>
+            <View style={{ width: scale(250) }}>
               <Text style={styles.textNormal}>
                 Working at Nguyen Tat Thanh University
               </Text>
@@ -289,7 +293,7 @@ const DetailScreen = ({navigation, route}) => {
           </View>
           <View stlye={styles.recentItem}>
             <View style={styles.recentIndicator} />
-            <View style={{width: scale(250)}}>
+            <View style={{ width: scale(250) }}>
               <Text style={styles.textNormal}>
                 Working at Nguyen Tat Thanh University
               </Text>
@@ -297,14 +301,14 @@ const DetailScreen = ({navigation, route}) => {
           </View>
           <View stlye={styles.recentItem}>
             <View style={styles.recentIndicator} />
-            <View style={{width: scale(250)}}>
+            <View style={{ width: scale(250) }}>
               <Text style={styles.textNormal}>Working at</Text>
               <Text style={styles.textNormal}>Nguyen Tat Thanh University</Text>
             </View>
           </View>
           <View stlye={styles.recentItem}>
             <View style={styles.recentIndicator} />
-            <View style={{width: scale(250)}}>
+            <View style={{ width: scale(250) }}>
               <Text style={styles.textNormal}>
                 Working at Nguyen Tat Thanh University
               </Text>
@@ -312,7 +316,7 @@ const DetailScreen = ({navigation, route}) => {
           </View>
           <View stlye={styles.recentItem}>
             <View style={styles.recentIndicator} />
-            <View style={{width: scale(250)}}>
+            <View style={{ width: scale(250) }}>
               <Text style={styles.textNormal}>
                 Working at Nguyen Tat Thanh University
               </Text>
@@ -331,16 +335,8 @@ const styles = ScaledSheet.create({
     justifyContent: 'center',
     backgroundColor: colors.background,
   },
-  profileImage: {
-    width: '200@s',
-    height: '200@s',
-    borderRadius: '100@s',
-    overflow: 'hidden',
-    backgroundColor: 'red',
-  },
   mainImage: {
-    width: '200@s',
-    height: '200@s',
+    borderRadius: '100@s',
   },
   directMessage: {
     backgroundColor: colors.primary,
@@ -405,7 +401,7 @@ const styles = ScaledSheet.create({
     justifyContent: 'center',
     borderRadius: '10@s',
     shadowColor: 'rgba(0,0,0,0.38)',
-    shadowOffset: {width: 0, height: '10@s'},
+    shadowOffset: { width: 0, height: '10@s' },
     shadowRadius: '20@s',
     opacity: '1@s',
   },

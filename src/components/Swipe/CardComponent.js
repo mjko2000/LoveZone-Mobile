@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {memo, useEffect} from 'react';
-import {View, Text, Button, StyleSheet, Easing} from 'react-native';
-import {scale} from 'react-native-size-matters';
+import React, { memo, useEffect, useState } from 'react';
+import { View, Text, Button, StyleSheet, Easing, ActivityIndicator } from 'react-native';
+import { scale } from 'react-native-size-matters';
 import Animated, {
   runOnJS,
   useDerivedValue,
@@ -13,11 +13,34 @@ import Animated, {
   interpolate,
   interpolateColor,
 } from 'react-native-reanimated';
-import {PanGestureHandler} from 'react-native-gesture-handler';
+import { PanGestureHandler } from 'react-native-gesture-handler';
 import colors from '../../config/colors';
-import {LikeSquare, NopeSquare} from './LikeSquare';
+import { LikeSquare, NopeSquare } from './LikeSquare';
 import CardInfo from './CardInfo';
-const CardComponent = ({data, onLeft, onRight, index, activeIndex}) => {
+import { findMatchAPI } from '../../api/matchingAPI';
+const CardComponent = ({ data, setData, onLeft, onRight, index, activeIndex }) => {
+  const [loading, setLoading] = useState(false)
+  useEffect(() => {
+    if (activeIndex === index) {
+      animScale.value = withSpring(1);
+    } else {
+      animScale.value = withSpring(0.9);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeIndex]);
+  useEffect(() => {
+    if (data == null && !loading) {
+      setLoading(true)
+      //getData
+      findMatchAPI().then(({ data, error, message }) => {
+        if (error) return alert(message)
+        setData(data[0])
+      })
+      setLoading(false)
+      return
+    }
+  }, [data])
+
   const startingPosition = 0;
   const x = useSharedValue(0);
   const y = useSharedValue(0);
@@ -36,10 +59,10 @@ const CardComponent = ({data, onLeft, onRight, index, activeIndex}) => {
       [colors.nope, 'transparent', colors.like],
     ),
     transform: [
-      {translateX: x.value},
-      {translateY: y.value},
-      {rotateZ: `${rotateZ.value}deg`},
-      {scale: animScale.value},
+      { translateX: x.value },
+      { translateY: y.value },
+      { rotateZ: `${rotateZ.value}deg` },
+      { scale: animScale.value },
     ],
   }));
   const eventHandler = useAnimatedGestureHandler({
@@ -60,14 +83,14 @@ const CardComponent = ({data, onLeft, onRight, index, activeIndex}) => {
         direction.value = 'right';
       }
       if (direction.value !== 'none') {
-        x.value = withTiming(event.velocityX, {duration: 500}, () => {
+        x.value = withTiming(event.velocityX, { duration: 500 }, () => {
           zIndexAnim.value -= 2;
           opacity.value = 0;
-          x.value = withTiming(0, {duration: 10}, () => {
+          x.value = withTiming(0, { duration: 10 }, () => {
             opacity.value = withTiming(1);
             rotateZ.value = 0;
           });
-          y.value = withTiming(0, {duration: 10}, () => {});
+          y.value = withTiming(0, { duration: 10 }, () => { });
         });
         return;
       }
@@ -85,18 +108,13 @@ const CardComponent = ({data, onLeft, onRight, index, activeIndex}) => {
   useDerivedValue(() => {
     runOnJS(recordResult)(direction.value);
   });
-  useEffect(() => {
-    if (activeIndex === index) {
-      animScale.value = withSpring(1);
-    } else {
-      animScale.value = withSpring(0.9);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeIndex]);
   return (
     <PanGestureHandler onGestureEvent={eventHandler}>
       <Animated.View style={[styles.container, animStyle]}>
-        <CardInfo />
+        {data ? <CardInfo data={data} /> :
+          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <ActivityIndicator size='large' color={colors.primary} />
+          </View>}
         <LikeSquare x={x} />
         <NopeSquare x={x} />
       </Animated.View>

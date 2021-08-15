@@ -9,6 +9,7 @@ import {
 import ChatScreen from '../components/message/ChatScreen';
 import DetailScreen from '../components/modals/DetailScreen';
 import Header from '../components/modals/Header';
+import colors from '../config/colors';
 
 const Stack = createStackNavigator();
 
@@ -19,12 +20,23 @@ const Modal1 = () => {
 const ModalRoute = () => {
   return (
     <Stack.Navigator mode="modal" screenOptions = {{
-      headerTitleAlign: 'center'
+      cardStyle: {
+        backgroundColor: colors.background
+      },
+      headerTitleAlign: 'center',
+      headerStyle: {
+        backgroundColor: 'transparent',
+        shadowColor: 'transparent',
+      },
+      headerTintColor: colors.white,
     }}>
       <Stack.Screen name="Modal1" component={Modal1} />
       <Stack.Screen
         name="DetailScreen"
         component={DetailScreen}
+        options = {{
+          headerShown: false
+        }}
       />
       <Stack.Screen
         name="ChatScreen"
