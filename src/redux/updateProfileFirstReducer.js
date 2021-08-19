@@ -5,8 +5,8 @@ const updateProfileSplice = createSlice({
   initialState: {
     name: "",
     birth: new Date(),
-    height: 150,
-    weight : 60,
+    height: 100,
+    weight : 30,
     gender: "",
     workAt: "",
     phone: "",

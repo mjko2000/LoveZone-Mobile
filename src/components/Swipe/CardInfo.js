@@ -51,7 +51,7 @@ const CardInfo = ({data}) => {
             <Text style={styles.name}>{data?.name}   </Text>
             <Text style={styles.name}>{helpers.dateToAge(data?.birth)}</Text>
           </View>
-          <Text style={styles.locationText}>{data?.location?.address}</Text>
+          <Text style={styles.locationText}>{`${Math.round(data?.distance) == 0 ? "Nearby" : (Math.round(data?.distance) + " km")} - ${data?.location?.address}`}</Text>
         </View>
         <View style = {{flex: 1}}>
           <InfoIconButton 

@@ -12,7 +12,8 @@ import UploadImage from './child/UploadImage';
 import { useDispatch, useSelector } from 'react-redux';
 import { setImages as setI } from '../../redux/updateProfileFirstReducer';
 
-import { uploadImageAPI, updateFirstProfile } from '../../api/profileAPI'
+import { uploadImageAPI, updateFirstProfile, setLocationAPI } from '../../api/profileAPI'
+import helpers from '../../helpers'
 
 const Step5 = ({ navigation }) => {
   const [image, setImage] = useState()
@@ -39,12 +40,17 @@ const Step5 = ({ navigation }) => {
   }, [])
   const onSubmit = useCallback(() => {
     setLoading(true)
-    updateFirstProfile(profileData).then(({error, message, data}) => {
+    updateFirstProfile(profileData).then(({ error, message, data }) => {
       setLoading(false)
       if (error) return alert(message)
-      navigation.replace("Main")
+      helpers.getCurrentLocation().then(({ latitude, longitude }) => {
+        setLocationAPI({ latitude, longitude }).then(({ data, error, message }) => {
+          if (error) return alert(message)
+          navigation.replace("Main")
+        })
+      })
     })
-  },[profileData])
+  }, [profileData])
   return (
     <View style={styles.container}>
       <View style={styles.center}>

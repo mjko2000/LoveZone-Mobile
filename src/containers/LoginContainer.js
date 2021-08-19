@@ -21,14 +21,17 @@ import helpers from '../helpers';
 import NavigationService from '../helpers/NavigationService';
 const LoginContainer = props => {
   const { navigation } = props;
+  const [loading, setLoading] = useState(false)
   const [isRemember, setRemember] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const onSubmit = () => {
+    setLoading(true)
     signInAPI({
       email: email,
       password: password,
     }).then(({ data, error, message }) => {
+      setLoading(false)
       if (error) {
         return alert(message);
       }
@@ -61,6 +64,8 @@ const LoginContainer = props => {
             style={styles.buttonFill}
             text={'Login'}
             onPress={onSubmit}
+            disabled = {loading}
+            loading = {loading}
           />
           <View style={styles.row}>
             <View style={styles.checkboxContainer}>

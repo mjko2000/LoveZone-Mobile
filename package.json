@@ -11,7 +11,9 @@
     "test": "jest",
     "lint": "eslint .",
     "android-linux:dev": "gnome-terminal -e \"react-native start\" && yarn android:dev",
-    "android-linux:production": "gnome-terminal -e \"react-native start\" && yarn android:production"
+    "android-linux:production": "gnome-terminal -e \"react-native start\" && yarn android:production",
+    "build-android:dev": "export ENVFILE=.env.dev && cd android && ./gradlew assembleDevelopment",
+    "build-android:production": "cd android && ./gradlew assembleProduction"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.15.5",

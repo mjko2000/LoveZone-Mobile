@@ -19,7 +19,6 @@ import { LikeSquare, NopeSquare } from './LikeSquare';
 import CardInfo from './CardInfo';
 import { findMatchAPI } from '../../api/matchingAPI';
 const CardComponent = ({ data, setData, onLeft, onRight, index, activeIndex }) => {
-  const [loading, setLoading] = useState(false)
   useEffect(() => {
     if (activeIndex === index) {
       animScale.value = withSpring(1);
@@ -28,18 +27,15 @@ const CardComponent = ({ data, setData, onLeft, onRight, index, activeIndex }) =
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeIndex]);
-  useEffect(() => {
-    if (data == null && !loading) {
-      setLoading(true)
-      //getData
-      findMatchAPI().then(({ data, error, message }) => {
-        if (error) return alert(message)
-        setData(data[0])
-      })
-      setLoading(false)
-      return
-    }
-  }, [data])
+
+  // useEffect(() => {
+  //   if (data == null) {
+  //     findMatchAPI().then(({ data, error, message }) => {
+  //       if (error) return alert(message)
+  //       setData(data[0])
+  //     })
+  //   }
+  // }, [data])
 
   const startingPosition = 0;
   const x = useSharedValue(0);
@@ -100,9 +96,9 @@ const CardComponent = ({ data, setData, onLeft, onRight, index, activeIndex }) =
     },
   });
   const recordResult = result => {
+    direction.value = 'none';
     if (result == 'left') onLeft(index);
     if (result == 'right') onRight(index);
-    direction.value = 'none';
   };
 
   useDerivedValue(() => {

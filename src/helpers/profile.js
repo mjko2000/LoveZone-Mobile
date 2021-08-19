@@ -8,7 +8,10 @@ export const getFirstImage = (profile) => {
   }catch(err){
     return null
   }
-  
+}
+
+export const toFullImageLink = (url) => {
+  return config.API_URL + url
 }
 
 export const dateToAge = (t) => {

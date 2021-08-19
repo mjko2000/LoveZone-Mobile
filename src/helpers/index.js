@@ -1,11 +1,13 @@
 import {removeUserToken, saveUserToken} from './tokenStorage'
-import {getFirstImage, dateToAge} from './profile'
-import {getCurrentLocation} from './location'
+import {getFirstImage, dateToAge, toFullImageLink} from './profile'
+import {getCurrentLocation, toDistance} from './location'
 
 export default Helper = {
   removeUserToken,
   saveUserToken,
   getFirstImage,
   dateToAge,
-  getCurrentLocation
+  getCurrentLocation,
+  toFullImageLink,
+  toDistance
 }

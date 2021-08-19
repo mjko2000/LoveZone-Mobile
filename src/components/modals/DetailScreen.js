@@ -8,6 +8,7 @@ import {
   ScrollView,
   SafeAreaView,
   TouchableNativeFeedback,
+  TouchableOpacity,
 } from 'react-native';
 import { ScaledSheet } from 'react-native-size-matters';
 import { scale, verticalScale } from 'react-native-size-matters';
@@ -15,6 +16,7 @@ import colors from '../../config/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NavigationService from '../../helpers/NavigationService';
 import helpers from '../../helpers';
+import { FlatList } from 'react-native-gesture-handler';
 
 const DetailScreen = ({ navigation, route }) => {
   const profile = route.params;
@@ -39,8 +41,14 @@ const DetailScreen = ({ navigation, route }) => {
     <View style={styles.container}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ width: '100%', paddingTop: scale(10) }}>
-        <View style={{ alignSelf: 'center' }}>
+        style={styles.scrollView}>
+        <TouchableOpacity 
+          onPress = {() => NavigationService.goBack()}
+          style = {{width: '100%', paddingTop: scale(50), paddingHorizontal: scale(15)}}
+        >
+          <Icon name = "arrow-back" size = {scale(22)} color = {colors.white} />
+        </TouchableOpacity>
+        <View style={{alignSelf: 'center'}}>
           <Image
             style={styles.mainImage}
             width={scale(200)}
@@ -64,7 +72,7 @@ const DetailScreen = ({ navigation, route }) => {
         </View>
         <View style={styles.infoContainer}>
           <Text style={styles.textMain}>{profile.name}</Text>
-          <Text
+          {/* <Text
             style={
               (styles.textMain,
               {
@@ -74,7 +82,7 @@ const DetailScreen = ({ navigation, route }) => {
               })
             }>
             Full-stack Developer
-          </Text>
+          </Text> */}
         </View>
         <View style={styles.statusContainer}>
           <View style={styles.statusBox}>
@@ -100,43 +108,21 @@ const DetailScreen = ({ navigation, route }) => {
           </View>
         </View>
         <View style={{ marginTop: scale(32) }}>
-          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <View style={styles.imageContainer}>
-              <Image
-                source={{ uri: user.image }}
-                style={styles.image}
-                resizeMode="cover"
-              />
-            </View>
-            <View style={styles.imageContainer}>
-              <Image
-                source={{ uri: user.image }}
-                style={styles.image}
-                resizeMode="cover"
-              />
-            </View>
-            <View style={styles.imageContainer}>
-              <Image
-                source={{ uri: user.image }}
-                style={styles.image}
-                resizeMode="cover"
-              />
-            </View>
-            <View style={styles.imageContainer}>
-              <Image
-                source={{ uri: user.image }}
-                style={styles.image}
-                resizeMode="cover"
-              />
-            </View>
-            <View style={styles.imageContainer}>
-              <Image
-                source={{ uri: user.image }}
-                style={styles.image}
-                resizeMode="cover"
-              />
-            </View>
-          </ScrollView>
+          <FlatList
+            data = {profile.images}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            renderItem={({item}) =>
+              <View style={styles.imageContainer}>
+                <Image
+                  source={{ uri: helpers.toFullImageLink(item.url) }}
+                  style={styles.image}
+                  resizeMode="cover"
+                />
+              </View>
+            }
+
+          />
           {/* <View style={styles.mediaCount}>
             <Text style={{color: colors.textGray}}>15</Text>
             <Text style={{color: colors.textGray}}>Images</Text>
@@ -262,66 +248,6 @@ const DetailScreen = ({ navigation, route }) => {
             }}>
             Interesting
           </Text>
-          <View style={styles.scrollView}>
-            {arrs.map(item => (
-              <View style={[styles.chip, styles.chipActive]}>
-                <Text style={[styles.content, { color: colors.white }]}>
-                  {item}
-                </Text>
-              </View>
-            ))}
-          </View>
-        </View>
-
-        <Text style={[styles.textSub, styles.recent]}>Recent Activity</Text>
-        <View style={{ alignItems: 'center' }}>
-          <View stlye={styles.recentItem}>
-            <View style={styles.recentIndicator}></View>
-            <View style={{ width: scale(250) }}>
-              <Text style={styles.textNormal}>
-                Working at Nguyen Tat Thanh University
-              </Text>
-            </View>
-          </View>
-          <View stlye={styles.recentItem}>
-            <View style={styles.recentIndicator} />
-            <View style={{ width: scale(250) }}>
-              <Text style={styles.textNormal}>
-                Working at Nguyen Tat Thanh University
-              </Text>
-            </View>
-          </View>
-          <View stlye={styles.recentItem}>
-            <View style={styles.recentIndicator} />
-            <View style={{ width: scale(250) }}>
-              <Text style={styles.textNormal}>
-                Working at Nguyen Tat Thanh University
-              </Text>
-            </View>
-          </View>
-          <View stlye={styles.recentItem}>
-            <View style={styles.recentIndicator} />
-            <View style={{ width: scale(250) }}>
-              <Text style={styles.textNormal}>Working at</Text>
-              <Text style={styles.textNormal}>Nguyen Tat Thanh University</Text>
-            </View>
-          </View>
-          <View stlye={styles.recentItem}>
-            <View style={styles.recentIndicator} />
-            <View style={{ width: scale(250) }}>
-              <Text style={styles.textNormal}>
-                Working at Nguyen Tat Thanh University
-              </Text>
-            </View>
-          </View>
-          <View stlye={styles.recentItem}>
-            <View style={styles.recentIndicator} />
-            <View style={{ width: scale(250) }}>
-              <Text style={styles.textNormal}>
-                Working at Nguyen Tat Thanh University
-              </Text>
-            </View>
-          </View>
         </View>
       </ScrollView>
     </View>
@@ -334,6 +260,9 @@ const styles = ScaledSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.background,
+  },
+  scrollView: { 
+    width: '100%',
   },
   mainImage: {
     borderRadius: '100@s',
@@ -444,12 +373,6 @@ const styles = ScaledSheet.create({
   content: {
     textAlign: 'center',
     marginHorizontal: '15@s',
-  },
-
-  scrollView: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignSelf: 'stretch',
   },
 });
 

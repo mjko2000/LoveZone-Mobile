@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import ButtonFill from '../components/custom/ButtonFill';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
@@ -21,7 +21,7 @@ const WelcomeContainer = props => {
           if(error) return alert(message)
           helpers.saveUserToken({accessToken: data.accessToken, isRemember: true})
           if(data.userInfo.profileUpdated) NavigationService.replace('Main');
-            else NavigationService.replace('UpdateProfile');
+            else NavigationService.replace('Login');
         })
       }
       NavigationService.replace('Login');
@@ -30,16 +30,7 @@ const WelcomeContainer = props => {
 
   return (
     <View style={styles.container}>
-      <Text>LoginComponent</Text>
-      <ButtonFill
-        text="Go to Main"
-        onPress={() => navigation.replace('Login')}
-        style={{
-          backgroundColor: colors.primary,
-          width: scale(300),
-          marginVertical: verticalScale(10),
-        }}
-      />
+      <ActivityIndicator size = 'large' color = {colors.primary} />
     </View>
   );
 };
