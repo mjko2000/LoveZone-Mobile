@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {View, Text, TouchableOpacity, Image, Platform} from 'react-native';
 import {color} from 'react-native-reanimated';
 import {scale, ScaledSheet} from 'react-native-size-matters';
 import colors from '../../config/colors';
@@ -16,13 +16,8 @@ const Messages = ({userName, count, uri, onPress}) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       {count > 0 ? (
-        // <linearGradient
-        //   color={['#f26a50', '#f20045', '#f20045']}
-        //   style={styles.gradientStyle}>
-        //   <Text style={styles.count}>{count}</Text>
-        // </linearGradient>
         <View style={styles.gradientStyle}>
-          <Text style={styles.count}>{count}</Text>
+          <Text style={{color: 'white'}}>{count}</Text>
         </View>
       ) : null}
       <Image source={{uri: uri}} style={styles.image} />
@@ -43,22 +38,17 @@ const styles = ScaledSheet.create({
     marginTop: '30@s',
   },
   gradientStyle: {
-    height: '20@s',
-    width: '20@s',
-    borderRadius: '10@s',
+    height: '30@s',
+    width: '30@s',
+    borderRadius: '15@s',
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: '20@s',
-  },
-  count: {
-    color: '#fff',
     backgroundColor: colors.primary,
-    width: '20@s',
-    height: '20@s',
-    borderRadius: '10@s',
-    textAlign: 'center',
-    // marginLeft: '-40@s',
-    // marginBottom: '-40@s',
+    position: 'absolute',
+    left: 70,
+    top: -10,
+    zIndex: 1000,
   },
   image: {
     width: '60@s',
@@ -69,7 +59,6 @@ const styles = ScaledSheet.create({
     color: '#b6b6b6',
     fontSize: '11@s',
   },
-
   duration: {
     color: colors.textGray,
     fontSize: '12@s',

@@ -15,6 +15,8 @@ import TextField from '../components/custom/TextField';
 import {ScrollView} from 'react-native-gesture-handler';
 import NavigationService from '../helpers/NavigationService';
 
+EntypoIcon.loadFont();
+
 const MessageContainer = props => {
   const {navigation} = props;
   const URL = '';
@@ -72,9 +74,6 @@ const MessageContainer = props => {
         'https://images.unsplash.com/photo-1614090965443-3df21c6906ec?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
     },
   ];
-
-  const a = new Date();
-  console.log(a);
 
   return (
     <View style={styles.container}>

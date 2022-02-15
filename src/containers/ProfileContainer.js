@@ -1,15 +1,17 @@
 /* eslint-disable no-unused-vars */
-import React, { useCallback, useEffect } from 'react';
-import { View, Text, Image, TouchableNativeFeedback } from 'react-native';
-import { ScaledSheet } from 'react-native-size-matters';
+import React, {useCallback, useEffect} from 'react';
+import {View, Text, Image, TouchableNativeFeedback} from 'react-native';
+import {ScaledSheet} from 'react-native-size-matters';
 import ButtonFill from '../components/custom/ButtonFill';
 import colors from '../config/colors';
-import { useDispatch, useSelector } from 'react-redux';
-import { setProfile, resetProfile } from '../redux/userProfileReducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {setProfile, resetProfile} from '../redux/userProfileReducer';
 import Icon from 'react-native-vector-icons/Entypo';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import helpers from '../helpers';
-import { getProfileFromToken } from '../api/profileAPI';
+import {getProfileFromToken} from '../api/profileAPI';
+
+Icon.loadFont();
 
 const ProfileContainer = props => {
   const {navigation} = props;
@@ -18,15 +20,15 @@ const ProfileContainer = props => {
 
   useEffect(() => {
     getProfileFromToken().then(({data, error, message}) => {
-      if(error) return alert(message)
-      dispatch(setProfile(data))
-    })
-  },[])
+      if (error) return alert(message);
+      dispatch(setProfile(data));
+    });
+  }, []);
 
   const onLogout = useCallback(() => {
-    helpers.removeUserToken()
-    navigation.replace("Auth", {screen: "Login"})
-  },[])
+    helpers.removeUserToken();
+    navigation.replace('Auth', {screen: 'Login'});
+  }, []);
 
   const user = {
     id: 1,
@@ -41,9 +43,15 @@ const ProfileContainer = props => {
   };
   return (
     <View style={styles.container}>
-      <Image source={{ uri: helpers.getFirstImage(userProfile)}} style={styles.image} />
+      <Image
+        source={{uri: helpers.getFirstImage(userProfile)}}
+        style={styles.image}
+      />
       <Text style={styles.username}>{userProfile.name}</Text>
-      <Text style={styles.age}>{helpers.dateToAge(userProfile.birth)} ages - {userProfile.location?.address}</Text>
+      <Text style={styles.age}>
+        {helpers.dateToAge(userProfile.birth)} ages -{' '}
+        {userProfile.location?.address}
+      </Text>
       <ButtonFill
         style={styles.buttonFill}
         text={'Get Premium'}

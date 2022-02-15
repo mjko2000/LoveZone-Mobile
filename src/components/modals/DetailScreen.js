@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/self-closing-comp */
-import React, { memo } from 'react';
+import React, {memo} from 'react';
 import {
   View,
   Text,
@@ -10,15 +10,15 @@ import {
   TouchableNativeFeedback,
   TouchableOpacity,
 } from 'react-native';
-import { ScaledSheet } from 'react-native-size-matters';
-import { scale, verticalScale } from 'react-native-size-matters';
+import {ScaledSheet} from 'react-native-size-matters';
+import {scale, verticalScale} from 'react-native-size-matters';
 import colors from '../../config/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NavigationService from '../../helpers/NavigationService';
 import helpers from '../../helpers';
-import { FlatList } from 'react-native-gesture-handler';
+import {FlatList} from 'react-native-gesture-handler';
 
-const DetailScreen = ({ navigation, route }) => {
+const DetailScreen = ({navigation, route}) => {
   const profile = route.params;
   const user = {
     id: 1,
@@ -42,36 +42,37 @@ const DetailScreen = ({ navigation, route }) => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.scrollView}>
-        <TouchableOpacity 
-          onPress = {() => NavigationService.goBack()}
-          style = {{width: '100%', paddingTop: scale(50), paddingHorizontal: scale(15)}}
-        >
-          <Icon name = "arrow-back" size = {scale(22)} color = {colors.white} />
+        <TouchableOpacity
+          onPress={() => NavigationService.goBack()}
+          style={{
+            width: '100%',
+            paddingTop: scale(50),
+            paddingHorizontal: scale(15),
+          }}>
+          <Icon name="arrow-back" size={scale(22)} color={colors.white} />
         </TouchableOpacity>
         <View style={{alignSelf: 'center'}}>
           <Image
             style={styles.mainImage}
             width={scale(200)}
             height={scale(200)}
-            source={{ uri: helpers.getFirstImage(profile) }}
+            source={{uri: helpers.getFirstImage(profile)}}
             resizeMode="cover"
           />
           <View style={styles.directMessage}>
             <TouchableNativeFeedback
-              onPress={() =>
-                NavigationService.showMessage()
-              }>
+              onPress={() => NavigationService.showMessage()}>
               <Icon
                 name="message"
                 size={scale(36)}
                 color={colors.originWhite}
-                style={{ marginTop: scale(6), marginLeft: scale(2) }}
+                style={{marginTop: scale(6), marginLeft: scale(2)}}
               />
             </TouchableNativeFeedback>
           </View>
         </View>
         <View style={styles.infoContainer}>
-          <Text style={styles.textMain}>{profile.name}</Text>
+          <Text style={styles.textMain}>{profile?.name}</Text>
           {/* <Text
             style={
               (styles.textMain,
@@ -86,7 +87,7 @@ const DetailScreen = ({ navigation, route }) => {
         </View>
         <View style={styles.statusContainer}>
           <View style={styles.statusBox}>
-            <Text style={[styles.textMain, { fontSize: scale(20) }]}>18 </Text>
+            <Text style={[styles.textMain, {fontSize: scale(20)}]}>18 </Text>
             <Text style={styles.textSub}>SUPER LIKES</Text>
           </View>
           <View
@@ -99,36 +100,37 @@ const DetailScreen = ({ navigation, route }) => {
                 marginHorizontal: 10,
               },
             ]}>
-            <Text style={[styles.textMain, { fontSize: scale(20) }]}>189 </Text>
+            <Text style={[styles.textMain, {fontSize: scale(20)}]}>189 </Text>
             <Text style={styles.textSub}>LIKES</Text>
           </View>
           <View style={styles.statusBox}>
-            <Text style={[styles.textMain, { fontSize: scale(20) }]}>{profile?.images.length}</Text>
+            <Text style={[styles.textMain, {fontSize: scale(20)}]}>
+              {profile?.images.length}
+            </Text>
             <Text style={styles.textSub}>IMGAES</Text>
           </View>
         </View>
-        <View style={{ marginTop: scale(32) }}>
+        <View style={{marginTop: scale(32)}}>
           <FlatList
-            data = {profile.images}
+            data={profile?.images}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
-            renderItem={({item}) =>
+            renderItem={({item}) => (
               <View style={styles.imageContainer}>
                 <Image
-                  source={{ uri: helpers.toFullImageLink(item.url) }}
+                  source={{uri: helpers.toFullImageLink(item.url)}}
                   style={styles.image}
                   resizeMode="cover"
                 />
               </View>
-            }
-
+            )}
           />
           {/* <View style={styles.mediaCount}>
             <Text style={{color: colors.textGray}}>15</Text>
             <Text style={{color: colors.textGray}}>Images</Text>
           </View> */}
         </View>
-        <View style={{ paddingHorizontal: scale(10), marginTop: scale(20) }}>
+        <View style={{paddingHorizontal: scale(10), marginTop: scale(20)}}>
           <Text
             style={{
               fontSize: 24,
@@ -150,7 +152,7 @@ const DetailScreen = ({ navigation, route }) => {
             ever since the 1500s
           </Text>
         </View>
-        <View style={{ paddingHorizontal: scale(10), marginTop: scale(20) }}>
+        <View style={{paddingHorizontal: scale(10), marginTop: scale(20)}}>
           <Text
             style={{
               fontSize: 24,
@@ -217,7 +219,7 @@ const DetailScreen = ({ navigation, route }) => {
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            {profile.workAt ?
+            {profile?.workAt ? (
               <Text
                 style={[
                   styles.textMain,
@@ -234,12 +236,13 @@ const DetailScreen = ({ navigation, route }) => {
                       paddingHorizontal: scale(5),
                     },
                   ]}>
-                  {profile.workAt}
+                  {profile?.workAt}
                 </Text>
-              </Text> : null}
+              </Text>
+            ) : null}
           </View>
         </View>
-        <View style={{ paddingHorizontal: scale(10), marginTop: scale(20) }}>
+        <View style={{paddingHorizontal: scale(10), marginTop: scale(20)}}>
           <Text
             style={{
               fontSize: 24,
@@ -261,7 +264,7 @@ const styles = ScaledSheet.create({
     justifyContent: 'center',
     backgroundColor: colors.background,
   },
-  scrollView: { 
+  scrollView: {
     width: '100%',
   },
   mainImage: {
@@ -330,7 +333,7 @@ const styles = ScaledSheet.create({
     justifyContent: 'center',
     borderRadius: '10@s',
     shadowColor: 'rgba(0,0,0,0.38)',
-    shadowOffset: { width: 0, height: '10@s' },
+    shadowOffset: {width: 0, height: '10@s'},
     shadowRadius: '20@s',
     opacity: '1@s',
   },

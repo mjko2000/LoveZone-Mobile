@@ -1,64 +1,87 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
-import { ScaledSheet } from 'react-native-size-matters';
-import { scale } from 'react-native-size-matters';
+import React, {useEffect, useState} from 'react';
+import {View} from 'react-native';
+import {ScaledSheet} from 'react-native-size-matters';
+import {scale} from 'react-native-size-matters';
 import colors from '../config/colors';
 import CardComponent from '../components/Swipe/CardComponent';
-import { getProfileFromToken, setLocationAPI } from '../api/profileAPI';
+import {getProfileFromToken, setLocationAPI} from '../api/profileAPI';
 import helpers from '../helpers';
-import { setProfile } from '../redux/userProfileReducer';
-import { useDispatch } from 'react-redux';
-import { findMatchAPI, likeAPI } from '../api/matchingAPI';
+import {setProfile} from '../redux/userProfileReducer';
+import {useDispatch} from 'react-redux';
+import {findMatchAPI, likeAPI} from '../api/matchingAPI';
 const HomeContainer = props => {
-  const { navigation } = props;
+  const {navigation} = props;
   const dispatch = useDispatch();
   const [activeIndex, setActiveIndex] = useState(0);
   const [firsData, setFirstData] = useState(null);
   const [secondData, setSecondData] = useState(null);
   const [thirdData, setThirdData] = useState(null);
-  const [listProfile, setListProfile] = useState([])
+  const [listProfile, setListProfile] = useState([]);
   useEffect(() => {
-    helpers.getCurrentLocation().then(({ latitude, longitude }) => {
-      setLocationAPI({ latitude, longitude }).then(({ data, error, message }) => {
-        if (error) return alert(message)
-        getProfileFromToken().then(({ data, error, message }) => {
-          if (error) return alert(message)
-          dispatch(setProfile(data))
-        })
-        findMatchAPI().then(({ error, data, message }) => {
+    helpers.getCurrentLocation().then(({latitude, longitude}) => {
+      setLocationAPI({latitude, longitude}).then(({data, error, message}) => {
+        if (error) return alert(message);
+        getProfileFromToken().then(({data, error, message}) => {
+          if (error) return alert(message);
+          dispatch(setProfile(data));
+        });
+        findMatchAPI().then(({error, data, message}) => {
           if (error) return;
-          if(data[0]){
-            data[0] = {...data[0], distance: helpers.toDistance(latitude, longitude, data[0].location.latitude, data[0].location.longitude)}
-            setFirstData(data[0])
+          if (data[0]) {
+            data[0] = {
+              ...data[0],
+              distance: helpers.toDistance(
+                latitude,
+                longitude,
+                data[0].location.latitude,
+                data[0].location.longitude,
+              ),
+            };
+            setFirstData(data[0]);
           }
-          if(data[1]){
-            data[1] = {...data[1], distance: helpers.toDistance(latitude, longitude, data[1].location.latitude, data[1].location.longitude)}
-            setSecondData(data[1])
+          if (data[1]) {
+            data[1] = {
+              ...data[1],
+              distance: helpers.toDistance(
+                latitude,
+                longitude,
+                data[1].location.latitude,
+                data[1].location.longitude,
+              ),
+            };
+            setSecondData(data[1]);
           }
-          if(data[2]){
-            data[2] = {...data[2], distance: helpers.toDistance(latitude, longitude, data[2].location.latitude, data[2].location.longitude)}
-            setThirdData(data[2])
+          if (data[2]) {
+            data[2] = {
+              ...data[2],
+              distance: helpers.toDistance(
+                latitude,
+                longitude,
+                data[2].location.latitude,
+                data[2].location.longitude,
+              ),
+            };
+            setThirdData(data[2]);
           }
-          data.splice(0, 3)
-          setListProfile(data)
-        })
-      })
-    })
-  }, [])
+          data.splice(0, 3);
+          setListProfile(data);
+        });
+      });
+    });
+  }, []);
 
-  useEffect(() => {
-  }, [listProfile])
+  useEffect(() => {}, [listProfile]);
 
   const checkMatched = ({err, message, data}) => {
-    if(err) return
-    if(data.matched) alert("Matched")
-  }
+    if (err) return;
+    if (data.matched) alert('Matched');
+  };
 
   const loadData = async index => {
-    const nextData = listProfile[0]
-    listProfile.splice(0, 1)
-    setListProfile([...listProfile])
+    const nextData = listProfile[0];
+    listProfile.splice(0, 1);
+    setListProfile([...listProfile]);
     switch (index) {
       case 0:
         setFirstData(nextData);
@@ -81,13 +104,13 @@ const HomeContainer = props => {
   const onRight = index => {
     switch (index) {
       case 0:
-        likeAPI(firsData).then(checkMatched)
+        likeAPI(firsData).then(checkMatched);
         break;
       case 1:
-        likeAPI(secondData).then(checkMatched)
+        likeAPI(secondData).then(checkMatched);
         break;
       case 2:
-        likeAPI(thirdData).then(checkMatched)
+        likeAPI(thirdData).then(checkMatched);
         break;
     }
     loadData(index);
@@ -128,10 +151,10 @@ const styles = ScaledSheet.create({
     flex: 1,
     backgroundColor: colors.background,
     paddingVertical: scale(30),
-    paddingHorizontal: scale(5)
+    paddingHorizontal: scale(5),
   },
   cardContainer: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });
 export default HomeContainer;

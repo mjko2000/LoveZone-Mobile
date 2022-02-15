@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -9,36 +9,40 @@ import {
   TouchableNativeFeedback,
 } from 'react-native';
 import TextField from '../components/custom/TextField';
-import { ScaledSheet } from 'react-native-size-matters';
+import {ScaledSheet} from 'react-native-size-matters';
 import ButtonFill from '../components/custom/ButtonFill';
 import Checkbox from '../components/custom/Checkbox';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../config/colors';
 import KeyboardView from '../components/custom/KeyboardView';
-import { signInAPI } from '../api/authAPI';
+import {signInAPI} from '../api/authAPI';
 import helpers from '../helpers';
 import NavigationService from '../helpers/NavigationService';
 const LoginContainer = props => {
-  const { navigation } = props;
-  const [loading, setLoading] = useState(false)
+  const {navigation} = props;
+  const [loading, setLoading] = useState(false);
   const [isRemember, setRemember] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const onSubmit = () => {
-    setLoading(true)
-    signInAPI({
-      email: email,
-      password: password,
-    }).then(({ data, error, message }) => {
-      setLoading(false)
-      if (error) {
-        return alert(message);
-      }
-      helpers.saveUserToken({ accessToken: data.accessToken, isRemember: data.userInfo.profileUpdated ? isRemember : false })
-      if (data.userInfo.profileUpdated) NavigationService.navigate('Main');
-      else NavigationService.navigate('UpdateProfile');
-    });
+    // setLoading(true);
+    // signInAPI({
+    //   email: email,
+    //   password: password,
+    // }).then(({data, error, message}) => {
+    //   setLoading(false);
+    //   if (error) {
+    //     return alert(message);
+    //   }
+    //   helpers.saveUserToken({
+    //     accessToken: data.accessToken,
+    //     isRemember: data.userInfo.profileUpdated ? isRemember : false,
+    //   });
+    //   if (data.userInfo.profileUpdated) NavigationService.navigate('Main');
+    //   else NavigationService.navigate('UpdateProfile');
+    // });
+    NavigationService.navigate('Main');
   };
 
   return (
@@ -50,7 +54,6 @@ const LoginContainer = props => {
             keyboardType="email-address"
             autoCapitalize={'none'}
             style={styles.textField}
-            placeholder={'Email'}
             onChangeText={setEmail}
           />
           <TextField
@@ -64,8 +67,8 @@ const LoginContainer = props => {
             style={styles.buttonFill}
             text={'Login'}
             onPress={onSubmit}
-            disabled = {loading}
-            loading = {loading}
+            disabled={loading}
+            loading={loading}
           />
           <View style={styles.row}>
             <View style={styles.checkboxContainer}>
@@ -75,7 +78,7 @@ const LoginContainer = props => {
               />
               <Text style={styles.label}>Keep me login</Text>
             </View>
-            <TouchableOpacity onPress={() => { }}>
+            <TouchableOpacity onPress={() => {}}>
               <Text style={styles.label}>Forgot password?</Text>
             </TouchableOpacity>
           </View>
@@ -89,7 +92,7 @@ const LoginContainer = props => {
               marginBottom: verticalScale(30),
             }}>
             <TouchableNativeFeedback>
-              <View style={[styles.social, { backgroundColor: '#4267B2' }]}>
+              <View style={[styles.social, {backgroundColor: '#4267B2'}]}>
                 <Icon name="facebook" size={scale(25)} color={'white'} />
               </View>
             </TouchableNativeFeedback>
@@ -99,7 +102,8 @@ const LoginContainer = props => {
               </View>
             </TouchableNativeFeedback>
           </View>
-          <TouchableOpacity onPress={() => NavigationService.navigate('SignUp')}>
+          <TouchableOpacity
+            onPress={() => NavigationService.navigate('SignUp')}>
             <Text style={styles.label}>Don't have an account? Sign Up</Text>
           </TouchableOpacity>
         </View>
